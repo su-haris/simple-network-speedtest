@@ -83,6 +83,7 @@ speed() {
     speed_test '6527'  'Seoul, KR'
     speed_test '7311'  'Singapore, SG'
     speed_test '21569' 'Tokyo, JP'
+    speed_test '9690' 'Chennai, IN' 
 }
 
 io_test() {
