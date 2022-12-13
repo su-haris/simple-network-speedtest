@@ -84,6 +84,7 @@ speed() {
     speed_test '7311'  'Singapore, SG'
     speed_test '21569' 'Tokyo, JP'
     speed_test '9690' 'Chennai, IN' 
+    speed_test '24161' 'Mumbai, IN'
 }
 
 io_test() {
@@ -229,7 +230,7 @@ install_speedtest() {
 
 print_intro() {
     echo "-------------------- A Bench.sh Script By Teddysun -------------------"
-    echo " Version            : $(_green v2022-06-01)"
+    echo " Version            : $(_green v2022-12-13)"
     echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
 }
 
