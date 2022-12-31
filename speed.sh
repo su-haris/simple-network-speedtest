@@ -95,9 +95,9 @@ speed() {
     speed_test '26424' 'London, UK'
     speed_test '31448' 'Frankfurt, DE'
     echo -e "\n"
-    speed_test '4845'  'Dubai, AE'
+    speed_test '28422' 'Dubai, AE'
     speed_test '24447' 'Shanghai, CN'
-    speed_test '47845' 'Hong Kong, SAR'
+    speed_test '1536'  'Hong Kong, SAR'
     speed_test '6527'  'Seoul, KR'
     speed_test '13623' 'Singapore, SG'
     speed_test '21569' 'Tokyo, JP'
