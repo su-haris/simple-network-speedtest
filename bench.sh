@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
 #
-# Description: A Bench Script by Teddysun
-#
-# Copyright (C) 2015 - 2022 Teddysun <i@teddysun.com>
-# Thanks: LookBack <admin@dwhd.org>
-# URL: https://teddysun.com/444.html
-# https://github.com/teddysun/across/blob/master/bench.sh
+# Description: A Network Test Script by Suhail
+# Copyright (C) 2022 - 2023 Suhail <sh@suh.ovh>
+# Thanks: Teddysun <i@teddysun.com> - I'm using his bench.sh as a base
+# URL: Coming soon
+# https://github.com/su-haris/network-tester/blob/master/speed.sh
 #
 trap _exit INT QUIT TERM
 
@@ -59,32 +58,49 @@ speed_test() {
     local nodeName="$2"
     [ -z "$1" ] && ./speedtest-cli/speedtest --progress=no --accept-license --accept-gdpr > ./speedtest-cli/speedtest.log 2>&1 || \
     ./speedtest-cli/speedtest --progress=no --server-id=$1 --accept-license --accept-gdpr > ./speedtest-cli/speedtest.log 2>&1
+
+    if [ "$nodeName" = "Nearest" ]; then
+        local isp=$(grep -Po 'ISP: \K.*' ./speedtest-cli/speedtest.log)
+        echo -e "\n ISP: $(_blue "$isp") \n"
+    fi
+
     if [ $? -eq 0 ]; then
         local dl_speed=$(awk '/Download/{print $3" "$4}' ./speedtest-cli/speedtest.log)
         local up_speed=$(awk '/Upload/{print $3" "$4}' ./speedtest-cli/speedtest.log)
         local latency=$(awk '/Latency/{print $2" "$3}' ./speedtest-cli/speedtest.log)
+        local server_details=$(grep -Po 'Server: \K[^(]+' ./speedtest-cli/speedtest.log)
         if [[ -n "${dl_speed}" && -n "${up_speed}" && -n "${latency}" ]]; then
-            printf "\033[0;33m%-18s\033[0;32m%-18s\033[0;31m%-20s\033[0;36m%-12s\033[0m\n" " ${nodeName}" "${up_speed}" "${dl_speed}" "${latency}"
+            printf "%-18s%-16s%-16s%-12s%-12s\n" " ${nodeName}" "${up_speed}" "${dl_speed}" "${latency}" "${server_details}"
         fi
     fi
+    cp ./speedtest-cli/speedtest.log ./speed-new.log
 }
 
 speed() {
-    speed_test '' 'Speedtest.net'
-    speed_test '21541' 'Los Angeles, US'
-    speed_test '43860' 'Dallas, US'
+    speed_test '' 'Nearest'
+    speed_test '10112' 'Ernakulam, IN'
+    speed_test '52216' 'Bangalore, IN'
+    speed_test '9690'  'Chennai, IN' 
+    speed_test '47668' 'Mumbai, IN'
+    echo -e "\n"
+    speed_test '22775' 'Los Angeles, US'
+    speed_test '22288' 'Dallas, US'
+    speed_test '35055' 'New York, US'
+    speed_test '1782'  'Seattle, US'
     speed_test '40879' 'Montreal, CA'
+    echo -e "\n"
     speed_test '24215' 'Paris, FR'
-    speed_test '28922' 'Amsterdam, NL'
+    speed_test '46712' 'Amsterdam, NL'
+    speed_test '4166'  'Warsaw, PL'
+    speed_test '26424' 'London, UK'
+    speed_test '31448' 'Frankfurt, DE'
+    echo -e "\n"
+    speed_test '4845'  'Dubai, AE'
     speed_test '24447' 'Shanghai, CN'
-    speed_test '26352' 'Nanjing, CN'
-    speed_test '27594' 'Guangzhou, CN'
-    speed_test '32155' 'Hongkong, CN'
+    speed_test '47845' 'Hong Kong, SAR'
     speed_test '6527'  'Seoul, KR'
-    speed_test '7311'  'Singapore, SG'
+    speed_test '13623' 'Singapore, SG'
     speed_test '21569' 'Tokyo, JP'
-    speed_test '9690' 'Chennai, IN' 
-    speed_test '24161' 'Mumbai, IN'
 }
 
 io_test() {
@@ -174,15 +190,17 @@ check_virt(){
 }
 
 ipv4_info() {
+    echo " IPinfo.io Details"
+    next
     local org="$(wget -q -T10 -O- ipinfo.io/org)"
     local city="$(wget -q -T10 -O- ipinfo.io/city)"
     local country="$(wget -q -T10 -O- ipinfo.io/country)"
     local region="$(wget -q -T10 -O- ipinfo.io/region)"
     if [[ -n "$org" ]]; then
-        echo " Organization       : $(_blue "$org")"
+        echo " ISP                : $(_blue "$org")"
     fi
     if [[ -n "$city" && -n "country" ]]; then
-        echo " Location           : $(_blue "$city / $country")"
+        echo " Location           : $(_blue "$city, $country")"
     fi
     if [[ -n "$region" ]]; then
         echo " Region             : $(_yellow "$region")"
@@ -225,13 +243,15 @@ install_speedtest() {
         mkdir -p speedtest-cli && tar zxf speedtest.tgz -C ./speedtest-cli && chmod +x ./speedtest-cli/speedtest
         rm -f speedtest.tgz
     fi
-    printf "%-18s%-18s%-20s%-12s\n" " Node Name" "Upload Speed" "Download Speed" "Latency"
+    echo " Speedtest.net"
+    next
+    printf "%-18s%-16s%-16s%-12s%-12s\n" " Location" "Upload Speed" "Download Speed" "Latency" "Server"
 }
 
 print_intro() {
-    echo "-------------------- A Bench.sh Script By Teddysun -------------------"
-    echo " Version            : $(_green v2022-12-13)"
-    echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
+    echo "-------------------- A speed.sh Script By Suhail ---------------------"
+    echo " Version            : $(_green v2022-12-31)"
+    # echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
 }
 
 # Get System information
@@ -286,14 +306,14 @@ print_system_info() {
         echo " CPU Cache          : $(_blue "$ccache")"
     fi
     if [ -n "$cpu_aes" ]; then
-        echo " AES-NI             : $(_green "Enabled")"
+        echo " AES-NI             : $(_green "\xE2\x9C\x94 Enabled")"
     else
-        echo " AES-NI             : $(_red "Disabled")"
+        echo " AES-NI             : $(_red "\xE2\x9D\x8C Disabled")"
     fi
     if [ -n "$cpu_virt" ]; then
-        echo " VM-x/AMD-V         : $(_green "Enabled")"
+        echo " VM-x/AMD-V         : $(_green "\xE2\x9C\x94 Enabled")"
     else
-        echo " VM-x/AMD-V         : $(_red "Disabled")"
+        echo " VM-x/AMD-V         : $(_red "\xE2\x9D\x8C Disabled")"
     fi
     echo " Total Disk         : $(_yellow "$disk_total_size") $(_blue "($disk_used_size Used)")"
     echo " Total Mem          : $(_yellow "$tram") $(_blue "($uram Used)")"
@@ -305,36 +325,9 @@ print_system_info() {
     echo " OS                 : $(_blue "$opsy")"
     echo " Arch               : $(_blue "$arch ($lbit Bit)")"
     echo " Kernel             : $(_blue "$kern")"
-    echo " TCP CC             : $(_yellow "$tcpctrl")"
     echo " Virtualization     : $(_blue "$virt")"
 }
 
-print_io_test() {
-    freespace=$( df -m . | awk 'NR==2 {print $4}' )
-    if [ -z "${freespace}" ]; then
-        freespace=$( df -m . | awk 'NR==3 {print $3}' )
-    fi
-    if [ ${freespace} -gt 1024 ]; then
-        writemb=2048
-        io1=$( io_test ${writemb} )
-        echo " I/O Speed(1st run) : $(_yellow "$io1")"
-        io2=$( io_test ${writemb} )
-        echo " I/O Speed(2nd run) : $(_yellow "$io2")"
-        io3=$( io_test ${writemb} )
-        echo " I/O Speed(3rd run) : $(_yellow "$io3")"
-        ioraw1=$( echo $io1 | awk 'NR==1 {print $1}' )
-        [ "`echo $io1 | awk 'NR==1 {print $2}'`" == "GB/s" ] && ioraw1=$( awk 'BEGIN{print '$ioraw1' * 1024}' )
-        ioraw2=$( echo $io2 | awk 'NR==1 {print $1}' )
-        [ "`echo $io2 | awk 'NR==1 {print $2}'`" == "GB/s" ] && ioraw2=$( awk 'BEGIN{print '$ioraw2' * 1024}' )
-        ioraw3=$( echo $io3 | awk 'NR==1 {print $1}' )
-        [ "`echo $io3 | awk 'NR==1 {print $2}'`" == "GB/s" ] && ioraw3=$( awk 'BEGIN{print '$ioraw3' * 1024}' )
-        ioall=$( awk 'BEGIN{print '$ioraw1' + '$ioraw2' + '$ioraw3'}' )
-        ioavg=$( awk 'BEGIN{printf "%.1f", '$ioall' / 3}' )
-        echo " I/O Speed(average) : $(_yellow "$ioavg MB/s")"
-    else
-        echo " $(_red "Not enough space for I/O Speed test!")"
-    fi
-}
 
 print_end_time() {
     end_time=$(date +%s)
@@ -359,9 +352,8 @@ clear
 print_intro
 next
 print_system_info
-ipv4_info
 next
-print_io_test
+ipv4_info
 next
 install_speedtest && speed && rm -fr speedtest-cli
 next
