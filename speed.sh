@@ -82,24 +82,24 @@ speed() {
     speed_test '52216' 'Bangalore, IN'
     speed_test '9690'  'Chennai, IN' 
     speed_test '47668' 'Mumbai, IN'
-    echo -e "\n"
+    echo -e
     speed_test '22775' 'Los Angeles, US'
     speed_test '22288' 'Dallas, US'
     speed_test '35055' 'New York, US'
     speed_test '1782'  'Seattle, US'
     speed_test '40879' 'Montreal, CA'
-    echo -e "\n"
+    echo -e 
     speed_test '24215' 'Paris, FR'
     speed_test '46712' 'Amsterdam, NL'
     speed_test '4166'  'Warsaw, PL'
-    speed_test '26424' 'London, UK'
+    speed_test '37536' 'London, UK'
     speed_test '31448' 'Frankfurt, DE'
-    echo -e "\n"
+    echo -e 
     speed_test '28422' 'Dubai, AE'
     speed_test '24447' 'Shanghai, CN'
     speed_test '1536'  'Hong Kong, SAR'
     speed_test '6527'  'Seoul, KR'
-    speed_test '13623' 'Singapore, SG'
+    speed_test '40508' 'Singapore, SG'
     speed_test '21569' 'Tokyo, JP'
 }
 
@@ -196,6 +196,7 @@ ipv4_info() {
     local city="$(wget -q -T10 -O- ipinfo.io/city)"
     local country="$(wget -q -T10 -O- ipinfo.io/country)"
     local region="$(wget -q -T10 -O- ipinfo.io/region)"
+    local net_type="$(wget -qO- http://ip6.me/api/ | cut -d, -f1)"
     if [[ -n "$org" ]]; then
         echo " ISP                : $(_blue "$org")"
     fi
@@ -203,10 +204,13 @@ ipv4_info() {
         echo " Location           : $(_blue "$city, $country")"
     fi
     if [[ -n "$region" ]]; then
-        echo " Region             : $(_yellow "$region")"
+        echo " State              : $(_yellow "$region")"
     fi
     if [[ -z "$org" ]]; then
         echo " Region             : $(_red "No ISP detected")"
+    fi
+    if [[ -n "$net_type" ]]; then
+        echo " Network Access     : $(_green "$net_type")"
     fi
 }
 
@@ -292,6 +296,9 @@ get_system_info() {
 }
 # Print System information
 print_system_info() {
+    echo " Basic System Info"
+    next
+
     if [ -n "$cname" ]; then
         echo " CPU Model          : $(_blue "$cname")"
     else
