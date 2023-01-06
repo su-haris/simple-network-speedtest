@@ -189,22 +189,53 @@ check_virt(){
     fi
 }
 
-ipv4_info() {
-    echo " IPinfo.io Details"
+ip_info() {
+    echo " Basic Network Info"
     next
-    local org="$(wget -q -T10 -O- ipinfo.io/org)"
-    local city="$(wget -q -T10 -O- ipinfo.io/city)"
-    local country="$(wget -q -T10 -O- ipinfo.io/country)"
-    local region="$(wget -q -T10 -O- ipinfo.io/region)"
+    local response=$(wget -qO- http://ip-api.com/json/)
+
+    # local country=$(echo "$response" | jq -r '.country')
+    # local region=$(echo "$response" | jq -r '.regionName')
+    # local city=$(echo "$response" | jq -r '.city')
+    # local isp=$(echo "$response" | jq -r '.isp')
+    # local org=$(echo "$response" | jq -r '.org')
+    # local as=$(echo "$response" | jq -r '.as')
+
+    local country=$(echo "$response" | grep -Po '"country": *\K"[^"]*"')
+    local country=${country//\"}
+
+    local region=$(echo "$response" | grep -Po '"regionName": *\K"[^"]*"')
+    local region=${region//\"}
+
+    local region_code=$(echo "$response" | grep -Po '"region": *\K"[^"]*"')
+    local region_code=${region_code//\"}
+
+    local city=$(echo "$response" | grep -Po '"city": *\K"[^"]*"')
+    local city=${city//\"}
+
+    local isp=$(echo "$response" | grep -Po '"isp": *\K"[^"]*"')
+    local isp=${isp//\"}
+
+    local org=$(echo "$response" | grep -Po '"org": *\K"[^"]*"')
+    local org=${org//\"}
+
+    local as=$(echo "$response" | grep -Po '"as": *\K"[^"]*"')
+    local as=${as//\"}
+    
     local net_type="$(wget -qO- http://ip6.me/api/ | cut -d, -f1)"
+
+    if [[ -n "$isp" ]]; then
+        echo " ISP                : $(_blue "$isp")"
+        echo " ASN                : $(_blue "$as")"
+    fi
     if [[ -n "$org" ]]; then
-        echo " ISP                : $(_blue "$org")"
+        echo " Host               : $(_blue "$org")"
     fi
-    if [[ -n "$city" && -n "country" ]]; then
-        echo " Location           : $(_blue "$city, $country")"
+    if [[ -n "$city" && -n "$region" ]]; then
+        echo " Location           : $(_blue "$city, $region ($region_code)")"
     fi
-    if [[ -n "$region" ]]; then
-        echo " State              : $(_yellow "$region")"
+    if [[ -n "$country" ]]; then
+        echo " Country            : $(_yellow "$country")"
     fi
     if [[ -z "$org" ]]; then
         echo " Region             : $(_red "No ISP detected")"
@@ -212,6 +243,8 @@ ipv4_info() {
     if [[ -n "$net_type" ]]; then
         echo " Network Access     : $(_green "$net_type")"
     fi
+
+    
 }
 
 install_speedtest() {
@@ -254,7 +287,7 @@ install_speedtest() {
 
 print_intro() {
     echo "-------------------- A speed.sh Script By Suhail ---------------------"
-    echo " Version            : $(_green v2022-12-31)"
+    echo " Version            : $(_green v2023-01-06)"
     # echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
 }
 
@@ -360,7 +393,7 @@ print_intro
 next
 print_system_info
 next
-ipv4_info
+ip_info
 next
 install_speedtest && speed && rm -fr speedtest-cli
 next
