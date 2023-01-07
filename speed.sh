@@ -73,34 +73,38 @@ speed_test() {
             printf "%-18s%-16s%-16s%-12s%-12s\n" " ${nodeName}" "${up_speed}" "${dl_speed}" "${latency}" "${server_details}"
         fi
     fi
-    cp ./speedtest-cli/speedtest.log ./speed-new.log
 }
 
 speed() {
     speed_test '' 'Nearest'
-    speed_test '10112' 'Ernakulam, IN'
+    speed_test '10112' 'Cochin, IN'
     speed_test '52216' 'Bangalore, IN'
     speed_test '9690'  'Chennai, IN' 
-    speed_test '47668' 'Mumbai, IN'
+    speed_test '40507' 'Mumbai, IN'
+    speed_test '29658' 'Delhi, IN'
     echo -e
     speed_test '22775' 'Los Angeles, US'
     speed_test '22288' 'Dallas, US'
     speed_test '35055' 'New York, US'
     speed_test '1782'  'Seattle, US'
-    speed_test '40879' 'Montreal, CA'
+    speed_test '47746' 'Miami, US'
+    speed_test '46416' 'Montréal, CA'
     echo -e 
     speed_test '24215' 'Paris, FR'
     speed_test '46712' 'Amsterdam, NL'
-    speed_test '4166'  'Warsaw, PL'
+    speed_test '4166'  'Warszawa, PL'
     speed_test '37536' 'London, UK'
     speed_test '31448' 'Frankfurt, DE'
     echo -e 
-    speed_test '28422' 'Dubai, AE'
+    speed_test '4845'  'Dubai, AE'
+    speed_test '22129' 'Fujairah, AE'
+    speed_test '14580' 'Jeddah, KSA'
+    echo -e 
     speed_test '24447' 'Shanghai, CN'
     speed_test '1536'  'Hong Kong, SAR'
     speed_test '6527'  'Seoul, KR'
     speed_test '40508' 'Singapore, SG'
-    speed_test '21569' 'Tokyo, JP'
+    speed_test '50686' 'Tokyo, JP'
 }
 
 io_test() {
@@ -232,7 +236,7 @@ ip_info() {
         echo " Host               : $(_blue "$org")"
     fi
     if [[ -n "$city" && -n "$region" ]]; then
-        echo " Location           : $(_blue "$city, $region ($region_code)")"
+        echo " Location           : $(_yellow "$city, $region ($region_code)")"
     fi
     if [[ -n "$country" ]]; then
         echo " Country            : $(_yellow "$country")"
@@ -287,7 +291,7 @@ install_speedtest() {
 
 print_intro() {
     echo "-------------------- A speed.sh Script By Suhail ---------------------"
-    echo " Version            : $(_green v2023-01-06)"
+    echo " Version            : $(_green v2023-01-07)"
     # echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
 }
 
