@@ -88,11 +88,11 @@ speed() {
     speed_test '35055' 'New York, US'
     speed_test '1782'  'Seattle, US'
     speed_test '47746' 'Miami, US'
-    speed_test '46416' 'Montréal, CA'
+    speed_test '46416' 'Montreal, CA'
     echo -e 
     speed_test '24215' 'Paris, FR'
     speed_test '46712' 'Amsterdam, NL'
-    speed_test '4166'  'Warszawa, PL'
+    speed_test '51157' 'Warsaw, PL'
     speed_test '37536' 'London, UK'
     speed_test '31448' 'Frankfurt, DE'
     echo -e 
@@ -196,7 +196,10 @@ check_virt(){
 ip_info() {
     echo " Basic Network Info"
     next
-    local response=$(wget -qO- http://ip-api.com/json/)
+    local net_type="$(wget -qO- http://ip6.me/api/ | cut -d, -f1)"
+    local net_ip="$(wget -qO- http://ip6.me/api/ | cut -d, -f2)"
+
+    local response=$(wget -qO- http://ip-api.com/json/$net_ip)
 
     # local country=$(echo "$response" | jq -r '.country')
     # local region=$(echo "$response" | jq -r '.regionName')
@@ -226,9 +229,12 @@ ip_info() {
     local as=$(echo "$response" | grep -Po '"as": *\K"[^"]*"')
     local as=${as//\"}
     
-    local net_type="$(wget -qO- http://ip6.me/api/ | cut -d, -f1)"
 
-    if [[ -n "$isp" ]]; then
+    if [[ -n "$net_type" ]]; then
+        echo " Primary Network    : $(_green "$net_type")"
+    fi
+
+    if [[ -n "$isp" && -n "$as" ]]; then
         echo " ISP                : $(_blue "$isp")"
         echo " ASN                : $(_blue "$as")"
     fi
@@ -244,11 +250,7 @@ ip_info() {
     if [[ -z "$org" ]]; then
         echo " Region             : $(_red "No ISP detected")"
     fi
-    if [[ -n "$net_type" ]]; then
-        echo " Network Access     : $(_green "$net_type")"
-    fi
-
-    
+      
 }
 
 install_speedtest() {
@@ -291,7 +293,7 @@ install_speedtest() {
 
 print_intro() {
     echo "-------------------- A speed.sh Script By Suhail ---------------------"
-    echo " Version            : $(_green v2023-01-07)"
+    echo " Version            : $(_green v2023-01-14)"
     # echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
 }
 
