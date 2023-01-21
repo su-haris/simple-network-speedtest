@@ -332,6 +332,9 @@ get_system_info() {
     disk_used_size=$( LANG=C; df -t simfs -t ext2 -t ext3 -t ext4 -t btrfs -t xfs -t vfat -t ntfs -t swap --total 2>/dev/null | grep total | awk '{ print $3 }' )
     disk_used_size=$( calc_size $disk_used_size )
     tcpctrl=$( sysctl net.ipv4.tcp_congestion_control | awk -F ' ' '{print $3}' )
+
+    virt_type=$(systemd-detect-virt)
+    virt_type=${virt_type^^} || virt="UNKNOWN"
 }
 # Print System information
 print_system_info() {
@@ -371,7 +374,7 @@ print_system_info() {
     echo " OS                 : $(_blue "$opsy")"
     echo " Arch               : $(_blue "$arch ($lbit Bit)")"
     echo " Kernel             : $(_blue "$kern")"
-    echo " Virtualization     : $(_blue "$virt")"
+    echo " Virtualization     : $(_blue "$virt_type")"
 }
 
 
