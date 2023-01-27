@@ -2,8 +2,8 @@
 #
 # Description: A Network Test Script by Suhail
 # Copyright (C) 2022 - 2023 Suhail <sh@suh.ovh>
-# Thanks: Teddysun <i@teddysun.com> - I'm using his bench.sh as a base
-# URL: Coming soon
+# Thanks: Teddysun <i@teddysun.com> for bench.sh as a base
+# URL: http://network-speed.xyz/
 # https://github.com/su-haris/network-tester/blob/master/speed.sh
 #
 trap _exit INT QUIT TERM
@@ -247,10 +247,6 @@ ip_info() {
     if [[ -n "$country" ]]; then
         echo " Country            : $(_yellow "$country")"
     fi
-    if [[ -z "$org" ]]; then
-        echo " Region             : $(_red "No ISP detected")"
-    fi
-      
 }
 
 install_speedtest() {
@@ -292,9 +288,12 @@ install_speedtest() {
 }
 
 print_intro() {
-    echo "-------------------- A speed.sh Script By Suhail ---------------------"
-    echo " Version            : $(_green v2023-01-14)"
-    # echo " Usage              : $(_red "wget -qO- bench.sh | bash")"
+    # echo "-------------------- A speed.sh Script By Suhail ---------------------"
+    echo "------------------------- network-speed.xyz --------------------------"
+    echo "   A simple script to test network performance using speedtest-cli    "
+    next
+    echo " Version            : $(_green 27/01/2023)"
+    # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
 # Get System information
