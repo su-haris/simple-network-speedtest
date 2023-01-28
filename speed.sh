@@ -70,13 +70,16 @@ speed_test() {
         local latency=$(awk '/Latency/{print $2" "$3}' ./speedtest-cli/speedtest.log)
         local server_details=$(grep -Po 'Server: \K[^(]+' ./speedtest-cli/speedtest.log)
         if [[ -n "${dl_speed}" && -n "${up_speed}" && -n "${latency}" ]]; then
-            printf "%-18s%-16s%-16s%-12s%-12s\n" " ${nodeName}" "${up_speed}" "${dl_speed}" "${latency}" "${server_details}"
+            printf "%-18s%-12s%-16s%-16s%-12s\n" " ${nodeName}" "${latency}" "${dl_speed}" "${up_speed}" "${server_details}"
+        else
+            printf "%-18s%-12s%-16s%-16s%-12s\n" " ${nodeName}" "FAILED"   
         fi
     fi
 }
 
 speed() {
     speed_test '' 'Nearest'
+    echo -e
     speed_test '10112' 'Cochin, IN'
     speed_test '52216' 'Bangalore, IN'
     speed_test '9690'  'Chennai, IN' 
@@ -101,6 +104,7 @@ speed() {
     speed_test '14580' 'Jeddah, KSA'
     echo -e 
     speed_test '24447' 'Shanghai, CN'
+    speed_test '27594' 'Guangzhou, CN'
     speed_test '1536'  'Hong Kong, SAR'
     speed_test '6527'  'Seoul, KR'
     speed_test '40508' 'Singapore, SG'
@@ -284,7 +288,7 @@ install_speedtest() {
     fi
     echo " Speedtest.net"
     next
-    printf "%-18s%-16s%-16s%-12s%-12s\n" " Location" "Upload Speed" "Download Speed" "Latency" "Server"
+    printf "%-18s%-12s%-16s%-16s%-12s\n" " Location" "Latency" "Download Speed" "Upload Speed" "Server"
 }
 
 print_intro() {
@@ -292,7 +296,7 @@ print_intro() {
     echo "------------------------- network-speed.xyz --------------------------"
     echo "   A simple script to test network performance using speedtest-cli    "
     next
-    echo " Version            : $(_green 27/01/2023)"
+    echo " Version            : $(_green 28/01/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
