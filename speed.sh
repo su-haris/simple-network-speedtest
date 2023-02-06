@@ -337,23 +337,7 @@ get_system_info() {
 
     virt_type=$(systemd-detect-virt)
     virt_type=${virt_type^^} || virt="UNKNOWN"
-
-    root_device=$(df / | tail -1 | awk '{print $1}')
-    disk_data=$(lsblk -d -o NAME,ROTA,TYPE ${root_device#/dev/})
-
-    if echo "$disk_data" | awk '{print $2}' | grep -q 0; then
-        if echo "$disk_data" | awk '{print $3}' | grep -q nvme; then
-            disk_type="Likely NVMe"
-        else
-            disk_type="Likely SSD"
-        fi
-    elif echo "$disk_data" | awk '{print $2}' | grep -q 1; then
-        disk_type="Likely HDD"
-    else
-        disk_type="UNKNOWN"
-    fi
 }
-
 # Print System information
 print_system_info() {
     echo " Basic System Info"
@@ -382,11 +366,10 @@ print_system_info() {
     else
         echo " VM-x/AMD-V         : $(_red "\xE2\x9D\x8C Disabled")"
     fi
-    echo " Disk Type          : $(_yellow "$disk_type")"
     echo " Total Disk         : $(_yellow "$disk_total_size") $(_blue "($disk_used_size Used)")"
     echo " Total Mem          : $(_yellow "$tram") $(_blue "($uram Used)")"
     if [ "$swap" != "0" ]; then
-        echo " Total Swap         : $(_yellow "$swap ($uswap Used)")"
+        echo " Total Swap         : $(_blue "$swap ($uswap Used)")"
     fi
     echo " System uptime      : $(_blue "$up")"
     echo " Load average       : $(_blue "$load")"
