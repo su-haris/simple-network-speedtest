@@ -51,7 +51,7 @@ get_opsy() {
 }
 
 next() {
-    printf "%-70s\n" "-" | sed 's/\s/-/g'
+    printf "%-75s\n" "-" | sed 's/\s/-/g'
 }
 
 speed_test() {
@@ -69,6 +69,7 @@ speed_test() {
         local up_speed=$(awk '/Upload/{print $3" "$4}' ./speedtest-cli/speedtest.log)
         local latency=$(awk '/Latency/{print $2" "$3}' ./speedtest-cli/speedtest.log)
         local server_details=$(grep -Po 'Server: \K[^(]+' ./speedtest-cli/speedtest.log)
+        local packet_loss=$(awk '/Packet Loss/{print $3}' ./speedtest-cli/speedtest.log)
 
         local dl_data_used=$(awk '/Download/{print $7}' ./speedtest-cli/speedtest.log)
         local dl_data_units=$(awk '/Download/{print $8}' ./speedtest-cli/speedtest.log)
@@ -84,13 +85,17 @@ speed_test() {
             up_data_used=$(awk "BEGIN {print $up_data_used*1024; exit}")
         fi   
 
+        if [[ "$packet_loss" =~ "Not" ]]; then
+            packet_loss="N/A"
+        fi
+
         if [[ -n "${dl_speed}" && -n "${up_speed}" && -n "${latency}" ]]; then
-            printf "%-18s%-12s%-16s%-16s%-12s\n" " ${nodeName}" "${latency}" "${dl_speed}" "${up_speed}" "${server_details}"
+            printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${nodeName}" "${latency}" "${packet_loss}" "${dl_speed}" "${up_speed}" "${server_details}"
 
             DL_USED=$(awk "BEGIN {print $dl_data_used+$DL_USED; exit}")
             UL_USED=$(awk "BEGIN {print $up_data_used+$UL_USED; exit}")
         else
-            printf "%-18s%-12s%-16s%-16s%-12s\n" " ${nodeName}" "FAILED"   
+            printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${nodeName}" "FAILED"   
         fi
     fi
 }
@@ -311,13 +316,13 @@ install_speedtest() {
     fi
     echo " Speedtest.net"
     next
-    printf "%-18s%-12s%-16s%-16s%-12s\n" " Location" "Latency" "Download Speed" "Upload Speed" "Server"
+    printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " Location" "Latency" "Loss" "DL Speed" "UP Speed" "Server"
 }
 
 print_intro() {
     # echo "-------------------- A speed.sh Script By Suhail ---------------------"
-    echo "------------------------- network-speed.xyz --------------------------"
-    echo "   A simple script to test network performance using speedtest-cli    "
+    echo "---------------------------- network-speed.xyz ----------------------------"
+    echo "      A simple script to test network performance using speedtest-cli      "
     next
     echo " Version            : $(_green 10/02/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
