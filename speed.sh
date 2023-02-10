@@ -69,8 +69,26 @@ speed_test() {
         local up_speed=$(awk '/Upload/{print $3" "$4}' ./speedtest-cli/speedtest.log)
         local latency=$(awk '/Latency/{print $2" "$3}' ./speedtest-cli/speedtest.log)
         local server_details=$(grep -Po 'Server: \K[^(]+' ./speedtest-cli/speedtest.log)
+
+        local dl_data_used=$(awk '/Download/{print $7}' ./speedtest-cli/speedtest.log)
+        local dl_data_units=$(awk '/Download/{print $8}' ./speedtest-cli/speedtest.log)
+
+        local up_data_used=$(awk '/Upload/{print $7}' ./speedtest-cli/speedtest.log)
+        local up_data_units=$(awk '/Upload/{print $8}' ./speedtest-cli/speedtest.log)
+
+        if [[ "$dl_data_units" =~ "GB" ]]; then
+            dl_data_used=$(awk "BEGIN {print $dl_data_used*1024; exit}")
+        fi
+
+        if [[ "$up_data_units" =~ "GB" ]]; then
+            up_data_used=$(awk "BEGIN {print $up_data_used*1024; exit}")
+        fi   
+
         if [[ -n "${dl_speed}" && -n "${up_speed}" && -n "${latency}" ]]; then
             printf "%-18s%-12s%-16s%-16s%-12s\n" " ${nodeName}" "${latency}" "${dl_speed}" "${up_speed}" "${server_details}"
+
+            DL_USED=$(awk "BEGIN {print $dl_data_used+$DL_USED; exit}")
+            UL_USED=$(awk "BEGIN {print $up_data_used+$UL_USED; exit}")
         else
             printf "%-18s%-12s%-16s%-16s%-12s\n" " ${nodeName}" "FAILED"   
         fi
@@ -78,6 +96,9 @@ speed_test() {
 }
 
 speed() {
+    DL_USED=0
+    UL_USED=0
+
     speed_test '' 'Nearest'
     echo -e
     speed_test '10112' 'Cochin, IN'
@@ -108,6 +129,9 @@ speed() {
     speed_test '1536'  'Hong Kong, SAR'
     speed_test '40508' 'Singapore, SG'
     speed_test '50686' 'Tokyo, JP'
+
+    TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
+    TOTAL_DATA_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $TOTAL_DATA/1024; exit }")
 }
 
 io_test() {
@@ -295,7 +319,7 @@ print_intro() {
     echo "------------------------- network-speed.xyz --------------------------"
     echo "   A simple script to test network performance using speedtest-cli    "
     next
-    echo " Version            : $(_green 28/01/2023)"
+    echo " Version            : $(_green 10/02/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -381,6 +405,12 @@ print_system_info() {
 
 
 print_end_time() {
+    echo " Total DL Data      : $DL_USED MB"
+    echo " Total UL Data      : $UL_USED MB"
+    echo " Total Data         : $TOTAL_DATA MB ($TOTAL_DATA_IN_GB GB)"
+    
+    next
+
     end_time=$(date +%s)
     time=$(( ${end_time} - ${start_time} ))
     if [ ${time} -gt 60 ]; then
@@ -392,6 +422,7 @@ print_end_time() {
     fi
     date_time=$(date '+%Y-%m-%d %H:%M:%S %Z')
     echo " Timestamp          : $date_time"
+
 }
 
 ! _exists "wget" && _red "Error: wget command not found.\n" && exit 1
