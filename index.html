@@ -10,86 +10,99 @@
 
 <body class="stackedit">
   <div class="stackedit__html"><h1 id="network-speed.xyz">network-speed.xyz</h1>
-<p>Just a simple script for testing network performance using speedtest-cli.<br>
-Shows Basic System Info and Basic Network Info before speedtest.</p>
+<p><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=Visitors&amp;edge_flat=false" alt="Hits"></a></p>
+<p>Just a simple script for testing network performance.<br>
+With a 1Gbps symmetric connection - it will use around 30GB data and 10-13 minutes to complete.</p>
+<p>Shows the following info:</p>
+<ul>
+<li>Basic System Info - like CPU, RAM, Disk etc</li>
+<li>Basic Network Info - Protocol (IPv4/v6), ISP, Location etc</li>
+<li>Ookla <a href="http://speedtest.net">speedtest.net</a> to servers around the world with speed, ping, packet loss etc</li>
+<li>Statistics from the speedtest</li>
+</ul>
 <h2 id="usage">Usage</h2>
 <pre><code>curl -sL network-speed.xyz | bash
 </code></pre>
 <pre><code>wget -qO- network-speed.xyz | bash
 </code></pre>
 <h2 id="sample-output">Sample Output</h2>
-<pre><code>------------------------- network-speed.xyz --------------------------
-   A simple script to test network performance using speedtest-cli
-----------------------------------------------------------------------
- Version            : 27/01/2023
-----------------------------------------------------------------------
+<pre><code>---------------------------- network-speed.xyz ----------------------------
+      A simple script to test network performance using speedtest-cli
+---------------------------------------------------------------------------
+ Version            : 11/02/2023
+---------------------------------------------------------------------------
  Basic System Info
-----------------------------------------------------------------------
- CPU Model          : Intel(R) Xeon(R) CPU E5-2698 v4 @ 2.20GHz
- CPU Cores          : 4 @ 2199.986 MHz
- CPU Cache          : 16384 KB
+---------------------------------------------------------------------------
+ CPU Model          : AMD Ryzen 9 3950X 16-Core Processor
+ CPU Cores          : 3 @ 3499.998 MHz
+ CPU Cache          : 512 KB
  AES-NI             : ✔ Enabled
  VM-x/AMD-V         : ✔ Enabled
- Total Disk         : 55.1 GB (31.3 GB Used)
- Total Mem          : 7.8 GB (664.5 MB Used)
- Total Swap         : 4.0 GB (43.7 MB Used)
- System uptime      : 44 days, 4 hour 57 min
- Load average       : 0.35, 0.18, 0.12
- OS                 : Ubuntu 22.04.1 LTS
+ Total Disk         : 98.1 GB (5.1 GB Used)
+ Total RAM          : 4.8 GB (200.2 MB Used)
+ System uptime      : 41 days, 22 hour 18 min
+ Load average       : 0.00, 0.00, 0.00
+ OS                 : Ubuntu 20.04.4 LTS
  Arch               : x86_64 (64 Bit)
- Kernel             : 5.15.0-56-generic
+ Kernel             : 5.4.0-135-generic
  Virtualization     : KVM
-----------------------------------------------------------------------
+---------------------------------------------------------------------------
  Basic Network Info
-----------------------------------------------------------------------
- Primary Network    : IPv6
- ISP                : Leaseweb Singapore
- ASN                : AS59253 Leaseweb Asia Pacific pte. ltd.
- Host               : 365 Group LLC
- Location           : Singapore, Central Singapore (01)
- Country            : Singapore
-----------------------------------------------------------------------
+---------------------------------------------------------------------------
+ Primary Network    : IPv4
+ ISP                : Alibaba.com LLC
+ ASN                : AS3214 xTom GmbH
+ Host               : Zenlayer Inc, Virtual Machine Solutions LLC
+ Location           : Amsterdam, North Holland (NH)
+ Country            : Netherlands
+---------------------------------------------------------------------------
  Speedtest.net
-----------------------------------------------------------------------
- Location         Upload Speed    Download Speed  Latency     Server
+---------------------------------------------------------------------------
+ Location         Latency     Loss    DL Speed       UP Speed       Server
 
- ISP: Leaseweb Asia
+ ISP: xTom GmbH
 
- Nearest          8951.53 Mbps    8241.48 Mbps    0.77 ms     MyRepublic Singapore - Singapore
- Cochin, IN       1517.51 Mbps    4214.29 Mbps    43.68 ms    Jio - Kochi
- Bangalore, IN    542.26 Mbps     26.31 Mbps      159.18 ms   Bharti Airtel Ltd - Bangalore
- Chennai, IN      2091.43 Mbps    4418.28 Mbps    33.94 ms    Jio - Chennai
- Mumbai, IN       941.68 Mbps     4181.80 Mbps    59.09 ms    i3D.net - Mumbai
- Delhi, IN        392.80 Mbps     5389.25 Mbps    78.64 ms    Tata Play Fiber - New Delhi
+ Nearest          1.02 ms     0.0%    929.25 Mbps    1842.92 Mbps   Vancis - Amsterdam
 
- Los Angeles, US  470.49 Mbps     1287.75 Mbps    180.25 ms   DediPath - Los Angeles, CA
- Dallas, US       461.58 Mbps     5.27 Mbps       230.54 ms   Hivelocity - Dallas, TX
- New York, US     375.92 Mbps     2256.83 Mbps    217.52 ms   Clouvider Ltd - New York, NY
- Seattle, US      440.44 Mbps     3350.96 Mbps    207.02 ms   Comcast - Seattle, WA
- Miami, US        408.87 Mbps     1442.22 Mbps    258.61 ms   AT&amp;T - Miami, FL
- Montreal, CA     407.03 Mbps     3179.13 Mbps    225.71 ms   Rogers Wireless - Montréal, QC
+ Cochin, IN       166.44 ms   N/A     582.82 Mbps    561.06 Mbps    Jio - Kochi
+ Bangalore, IN    177.40 ms   0.0%    464.53 Mbps    386.81 Mbps    Bharti Airtel Ltd - Bangalore
+ Chennai, IN      141.73 ms   N/A     591.32 Mbps    364.27 Mbps    Jio - Chennai
+ Mumbai, IN       125.87 ms   0.0%    1011.82 Mbps   661.08 Mbps    i3D.net - Mumbai
+ Delhi, IN        166.89 ms   0.0%    648.98 Mbps    516.07 Mbps    Tata Play Fiber - New Delhi
 
- Paris, FR        478.76 Mbps     3063.64 Mbps    235.05 ms   ORANGE FRANCE - Paris
- Amsterdam, NL    251.01 Mbps     940.51 Mbps     159.99 ms   Hivelocity - Amsterdam
- Warsaw, PL       322.92 Mbps     1304.93 Mbps    284.84 ms   UPC Polska - Warszawa
- London, UK       664.44 Mbps     4268.91 Mbps    155.71 ms   VeloxServ Communications - London
- Frankfurt, DE    384.11 Mbps     1663.31 Mbps    237.13 ms   Deutsche Telekom - Frankfurt Am Main
+ Los Angeles, US  150.55 ms   0.0%    666.92 Mbps    194.78 Mbps    DediPath - Los Angeles, CA
+ Dallas, US       110.04 ms   0.0%    1325.52 Mbps   650.41 Mbps    Hivelocity - Dallas, TX
+ New York, US     83.17 ms    0.0%    1037.69 Mbps   1095.90 Mbps   Clouvider Ltd - New York, NY
+ Seattle, US      154.82 ms   N/A     825.87 Mbps    576.29 Mbps    Comcast - Seattle, WA
+ Miami, US        116.16 ms   0.0%    1039.51 Mbps   643.69 Mbps    AT&amp;T - Miami, FL
+ Montreal, CA     112.49 ms   0.0%    988.43 Mbps    767.76 Mbps    Rogers Wireless - Montréal, QC
 
- Dubai, AE        1257.17 Mbps    6326.77 Mbps    82.22 ms    du - Dubai
- Fujairah, AE     348.64 Mbps     1850.77 Mbps    251.79 ms   i3D.net - Dubai
- Jeddah, KSA      751.89 Mbps     1776.97 Mbps    139.26 ms   Saudi Telecom Company
+ Paris, FR        16.59 ms    0.0%    1787.98 Mbps   1793.63 Mbps   ORANGE FRANCE - Paris
+ Amsterdam, NL    0.58 ms     0.0%    935.93 Mbps    937.20 Mbps    Hivelocity - Amsterdam
+ Warsaw, PL       22.77 ms    0.0%    1555.61 Mbps   1752.61 Mbps   UPC Polska - Warszawa
+ London, UK       6.20 ms     0.0%    1861.99 Mbps   926.44 Mbps    VeloxServ Communications - London
+ Frankfurt, DE    7.70 ms     0.0%    1802.82 Mbps   1814.85 Mbps   Deutsche Telekom - Frankfurt Am Main
 
- Shanghai, CN     0.30 Mbps       1875.59 Mbps    184.24 ms   China Unicom 5G - ShangHai
- Hong Kong, SAR   1491.32 Mbps    1501.61 Mbps    33.78 ms    STC - Hong Kong
- Singapore, SG    7290.54 Mbps    3547.77 Mbps    2.58 ms     i3D.net - Singapore
- Tokyo, JP        1206.07 Mbps    2835.69 Mbps    75.98 ms    GSL Networks - Tokyo
-----------------------------------------------------------------------
- Finished in        : 13 min 14 sec
- Timestamp          : 2023-01-27 16:29:42 GMT
-----------------------------------------------------------------------
-</code></pre>
-<h2 id="source-code">Source Code</h2>
-<pre><code>https://github.com/su-haris/network-tester
+ Dubai, AE        122.11 ms   0.0%    1396.82 Mbps   707.12 Mbps    du - Dubai
+ Fujairah, AE     118.07 ms   0.0%    717.25 Mbps    746.54 Mbps    i3D.net - Dubai
+ Jeddah, KSA      69.51 ms    0.0%    1566.19 Mbps   1232.92 Mbps   Saudi Telecom Company
+
+ Shanghai, CN     189.58 ms   0.0%    632.39 Mbps    220.04 Mbps    China Unicom 5G - ShangHai
+ Guangzhou, CN    253.15 ms   7.7%    58.26 Mbps     16.12 Mbps     ChinaTelecom 5G - Guangzhou
+ Hong Kong, SAR   242.24 ms   N/A     363.11 Mbps    354.92 Mbps    STC - Hong Kong
+ Singapore, SG    156.32 ms   0.0%    773.55 Mbps    544.19 Mbps    i3D.net - Singapore
+ Tokyo, JP        212.38 ms   25.8%   311.19 Mbps    307.26 Mbps    GSL Networks - Tokyo
+---------------------------------------------------------------------------
+ Avg DL Speed       : 955.03 Mbps
+ Avg UL Speed       : 784.59 Mbps
+
+ Total DL Data      : 33.51 GB (34313.7 MB)
+ Total UL Data      : 23.50 GB (24063.4 MB)
+ Total Data         : 57.01 GB (58377.1 MB)
+---------------------------------------------------------------------------
+ Finished in        : 12 min 4 sec
+ Timestamp          : 11-02-2023 10:31:53 UTC
+---------------------------------------------------------------------------
 </code></pre>
 </div>
 </body>
