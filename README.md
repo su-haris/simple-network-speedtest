@@ -1,8 +1,7 @@
 # A simple script for testing network performance with speedtest-cli
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
-Just a simple script for testing network performance.\
-With a 1Gbps symmetric connection - it will use around 30GB data and 10-13 minutes to complete.
+Just a simple script for testing network performance.
 
 Shows the following info:
    - Basic System Info - like CPU, RAM, Disk etc
@@ -101,3 +100,20 @@ wget -qO- network-speed.xyz | bash
  Timestamp          : 11-02-2023 10:31:53 UTC
 ---------------------------------------------------------------------------
 ```
+
+## Bandwidth Usage 
+The script usually takes around 10-15 minutes to complete execution.\
+Data usage is hard to estimate since it is completely dependant on the connection and location.\
+However, below is a very rough estimate - based on a few tests on different networks.
+
+| Port Speed (DL/UL) | Data Used | Country 
+|--|--|--|
+|10Gbps Symmetric    | ~130GB | SG |
+|5Gbps Symmetric     | ~60GB  | KR |
+|1Gbps Symmetric     | ~40GB  | US |
+|750Mbps Symmetric   | ~35GB  | DE |
+|500Mbps Symmetric   | ~25GB  | IN |
+|100Mbps Symmetric   | ~6GB   | US |
+|--|--|--|
+|2Gbps/250Mbps       | ~50GB  | DE |
+|1Gbps/250Mbps       | ~35GB  | CA |
