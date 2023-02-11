@@ -67,6 +67,10 @@ speed_test() {
     if [ $? -eq 0 ]; then
         local dl_speed=$(awk '/Download/{print $3" "$4}' ./speedtest-cli/speedtest.log)
         local up_speed=$(awk '/Upload/{print $3" "$4}' ./speedtest-cli/speedtest.log)
+
+        local dl_speed_num=$(awk '/Download/{print $3}' ./speedtest-cli/speedtest.log)
+        local up_speed_num=$(awk '/Upload/{print $3}' ./speedtest-cli/speedtest.log)     
+
         local latency=$(awk '/Latency/{print $2" "$3}' ./speedtest-cli/speedtest.log)
         local server_details=$(grep -Po 'Server: \K[^(]+' ./speedtest-cli/speedtest.log)
         local packet_loss=$(awk '/Packet Loss/{print $3}' ./speedtest-cli/speedtest.log)
@@ -94,6 +98,10 @@ speed_test() {
 
             DL_USED=$(awk "BEGIN {print $dl_data_used+$DL_USED; exit}")
             UL_USED=$(awk "BEGIN {print $up_data_used+$UL_USED; exit}")
+
+            SUCCESS_TEST=$((SUCCESS_TEST + 1))
+            AVG_DL_SPEED=$(awk "BEGIN {print $AVG_DL_SPEED+$dl_speed_num; exit}")
+            AVG_UL_SPEED=$(awk "BEGIN {print $AVG_UL_SPEED+$up_speed_num; exit}")
         else
             printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${nodeName}" "FAILED"   
         fi
@@ -103,6 +111,10 @@ speed_test() {
 speed() {
     DL_USED=0
     UL_USED=0
+
+    AVG_DL_SPEED=0
+    AVG_UL_SPEED=0
+    SUCCESS_TEST=0
 
     speed_test '' 'Nearest'
     echo -e
@@ -137,6 +149,12 @@ speed() {
 
     TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
     TOTAL_DATA_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $TOTAL_DATA/1024; exit }")
+
+    DL_USED_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $DL_USED/1024; exit }")
+    UL_USED_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $UL_USED/1024; exit }")
+
+    AVG_DL_SPEED=$(awk "BEGIN { printf \"%.2f\n\", $AVG_DL_SPEED/$SUCCESS_TEST; exit }")
+    AVG_UL_SPEED=$(awk "BEGIN { printf \"%.2f\n\", $AVG_UL_SPEED/$SUCCESS_TEST; exit }")
 }
 
 io_test() {
@@ -167,62 +185,6 @@ calc_size() {
     fi
     total_size=$( awk 'BEGIN{printf "%.1f", '$raw' / '$num'}' )
     echo "${total_size} ${unit}"
-}
-
-check_virt(){
-    _exists "dmesg" && virtualx="$(dmesg 2>/dev/null)"
-    if _exists "dmidecode"; then
-        sys_manu="$(dmidecode -s system-manufacturer 2>/dev/null)"
-        sys_product="$(dmidecode -s system-product-name 2>/dev/null)"
-        sys_ver="$(dmidecode -s system-version 2>/dev/null)"
-    else
-        sys_manu=""
-        sys_product=""
-        sys_ver=""
-    fi
-    if   grep -qa docker /proc/1/cgroup; then
-        virt="Docker"
-    elif grep -qa lxc /proc/1/cgroup; then
-        virt="LXC"
-    elif grep -qa container=lxc /proc/1/environ; then
-        virt="LXC"
-    elif [[ -f /proc/user_beancounters ]]; then
-        virt="OpenVZ"
-    elif [[ "${virtualx}" == *kvm-clock* ]]; then
-        virt="KVM"
-    elif [[ "${sys_product}" == *KVM* ]]; then
-        virt="KVM"
-    elif [[ "${cname}" == *KVM* ]]; then
-        virt="KVM"
-    elif [[ "${cname}" == *QEMU* ]]; then
-        virt="KVM"
-    elif [[ "${virtualx}" == *"VMware Virtual Platform"* ]]; then
-        virt="VMware"
-    elif [[ "${sys_product}" == *"VMware Virtual Platform"* ]]; then
-        virt="VMware"
-    elif [[ "${virtualx}" == *"Parallels Software International"* ]]; then
-        virt="Parallels"
-    elif [[ "${virtualx}" == *VirtualBox* ]]; then
-        virt="VirtualBox"
-    elif [[ -e /proc/xen ]]; then
-        if grep -q "control_d" "/proc/xen/capabilities" 2>/dev/null; then
-            virt="Xen-Dom0"
-        else
-            virt="Xen-DomU"
-        fi
-    elif [ -f "/sys/hypervisor/type" ] && grep -q "xen" "/sys/hypervisor/type"; then
-        virt="Xen"
-    elif [[ "${sys_manu}" == *"Microsoft Corporation"* ]]; then
-        if [[ "${sys_product}" == *"Virtual Machine"* ]]; then
-            if [[ "${sys_ver}" == *"7.0"* || "${sys_ver}" == *"Hyper-V" ]]; then
-                virt="Hyper-V"
-            else
-                virt="Microsoft Virtual Machine"
-            fi
-        fi
-    else
-        virt="Dedicated"
-    fi
 }
 
 ip_info() {
@@ -396,7 +358,7 @@ print_system_info() {
         echo " VM-x/AMD-V         : $(_red "\xE2\x9D\x8C Disabled")"
     fi
     echo " Total Disk         : $(_yellow "$disk_total_size") $(_blue "($disk_used_size Used)")"
-    echo " Total Mem          : $(_yellow "$tram") $(_blue "($uram Used)")"
+    echo " Total RAM          : $(_yellow "$tram") $(_blue "($uram Used)")"
     if [ "$swap" != "0" ]; then
         echo " Total Swap         : $(_blue "$swap ($uswap Used)")"
     fi
@@ -408,14 +370,16 @@ print_system_info() {
     echo " Virtualization     : $(_blue "$virt_type")"
 }
 
+print_network_statistics() {
+    echo " Avg DL Speed       : $AVG_DL_SPEED Mbps"
+    echo " Avg UL Speed       : $AVG_UL_SPEED Mbps"
+    echo -e
+    echo " Total DL Data      : $DL_USED_IN_GB GB ($DL_USED MB)"
+    echo " Total UL Data      : $UL_USED_IN_GB GB ($UL_USED MB)"
+    echo " Total Data         : $TOTAL_DATA_IN_GB GB ($TOTAL_DATA MB)"  
+}
 
 print_end_time() {
-    echo " Total DL Data      : $DL_USED MB"
-    echo " Total UL Data      : $UL_USED MB"
-    echo " Total Data         : $TOTAL_DATA MB ($TOTAL_DATA_IN_GB GB)"
-    
-    next
-
     end_time=$(date +%s)
     time=$(( ${end_time} - ${start_time} ))
     if [ ${time} -gt 60 ]; then
@@ -425,24 +389,32 @@ print_end_time() {
     else
         echo " Finished in        : ${time} sec"
     fi
-    date_time=$(date '+%Y-%m-%d %H:%M:%S %Z')
+    date_time=$(date '+%d-%m-%Y %H:%M:%S %Z')
     echo " Timestamp          : $date_time"
 
 }
 
-! _exists "wget" && _red "Error: wget command not found.\n" && exit 1
-! _exists "free" && _red "Error: free command not found.\n" && exit 1
-start_time=$(date +%s)
-get_system_info
-check_virt
-clear
-print_intro
-next
-print_system_info
-next
-ip_info
-next
-install_speedtest && speed && rm -fr speedtest-cli
-next
-print_end_time
-next
+run_speed_sh() {
+    ! _exists "wget" && _red "Error: wget command not found.\n" && exit 1
+    ! _exists "free" && _red "Error: free command not found.\n" && exit 1
+
+    start_time=$(date +%s)
+    get_system_info
+    clear
+    print_intro 
+    next
+    print_system_info
+    next
+    ip_info
+    next
+    install_speedtest && speed && rm -fr speedtest-cli
+    next
+    print_network_statistics
+    next
+    print_end_time
+    next
+}
+
+run_speed_sh 
+# Future Implementation to enable result sharing
+# run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.log)
