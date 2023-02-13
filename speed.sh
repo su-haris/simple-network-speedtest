@@ -390,7 +390,7 @@ print_end_time() {
         echo " Duration           : ${time} sec"
     fi
     date_time=$(date '+%d-%m-%Y %H:%M:%S %Z')
-    echo " System Time            : $date_time"
+    echo " System Time        : $date_time"
 
 }
 
