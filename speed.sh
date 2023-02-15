@@ -286,7 +286,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green 11/02/2023)"
+    echo " Version            : $(_green 15/02/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 

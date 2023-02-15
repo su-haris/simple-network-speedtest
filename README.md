@@ -8,6 +8,7 @@ Shows the following info:
    - Basic Network Info - Protocol (IPv4/v6), ISP, Location etc
    - Ookla speedtest.net to servers around the world with speed, ping, packet loss etc
    - Statistics from the speedtest
+   - Shareable Link of the result (Thanks Advin/FroCDN)
 
 
 Thanks to Teddysun <i@teddysun.com> for the base bench.sh script
