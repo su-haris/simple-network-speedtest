@@ -424,8 +424,13 @@ if command -v curl >/dev/null; then
     echo " Unable to share result online"
     echo " Result stored locally in $PWD/network-speed.txt"
   else
-    echo " Result             : $share_link"
-    rm network-speed.txt
+    if echo "$share_link" | grep -qE '^https?://.+'; then
+        echo " Result             : $share_link"
+        rm network-speed.txt
+    else
+        echo " Unable to share result online - There is some issue with the provider."
+        echo " Result stored locally in $PWD/network-speed.txt"
+    fi    
   fi
 else
   echo " curl is not installed, Unable to share result online"
