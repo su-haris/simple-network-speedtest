@@ -385,12 +385,12 @@ print_end_time() {
     if [ ${time} -gt 60 ]; then
         min=$(expr $time / 60)
         sec=$(expr $time % 60)
-        echo " Finished in        : ${min} min ${sec} sec"
+        echo " Duration           : ${min} min ${sec} sec"
     else
-        echo " Finished in        : ${time} sec"
+        echo " Duration           : ${time} sec"
     fi
     date_time=$(date '+%d-%m-%Y %H:%M:%S %Z')
-    echo " Timestamp          : $date_time"
+    echo " System Time        : $date_time"
 
 }
 
@@ -415,6 +415,26 @@ run_speed_sh() {
     next
 }
 
-run_speed_sh 
-# Future Implementation to enable result sharing
-# run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.log)
+# run_speed_sh 
+run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
+
+if command -v curl >/dev/null; then
+  share_link=$(curl -s -X POST -F 'file=@network-speed.txt' https://frocdn.com/curl.php)
+  if [ $? -ne 0 ]; then
+    echo " Unable to share result online"
+    echo " Result stored locally in $PWD/network-speed.txt"
+  else
+    if echo "$share_link" | grep -qE '^https?://.+'; then
+        echo " Result             : $share_link"
+        rm network-speed.txt
+    else
+        echo " Unable to share result online - There is some issue with the provider."
+        echo " Result stored locally in $PWD/network-speed.txt"
+    fi    
+  fi
+else
+  echo " curl is not installed, Unable to share result online"
+  echo " Result stored locally in $PWD/network-speed.txt"
+fi
+
+next
