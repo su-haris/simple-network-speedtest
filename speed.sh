@@ -118,7 +118,7 @@ speed() {
 
     speed_test '' 'Nearest'
     echo -e
-    speed_test '10112' 'Cochin, IN'
+    speed_test '29372' 'Kochi, IN'
     speed_test '52216' 'Bangalore, IN'
     speed_test '9690'  'Chennai, IN' 
     speed_test '40507' 'Mumbai, IN'
@@ -138,14 +138,14 @@ speed() {
     speed_test '31448' 'Frankfurt, DE'
     echo -e 
     speed_test '4845'  'Dubai, AE'
-    speed_test '22129' 'Fujairah, AE'
+    speed_test '34240' 'Fujairah, AE'
     speed_test '14580' 'Jeddah, KSA'
     echo -e 
     speed_test '24447' 'Shanghai, CN'
     speed_test '27594' 'Guangzhou, CN'
     speed_test '1536'  'Hong Kong, SAR'
     speed_test '40508' 'Singapore, SG'
-    speed_test '50686' 'Tokyo, JP'
+    speed_test '28910' 'Tokyo, JP'
 
     TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
     TOTAL_DATA_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $TOTAL_DATA/1024; exit }")
@@ -286,7 +286,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green 15/02/2023)"
+    echo " Version            : $(_green 25/02/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
