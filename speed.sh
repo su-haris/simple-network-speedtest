@@ -2,9 +2,8 @@
 #
 # Description: A Network Test Script by Suhail
 # Copyright (C) 2022 - 2023 Suhail <sh@suh.ovh>
-# Thanks: Teddysun <i@teddysun.com> for bench.sh as a base
 # URL: http://network-speed.xyz/
-# https://github.com/su-haris/network-tester/blob/master/speed.sh
+# https://github.com/su-haris/network-tester
 #
 trap _exit INT QUIT TERM
 
@@ -286,7 +285,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green 25/02/2023)"
+    echo " Version            : $(_green 02/03/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -394,6 +393,14 @@ print_end_time() {
 
 }
 
+get_runs_counter() {
+    local counter=$(wget -qO- https://counter.network-speed.xyz/)
+
+    if [[ -n "$counter" ]]; then
+        echo " Total Script Runs  : $(_green "$counter")"
+    fi
+}
+
 run_speed_sh() {
     ! _exists "wget" && _red "Error: wget command not found.\n" && exit 1
     ! _exists "free" && _red "Error: free command not found.\n" && exit 1
@@ -412,6 +419,7 @@ run_speed_sh() {
     print_network_statistics
     next
     print_end_time
+    get_runs_counter
     next
 }
 
