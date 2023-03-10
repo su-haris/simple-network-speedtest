@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Description: A Network Test Script by Suhail
-# Copyright (C) 2022 - 2023 Suhail <sh@suh.ovh>
+# Description: A Network Test Script by <sh@suh.ovh>
+# Copyright (C) 2022 - 2023 <sh@suh.ovh>
 # URL: http://network-speed.xyz/
 # https://github.com/su-haris/network-tester
 #
@@ -131,7 +131,7 @@ speed() {
     speed_test '46143' 'Toronto, CA'
     echo -e 
     speed_test '24215' 'Paris, FR'
-    speed_test '46712' 'Amsterdam, NL'
+    speed_test '35058' 'Amsterdam, NL'
     speed_test '51157' 'Warsaw, PL'
     speed_test '37536' 'London, UK'
     speed_test '31448' 'Frankfurt, DE'
@@ -281,11 +281,10 @@ install_speedtest() {
 }
 
 print_intro() {
-    # echo "-------------------- A speed.sh Script By Suhail ---------------------"
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green 02/03/2023)"
+    echo " Version            : $(_green 11/03/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -373,9 +372,9 @@ print_network_statistics() {
     echo " Avg DL Speed       : $AVG_DL_SPEED Mbps"
     echo " Avg UL Speed       : $AVG_UL_SPEED Mbps"
     echo -e
-    echo " Total DL Data      : $DL_USED_IN_GB GB ($DL_USED MB)"
-    echo " Total UL Data      : $UL_USED_IN_GB GB ($UL_USED MB)"
-    echo " Total Data         : $TOTAL_DATA_IN_GB GB ($TOTAL_DATA MB)"  
+    echo " Total DL Data      : $DL_USED_IN_GB GB"
+    echo " Total UL Data      : $UL_USED_IN_GB GB"
+    echo " Total Data         : $TOTAL_DATA_IN_GB GB"  
 }
 
 print_end_time() {
@@ -424,7 +423,7 @@ run_speed_sh() {
 }
 
 # run_speed_sh 
-run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
+run_speed_sh | tee > (sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
 
 if command -v curl >/dev/null; then
   share_link=$(curl -s -X POST -F 'file=@network-speed.txt' https://frocdn.com/curl.php)
