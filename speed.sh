@@ -118,7 +118,7 @@ speed() {
     speed_test '' 'Nearest'
     echo -e
     speed_test '29372' 'Kochi, IN'
-    speed_test '52216' 'Bangalore, IN'
+    speed_test '18976' 'Bangalore, IN'
     speed_test '9690'  'Chennai, IN' 
     speed_test '40507' 'Mumbai, IN'
     speed_test '29658' 'Delhi, IN'
