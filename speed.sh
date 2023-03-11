@@ -423,7 +423,7 @@ run_speed_sh() {
 }
 
 # run_speed_sh 
-run_speed_sh | tee > (sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
+run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
 
 if command -v curl >/dev/null; then
   share_link=$(curl -s -X POST -F 'file=@network-speed.txt' https://frocdn.com/curl.php)
