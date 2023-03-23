@@ -142,8 +142,9 @@ speed() {
     echo -e 
     speed_test '24447' 'Shanghai, CU-CN'
     speed_test '26352' 'Nanjing, CT-CN'
-    speed_test '1536'  'Hong Kong, SAR'
+    speed_test '1536'  'Hong Kong, HKG'
     speed_test '40508' 'Singapore, SG'
+    speed_test '13039' 'Jakarta, ID'
     speed_test '28910' 'Tokyo, JP'
 
     TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
@@ -284,7 +285,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green 11/03/2023)"
+    echo " Version            : $(_green 23/03/2023)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -387,7 +388,7 @@ print_end_time() {
     else
         echo " Duration           : ${time} sec"
     fi
-    date_time=$(date '+%d-%m-%Y %H:%M:%S %Z')
+    date_time=$(date '+%d/%m/%Y %H:%M:%S %Z')
     echo " System Time        : $date_time"
 
 }
