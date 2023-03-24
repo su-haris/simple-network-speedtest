@@ -134,7 +134,7 @@ speed() {
     speed_test '35058' 'Amsterdam, NL'
     speed_test '51157' 'Warsaw, PL'
     speed_test '37536' 'London, UK'
-    speed_test '31448' 'Frankfurt, DE'
+    speed_test '44081' 'Frankfurt, DE'
     echo -e 
     speed_test '4845'  'Dubai, AE'
     speed_test '34240' 'Fujairah, AE'
@@ -193,14 +193,8 @@ ip_info() {
     local net_type="$(wget -qO- http://ip6.me/api/ | cut -d, -f1)"
     local net_ip="$(wget -qO- http://ip6.me/api/ | cut -d, -f2)"
 
+    # IP-API Details - IPv6/IPv4
     local response=$(wget -qO- http://ip-api.com/json/$net_ip)
-
-    # local country=$(echo "$response" | jq -r '.country')
-    # local region=$(echo "$response" | jq -r '.regionName')
-    # local city=$(echo "$response" | jq -r '.city')
-    # local isp=$(echo "$response" | jq -r '.isp')
-    # local org=$(echo "$response" | jq -r '.org')
-    # local as=$(echo "$response" | jq -r '.as')
 
     local country=$(echo "$response" | grep -Po '"country": *\K"[^"]*"')
     local country=${country//\"}
@@ -222,7 +216,6 @@ ip_info() {
 
     local as=$(echo "$response" | grep -Po '"as": *\K"[^"]*"')
     local as=${as//\"}
-    
 
     if [[ -n "$net_type" ]]; then
         echo " Primary Network    : $(_green "$net_type")"
@@ -235,11 +228,29 @@ ip_info() {
     if [[ -n "$org" ]]; then
         echo " Host               : $(_blue "$org")"
     fi
-    if [[ -n "$city" && -n "$region" ]]; then
-        echo " Location           : $(_yellow "$city, $region ($region_code)")"
+    if [[ -n "$city" && -n "$region" && -n "$country" ]]; then
+        echo " Location           : $(_yellow "$city, $region-$region_code, $country")"
     fi
-    if [[ -n "$country" ]]; then
-        echo " Country            : $(_yellow "$country")"
+    # if [[ -n "$country" ]]; then
+    #     echo " Country            : $(_yellow "$country")"
+    # fi
+
+    # IPINFO.IO Details - IPv4 only
+
+    local response_ipv4=$(wget -qO- ipinfo.io)
+
+    local ipv4_city=$(echo "$response_ipv4" | grep -Po '"city": *\K"[^"]*"')
+    local ipv4_city=${ipv4_city//\"}
+
+    local ipv4_region=$(echo "$response_ipv4" | grep -Po '"region": *\K"[^"]*"')
+    local ipv4_region=${ipv4_region//\"}
+
+    local ipv4_country=$(echo "$response_ipv4" | grep -Po '"country": *\K"[^"]*"')
+    local ipv4_country=${ipv4_country//\"}
+
+    
+    if [[ "$ipv4_city" != "$city" && "$ipv4_region" != "$region" && -n "$ipv4_city" && -n "$ipv4_region" && -n "$ipv4_country" ]]; then
+        echo " Location (IPv4)    : $(_yellow "$ipv4_city, $ipv4_region, $ipv4_country")"
     fi
 }
 
@@ -285,7 +296,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green 23/03/2023)"
+    echo " Version            : $(_green v2023.03.25)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -388,7 +399,7 @@ print_end_time() {
     else
         echo " Duration           : ${time} sec"
     fi
-    date_time=$(date '+%d/%m/%Y %H:%M:%S %Z')
+    date_time=$(date '+%d/%m/%Y - %H:%M:%S %Z')
     echo " System Time        : $date_time"
 
 }
