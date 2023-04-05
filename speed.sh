@@ -118,7 +118,8 @@ speed() {
     speed_test '' 'Nearest'
     echo -e
     speed_test '29372' 'Kochi, IN'
-    speed_test '18976' 'Bangalore, IN'
+    # speed_test '18976' 'Bangalore, IN'
+    speed_test '52216' 'Bangalore, IN'
     speed_test '9690'  'Chennai, IN' 
     speed_test '40507' 'Mumbai, IN'
     speed_test '29658' 'Delhi, IN'
@@ -296,7 +297,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.03.25)"
+    echo " Version            : $(_green v2023.04.06)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
