@@ -117,36 +117,68 @@ speed() {
 
     speed_test '' 'Nearest'
     echo -e
-    speed_test '29372' 'Kochi, IN'
-    # speed_test '18976' 'Bangalore, IN'
-    speed_test '52216' 'Bangalore, IN'
-    speed_test '9690'  'Chennai, IN' 
-    speed_test '40507' 'Mumbai, IN'
-    speed_test '29658' 'Delhi, IN'
-    echo -e
-    speed_test '34840' 'Los Angeles, US'
-    speed_test '22288' 'Dallas, US'
-    speed_test '35055' 'New York, US'
-    speed_test '1782'  'Seattle, US'
-    speed_test '47746' 'Miami, US'
-    speed_test '46143' 'Toronto, CA'
-    echo -e 
-    speed_test '24215' 'Paris, FR'
-    speed_test '35058' 'Amsterdam, NL'
-    speed_test '51157' 'Warsaw, PL'
-    speed_test '37536' 'London, UK'
-    speed_test '44081' 'Frankfurt, DE'
-    echo -e 
-    speed_test '4845'  'Dubai, AE'
-    speed_test '34240' 'Fujairah, AE'
-    speed_test '14580' 'Jeddah, KSA'
-    echo -e 
-    speed_test '24447' 'Shanghai, CU-CN'
-    speed_test '26352' 'Nanjing, CT-CN'
-    speed_test '1536'  'Hong Kong, HKG'
-    speed_test '40508' 'Singapore, SG'
-    speed_test '13039' 'Jakarta, ID'
-    speed_test '28910' 'Tokyo, JP'
+
+    if [ "$REGION" = "india" ]; then
+        speed_test '47668' 'Mumbai'
+        speed_test '9691' 'Mumbai'
+        speed_test '24687'  'Hyderabad' 
+        speed_test '52216' 'Bangalore'
+        speed_test '33603' 'Pune'
+        speed_test '9690' 'Chennai'
+        speed_test '7644' 'Coimbatore'
+        speed_test '10112'  'Kochi' 
+        speed_test '29372' 'Kochi'
+        speed_test '43322' 'Trivandrum'
+        speed_test '12221' 'Kolkata'
+        speed_test '47291' 'Nagpur'
+        speed_test '56195' 'Delhi'
+        speed_test '6879'  'Gurgaon' 
+        speed_test '25959' 'Patna'
+    # elif [ "$REGION" = "asia" ]; then
+    #     REGION_NAME="ASIA"
+    # elif [ "$REGION" = "middle-east" ]; then
+    #     REGION_NAME="MIDDLE EAST"
+    # elif [ "$REGION" = "na" ]; then
+    #     REGION_NAME="NORTH AMERICA"
+    # elif [ "$REGION" = "sa" ]; then
+    #     REGION_NAME="SOUTH AMERICA"
+    # elif [ "$REGION" = "eu" ]; then
+    #     REGION_NAME="EUROPE"
+    # elif [ "$REGION" = "au" ]; then
+    #     REGION_NAME="AUSTRALIA"
+    else
+        speed_test '29372' 'Kochi, IN'
+        # speed_test '18976' 'Bangalore, IN'
+        speed_test '52216' 'Bangalore, IN'
+        speed_test '9690'  'Chennai, IN' 
+        speed_test '40507' 'Mumbai, IN'
+        speed_test '29658' 'Delhi, IN'
+        echo -e
+        speed_test '34840' 'Los Angeles, US'
+        speed_test '22288' 'Dallas, US'
+        speed_test '35055' 'New York, US'
+        speed_test '1782'  'Seattle, US'
+        speed_test '47746' 'Miami, US'
+        speed_test '46143' 'Toronto, CA'
+        echo -e 
+        speed_test '24215' 'Paris, FR'
+        speed_test '35058' 'Amsterdam, NL'
+        speed_test '51157' 'Warsaw, PL'
+        speed_test '37536' 'London, UK'
+        speed_test '44081' 'Frankfurt, DE'
+        echo -e 
+        speed_test '4845'  'Dubai, AE'
+        speed_test '34240' 'Fujairah, AE'
+        speed_test '14580' 'Jeddah, KSA'
+        echo -e 
+        speed_test '24447' 'Shanghai, CU-CN'
+        speed_test '26352' 'Nanjing, CT-CN'
+        speed_test '1536'  'Hong Kong, HKG'
+        speed_test '40508' 'Singapore, SG'
+        speed_test '13039' 'Jakarta, ID'
+        speed_test '28910' 'Tokyo, JP'
+    fi 
+    
 
     TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
     TOTAL_DATA_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $TOTAL_DATA/1024; exit }")
@@ -288,7 +320,7 @@ install_speedtest() {
         mkdir -p speedtest-cli && tar zxf speedtest.tgz -C ./speedtest-cli && chmod +x ./speedtest-cli/speedtest
         rm -f speedtest.tgz
     fi
-    echo " Speedtest.net"
+    echo " Speedtest.net (Region: $REGION_NAME)"
     next
     printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " Location" "Latency" "Loss" "DL Speed" "UP Speed" "Server"
 }
@@ -297,7 +329,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.04.06)"
+    echo " Version            : $(_green v2023.04.08)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -426,7 +458,9 @@ run_speed_sh() {
     next
     ip_info
     next
-    install_speedtest && speed && rm -fr speedtest-cli
+    install_speedtest  
+    speed 
+    rm -fr speedtest-cli
     next
     print_network_statistics
     next
@@ -434,6 +468,62 @@ run_speed_sh() {
     get_runs_counter
     next
 }
+
+REGION="global"
+REGION_NAME="GLOBAL"
+
+while getopts ":r:" opt; do
+  case $opt in
+    r)
+      case $OPTARG in
+        india)
+          REGION="india"
+          REGION_NAME="INDIA"
+          ;;
+        # asia)
+        #   REGION="asia"
+        #   REGION_NAME="ASIA"
+        #   ;;
+        # middle-east)
+        #   REGION="middle-east"
+        #   REGION_NAME="GCC MIDDLE EAST"
+        #   ;;
+        # na)
+        #   REGION="na"
+        #   REGION_NAME="NORTH AMERICA"
+        #   ;;
+        # sa)
+        #   REGION="sa"
+        #   REGION_NAME="SOUTH AMERICA"
+        #   ;;
+        # eu)
+        #   REGION="eu"
+        #   REGION_NAME="EUROPE"
+        #   ;;
+        # au)
+        #   REGION="au"
+        #   REGION_NAME="AUSTRALIA"
+        #   ;;
+        *)
+          echo "Invalid REGION: $OPTARG" >&2
+          exit 1
+          ;;
+      esac
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+# echo "The REGION parameter is: $REGION"
+# echo "The REGION_NAME parameter is: $REGION_NAME"
+
 
 # run_speed_sh 
 run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
