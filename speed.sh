@@ -136,8 +136,23 @@ speed() {
         speed_test '25959' 'Patna'
     # elif [ "$REGION" = "asia" ]; then
     #     REGION_NAME="ASIA"
-    # elif [ "$REGION" = "middle-east" ]; then
-    #     REGION_NAME="MIDDLE EAST"
+    elif [ "$REGION" = "middle-east" ]; then
+        speed_test '1692' 'Abu Dhabi, AE'
+        speed_test '22129' 'Dubai, AE'
+        speed_test '34240' 'Fujairah, AE'
+        speed_test '1717'  'Muscat, OM' 
+        speed_test '11271' 'Seeb, OM'
+        speed_test '15570' 'Sanaa, YE'
+        speed_test '6193' 'Doha, QA'
+        speed_test '51669' 'Lusail, QA'
+        speed_test '17574'  'Manama, BH' 
+        speed_test '52650' 'Rifa, BH'
+        speed_test '25444' 'Kuwait, KW'
+        speed_test '3290' 'Kuwait, KW'
+        speed_test '1402' 'Riyadh, SA'
+        speed_test '16051' 'Dammam, SA'
+        speed_test '3196'  'Jeddah, SA' 
+        speed_test '24103' 'Tabuk, SA'
     # elif [ "$REGION" = "na" ]; then
     #     REGION_NAME="NORTH AMERICA"
     # elif [ "$REGION" = "sa" ]; then
@@ -484,10 +499,10 @@ while getopts ":r:" opt; do
         #   REGION="asia"
         #   REGION_NAME="ASIA"
         #   ;;
-        # middle-east)
-        #   REGION="middle-east"
-        #   REGION_NAME="GCC MIDDLE EAST"
-        #   ;;
+        middle-east)
+          REGION="middle-east"
+          REGION_NAME="GCC MIDDLE EAST"
+          ;;
         # na)
         #   REGION="na"
         #   REGION_NAME="NORTH AMERICA"
