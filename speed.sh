@@ -134,8 +134,26 @@ speed() {
         speed_test '56195' 'Delhi'
         speed_test '6879'  'Gurgaon' 
         speed_test '25959' 'Patna'
-    # elif [ "$REGION" = "asia" ]; then
-    #     REGION_NAME="ASIA"
+    elif [ "$REGION" = "asia" ]; then
+        speed_test '40507' 'Mumbai, IN'
+        speed_test '9690'  'Chennai, IN' 
+        speed_test '52216' 'Bangalore, IN'
+        speed_test '50344' 'Singapore, SG'
+        speed_test '21569' 'Tokyo, JP'
+        speed_test '24447' 'China Unicom'
+        speed_test '3633'  'China Telecom' 
+        speed_test '22126' 'Hong Kong, CN'
+        speed_test '5528' 'Karachi, PK'
+        speed_test '21678' 'Lahore, PK'
+        speed_test '46291' 'Colombo, SL'
+        speed_test '10424' 'Dhaka, BD'
+        speed_test '8990'  'Bangkok, TH' 
+        speed_test '26853' 'Ho Chi Minh, VN'
+        speed_test '16416' 'Hanoi, VN'
+        speed_test '18445' 'Tapei, TW' 
+        speed_test '13039' 'Jakarta, ID'
+        speed_test '44895' 'Bandah Aceh, ID'   
+        speed_test '19302' 'Kuala Lum, MY'
     elif [ "$REGION" = "middle-east" ]; then
         speed_test '1692' 'Abu Dhabi, AE'
         speed_test '22129' 'Dubai, AE'
@@ -152,7 +170,7 @@ speed() {
         speed_test '1402' 'Riyadh, SA'
         speed_test '16051' 'Dammam, SA'
         speed_test '3196'  'Jeddah, SA' 
-        speed_test '24103' 'Tabuk, SA'
+        speed_test '14580' 'Jeddah, SA'
     # elif [ "$REGION" = "na" ]; then
     #     REGION_NAME="NORTH AMERICA"
     # elif [ "$REGION" = "sa" ]; then
@@ -504,10 +522,10 @@ while getopts ":r:" opt; do
           REGION="india"
           REGION_NAME="INDIA"
           ;;
-        # asia)
-        #   REGION="asia"
-        #   REGION_NAME="ASIA"
-        #   ;;
+        asia)
+          REGION="asia"
+          REGION_NAME="ASIA"
+          ;;
         middle-east)
           REGION="middle-east"
           REGION_NAME="GCC MIDDLE EAST"
@@ -526,7 +544,7 @@ while getopts ":r:" opt; do
         #   ;;
         au)
           REGION="au"
-          REGION_NAME="AUSTRALIA"
+          REGION_NAME="AUSTRALIA/NZ"
           ;;
         *)
           echo "Invalid REGION: $OPTARG" >&2
