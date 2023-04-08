@@ -117,36 +117,174 @@ speed() {
 
     speed_test '' 'Nearest'
     echo -e
-    speed_test '29372' 'Kochi, IN'
-    # speed_test '18976' 'Bangalore, IN'
-    speed_test '52216' 'Bangalore, IN'
-    speed_test '9690'  'Chennai, IN' 
-    speed_test '40507' 'Mumbai, IN'
-    speed_test '29658' 'Delhi, IN'
-    echo -e
-    speed_test '34840' 'Los Angeles, US'
-    speed_test '22288' 'Dallas, US'
-    speed_test '35055' 'New York, US'
-    speed_test '1782'  'Seattle, US'
-    speed_test '47746' 'Miami, US'
-    speed_test '46143' 'Toronto, CA'
-    echo -e 
-    speed_test '24215' 'Paris, FR'
-    speed_test '35058' 'Amsterdam, NL'
-    speed_test '51157' 'Warsaw, PL'
-    speed_test '37536' 'London, UK'
-    speed_test '44081' 'Frankfurt, DE'
-    echo -e 
-    speed_test '4845'  'Dubai, AE'
-    speed_test '34240' 'Fujairah, AE'
-    speed_test '14580' 'Jeddah, KSA'
-    echo -e 
-    speed_test '24447' 'Shanghai, CU-CN'
-    speed_test '26352' 'Nanjing, CT-CN'
-    speed_test '1536'  'Hong Kong, HKG'
-    speed_test '40508' 'Singapore, SG'
-    speed_test '13039' 'Jakarta, ID'
-    speed_test '28910' 'Tokyo, JP'
+
+    if [ "$REGION" = "india" ]; then
+        speed_test '47668' 'Mumbai'
+        speed_test '9691' 'Mumbai'
+        speed_test '24687'  'Hyderabad' 
+        speed_test '52216' 'Bangalore'
+        speed_test '33603' 'Pune'
+        speed_test '9690' 'Chennai'
+        speed_test '7644' 'Coimbatore'
+        speed_test '10112'  'Kochi' 
+        speed_test '29372' 'Kochi'
+        speed_test '43322' 'Trivandrum'
+        speed_test '12221' 'Kolkata'
+        speed_test '47291' 'Nagpur'
+        speed_test '56195' 'Delhi'
+        speed_test '6879'  'Gurgaon' 
+        speed_test '25959' 'Patna'
+    elif [ "$REGION" = "asia" ]; then
+        speed_test '40507' 'Mumbai, IN'
+        speed_test '9690'  'Chennai, IN' 
+        speed_test '52216' 'Bangalore, IN'
+        speed_test '40508' 'Singapore, SG'
+        speed_test '38241' 'Tokyo, JP'
+        speed_test '24447' 'China Unicom'
+        speed_test '3633'  'China Telecom' 
+        speed_test '22126' 'Hong Kong, CN'
+        speed_test '5528' 'Karachi, PK'
+        speed_test '21678' 'Lahore, PK'
+        speed_test '46291' 'Colombo, SL'
+        speed_test '10424' 'Dhaka, BD'
+        speed_test '8990'  'Bangkok, TH' 
+        speed_test '26853' 'Ho Chi Minh, VN'
+        speed_test '16416' 'Hanoi, VN'
+        speed_test '18445' 'Tapei, TW' 
+        speed_test '13039' 'Jakarta, ID'
+        speed_test '44895' 'Bandah Aceh, ID'   
+        speed_test '19302' 'Kuala Lum, MY'
+        speed_test '6389' 'Novosibirsk, RU'
+    elif [ "$REGION" = "middle-east" ]; then
+        speed_test '1692' 'Abu Dhabi, AE'
+        speed_test '22129' 'Dubai, AE'
+        speed_test '34240' 'Fujairah, AE'
+        speed_test '1717'  'Muscat, OM' 
+        speed_test '11271' 'Seeb, OM'
+        speed_test '15570' 'Sanaa, YE'
+        speed_test '6193' 'Doha, QA'
+        speed_test '51669' 'Lusail, QA'
+        speed_test '17574'  'Manama, BH' 
+        speed_test '52650' 'Rifa, BH'
+        speed_test '25444' 'Kuwait, KW'
+        speed_test '3290' 'Kuwait, KW'
+        speed_test '1402' 'Riyadh, SA'
+        speed_test '16051' 'Dammam, SA'
+        speed_test '3196'  'Jeddah, SA' 
+        speed_test '14580' 'Jeddah, SA'
+    elif [ "$REGION" = "na" ]; then
+        speed_test '3049' 'Vancouver, BC'
+        speed_test '3575'  'Toronto, ON' 
+        speed_test '53393' 'Toronto, ON'
+        speed_test '46416' 'Montreal, QC'
+        echo -e
+        speed_test '18956' 'New York, NY'
+        speed_test '32493' 'Ashburn, VA'
+        speed_test '22774' 'Secaucus, NJ'
+        speed_test '27833' 'Charlotte, NC' 
+        speed_test '26653' 'Atlanta, GA'
+        speed_test '47746' 'Miami, FL'
+        speed_test '22288' 'Dallas, TX'
+        speed_test '53968' 'Kansas, MO'
+        speed_test '15869' 'Minneapolis, MN'
+        speed_test '46119' 'Chicago, IL' 
+        speed_test '27834' 'Cleveland, OH'
+        speed_test '1773' 'Albuquerque, NM'
+        speed_test '41588' 'Denver, CO'
+        speed_test '10162' 'Portland, OR'
+        speed_test '53984' 'Las Vegas, NV'  
+        speed_test '56808' 'Phoenix, AZ' 
+        speed_test '21541' 'Los Angeles, CA'
+        speed_test '34840' 'Los Angeles, CA'
+        speed_test '54611' 'San Jose, CA'   
+        speed_test '56795' 'Seattle, WA'
+        echo -e
+        speed_test '11550' 'Mexico City, MX'
+        speed_test '53961' 'Guadalajara, MX' 
+        speed_test '43759' 'Hermosillo, MX'
+    elif [ "$REGION" = "sa" ]; then
+        speed_test '21568' 'Sao Paulo, BR'
+        speed_test '3065' 'Rio, BR'
+        speed_test '21836' 'Salvador, BR'
+        speed_test '5181'  'Buenos, AR' 
+        speed_test '46678' 'Buenos, AR'
+        speed_test '8017' 'Santiago, CL'
+        speed_test '3455' 'Lima, PE'
+        speed_test '21800' 'Quito, EC'
+        speed_test '6277'  'Caracas, VE' 
+        speed_test '44095' 'Bogota, CO'
+    elif [ "$REGION" = "eu" ]; then
+        speed_test '37536' 'London, UK'
+        speed_test '38157' 'Edinburgh, UK'
+        speed_test '38092' 'Dublin, IE' 
+        speed_test '51395' 'Amsterdam, NL'
+        speed_test '24215' 'Paris, FR'
+        speed_test '48390' 'Marseille, FR'
+        speed_test '14979' 'Madrid, ES'
+        speed_test '1695' 'Barcelona, ES'
+        speed_test '34265' 'Lisbon, PT' 
+        speed_test '3243' 'Rome, IT'
+        speed_test '23969' 'Zurich, CH'
+        speed_test '44081' 'Frankfurt, DE'
+        speed_test '21514' 'Munich, DE'
+        speed_test '12390' 'Vienna, AT'  
+        speed_test '1697' 'Budapest, HU' 
+        speed_test '7200' 'Gdansk, PL'
+        speed_test '51157' 'Warsaw, PL'
+        speed_test '29259' 'Lviv, UA'   
+        speed_test '9332' 'Kyiv, UA'
+        speed_test '27486' 'Minsk, BY'
+        speed_test '22669' 'Helsinki, FI'
+        speed_test '44597' 'Stockholm, SE'   
+        speed_test '35461' 'Oslo, NO'
+        speed_test '1907' 'Moscow, RU'
+        speed_test '3682' 'Moscow, RU'
+        speed_test '31851' 'Istanbul, TR'
+        speed_test '12702' 'Antalya, TR'
+    elif [ "$REGION" = "au" ]; then
+        speed_test '44735' 'Sydney'
+        speed_test '12492' 'Sydney'
+        speed_test '15136' 'Perth'
+        speed_test '50848'  'Perth' 
+        speed_test '43024' 'Melbourne'
+        speed_test '12491' 'Melbourne'
+        speed_test '13277' 'Adelaide'
+        speed_test '18711' 'Canberra'
+        speed_test '4953'  'Auckland' 
+        speed_test '34083' 'Auckland'
+    else
+        speed_test '29372' 'Kochi, IN'
+        # speed_test '18976' 'Bangalore, IN'
+        speed_test '52216' 'Bangalore, IN'
+        speed_test '9690'  'Chennai, IN' 
+        speed_test '40507' 'Mumbai, IN'
+        speed_test '29658' 'Delhi, IN'
+        echo -e
+        speed_test '34840' 'Los Angeles, US'
+        speed_test '22288' 'Dallas, US'
+        speed_test '35055' 'New York, US'
+        speed_test '1782'  'Seattle, US'
+        speed_test '47746' 'Miami, US'
+        speed_test '46143' 'Toronto, CA'
+        echo -e 
+        speed_test '24215' 'Paris, FR'
+        speed_test '35058' 'Amsterdam, NL'
+        speed_test '51157' 'Warsaw, PL'
+        speed_test '37536' 'London, UK'
+        speed_test '44081' 'Frankfurt, DE'
+        echo -e 
+        speed_test '4845'  'Dubai, AE'
+        speed_test '34240' 'Fujairah, AE'
+        speed_test '14580' 'Jeddah, KSA'
+        echo -e 
+        speed_test '24447' 'Shanghai, CU-CN'
+        speed_test '26352' 'Nanjing, CT-CN'
+        speed_test '1536'  'Hong Kong, HKG'
+        speed_test '40508' 'Singapore, SG'
+        speed_test '13039' 'Jakarta, ID'
+        speed_test '28910' 'Tokyo, JP'
+    fi 
+    
 
     TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
     TOTAL_DATA_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $TOTAL_DATA/1024; exit }")
@@ -288,7 +426,7 @@ install_speedtest() {
         mkdir -p speedtest-cli && tar zxf speedtest.tgz -C ./speedtest-cli && chmod +x ./speedtest-cli/speedtest
         rm -f speedtest.tgz
     fi
-    echo " Speedtest.net"
+    echo " Speedtest.net (Region: $REGION_NAME)"
     next
     printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " Location" "Latency" "Loss" "DL Speed" "UP Speed" "Server"
 }
@@ -297,7 +435,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.04.06)"
+    echo " Version            : $(_green v2023.04.08)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -426,7 +564,9 @@ run_speed_sh() {
     next
     ip_info
     next
-    install_speedtest && speed && rm -fr speedtest-cli
+    install_speedtest  
+    speed 
+    rm -fr speedtest-cli
     next
     print_network_statistics
     next
@@ -434,6 +574,62 @@ run_speed_sh() {
     get_runs_counter
     next
 }
+
+REGION="global"
+REGION_NAME="GLOBAL"
+
+while getopts ":r:" opt; do
+  case $opt in
+    r)
+      case $OPTARG in
+        india)
+          REGION="india"
+          REGION_NAME="INDIA"
+          ;;
+        asia)
+          REGION="asia"
+          REGION_NAME="ASIA"
+          ;;
+        middle-east)
+          REGION="middle-east"
+          REGION_NAME="GCC MIDDLE EAST"
+          ;;
+        na)
+          REGION="na"
+          REGION_NAME="NORTH AMERICA"
+          ;;
+        sa)
+          REGION="sa"
+          REGION_NAME="SOUTH AMERICA"
+          ;;
+        eu)
+          REGION="eu"
+          REGION_NAME="EUROPE"
+          ;;
+        au)
+          REGION="au"
+          REGION_NAME="AUSTRALIA/NZ"
+          ;;
+        *)
+          echo "Invalid REGION: $OPTARG" >&2
+          exit 1
+          ;;
+      esac
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+# echo "The REGION parameter is: $REGION"
+# echo "The REGION_NAME parameter is: $REGION_NAME"
+
 
 # run_speed_sh 
 run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
