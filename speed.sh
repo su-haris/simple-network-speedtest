@@ -234,6 +234,7 @@ speed() {
         speed_test '29259' 'Lviv, UA'   
         speed_test '9332' 'Kyiv, UA'
         speed_test '27486' 'Minsk, BY'
+        speed_test '16457' 'Bucharest, RO'
         speed_test '22669' 'Helsinki, FI'
         speed_test '44597' 'Stockholm, SE'   
         speed_test '35461' 'Oslo, NO'
@@ -242,6 +243,7 @@ speed() {
         speed_test '31851' 'Istanbul, TR'
         speed_test '12702' 'Antalya, TR'
     elif [ "$REGION" = "au" ]; then
+        speed_test '18473' 'Brisbane'
         speed_test '44735' 'Sydney'
         speed_test '12492' 'Sydney'
         speed_test '15136' 'Perth'
