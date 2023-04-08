@@ -173,8 +173,17 @@ speed() {
         speed_test '14580' 'Jeddah, SA'
     # elif [ "$REGION" = "na" ]; then
     #     REGION_NAME="NORTH AMERICA"
-    # elif [ "$REGION" = "sa" ]; then
-    #     REGION_NAME="SOUTH AMERICA"
+    elif [ "$REGION" = "sa" ]; then
+        speed_test '21568' 'Sao Paulo, BR'
+        speed_test '3065' 'Rio, BR'
+        speed_test '21836' 'Salvador, BR'
+        speed_test '5181'  'Buenos, AR' 
+        speed_test '46678' 'Buenos, AR'
+        speed_test '8017' 'Santiago, CL'
+        speed_test '3455' 'Lima, PE'
+        speed_test '21800' 'Quito, EC'
+        speed_test '6277'  'Caracas, VE' 
+        speed_test '44095' 'Bogota, CO'
     # elif [ "$REGION" = "eu" ]; then
     #     REGION_NAME="EUROPE"
     elif [ "$REGION" = "au" ]; then
@@ -534,10 +543,10 @@ while getopts ":r:" opt; do
         #   REGION="na"
         #   REGION_NAME="NORTH AMERICA"
         #   ;;
-        # sa)
-        #   REGION="sa"
-        #   REGION_NAME="SOUTH AMERICA"
-        #   ;;
+        sa)
+          REGION="sa"
+          REGION_NAME="SOUTH AMERICA"
+          ;;
         # eu)
         #   REGION="eu"
         #   REGION_NAME="EUROPE"
