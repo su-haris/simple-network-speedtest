@@ -159,8 +159,17 @@ speed() {
     #     REGION_NAME="SOUTH AMERICA"
     # elif [ "$REGION" = "eu" ]; then
     #     REGION_NAME="EUROPE"
-    # elif [ "$REGION" = "au" ]; then
-    #     REGION_NAME="AUSTRALIA"
+    elif [ "$REGION" = "au" ]; then
+        speed_test '44735' 'Sydney'
+        speed_test '12492' 'Sydney'
+        speed_test '15136' 'Perth'
+        speed_test '50848'  'Perth' 
+        speed_test '43024' 'Melbourne'
+        speed_test '12491' 'Melbourne'
+        speed_test '13277' 'Adelaide'
+        speed_test '18711' 'Canberra'
+        speed_test '4953'  'Auckland' 
+        speed_test '34083' 'Auckland'
     else
         speed_test '29372' 'Kochi, IN'
         # speed_test '18976' 'Bangalore, IN'
@@ -515,10 +524,10 @@ while getopts ":r:" opt; do
         #   REGION="eu"
         #   REGION_NAME="EUROPE"
         #   ;;
-        # au)
-        #   REGION="au"
-        #   REGION_NAME="AUSTRALIA"
-        #   ;;
+        au)
+          REGION="au"
+          REGION_NAME="AUSTRALIA"
+          ;;
         *)
           echo "Invalid REGION: $OPTARG" >&2
           exit 1
