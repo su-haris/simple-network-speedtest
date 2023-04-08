@@ -171,8 +171,36 @@ speed() {
         speed_test '16051' 'Dammam, SA'
         speed_test '3196'  'Jeddah, SA' 
         speed_test '14580' 'Jeddah, SA'
-    # elif [ "$REGION" = "na" ]; then
-    #     REGION_NAME="NORTH AMERICA"
+    elif [ "$REGION" = "na" ]; then
+        speed_test '3049' 'Vancouver, BC'
+        speed_test '3575'  'Toronto, ON' 
+        speed_test '53393' 'Toronto, ON'
+        speed_test '46416' 'Montreal, QC'
+        echo -e
+        speed_test '18956' 'New York, NY'
+        speed_test '32493' 'Ashburn, VA'
+        speed_test '22774' 'Secaucus, NJ'
+        speed_test '27833' 'Charlotte, NC' 
+        speed_test '26653' 'Atlanta, GA'
+        speed_test '47746' 'Miami, FL'
+        speed_test '22288' 'Dallas, TX'
+        speed_test '53968' 'Kansas, MO'
+        speed_test '15869' 'Minneapolis, MN'
+        speed_test '46119' 'Chicago, IL' 
+        speed_test '27834' 'Cleveland, OH'
+        speed_test '1773' 'Albuquerque, NM'
+        speed_test '41588' 'Denver, CO'
+        speed_test '10162' 'Portland, OR'
+        speed_test '53984' 'Las Vegas, NV'  
+        speed_test '56808' 'Phoenix, AZ' 
+        speed_test '21541' 'Los Angeles, CA'
+        speed_test '34840' 'Los Angeles, CA'
+        speed_test '8228' 'San Francisco, CA'   
+        speed_test '56795' 'Seattle, WA'
+        echo -e
+        speed_test '11550' 'Mexico City, MX'
+        speed_test '53961' 'Guadalajara, MX' 
+        speed_test '43759' 'Hermosillo, MX'
     elif [ "$REGION" = "sa" ]; then
         speed_test '21568' 'Sao Paulo, BR'
         speed_test '3065' 'Rio, BR'
@@ -539,10 +567,10 @@ while getopts ":r:" opt; do
           REGION="middle-east"
           REGION_NAME="GCC MIDDLE EAST"
           ;;
-        # na)
-        #   REGION="na"
-        #   REGION_NAME="NORTH AMERICA"
-        #   ;;
+        na)
+          REGION="na"
+          REGION_NAME="NORTH AMERICA"
+          ;;
         sa)
           REGION="sa"
           REGION_NAME="SOUTH AMERICA"
