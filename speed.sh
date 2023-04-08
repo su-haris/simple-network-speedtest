@@ -138,8 +138,8 @@ speed() {
         speed_test '40507' 'Mumbai, IN'
         speed_test '9690'  'Chennai, IN' 
         speed_test '52216' 'Bangalore, IN'
-        speed_test '50344' 'Singapore, SG'
-        speed_test '21569' 'Tokyo, JP'
+        speed_test '40508' 'Singapore, SG'
+        speed_test '38241' 'Tokyo, JP'
         speed_test '24447' 'China Unicom'
         speed_test '3633'  'China Telecom' 
         speed_test '22126' 'Hong Kong, CN'
@@ -154,6 +154,7 @@ speed() {
         speed_test '13039' 'Jakarta, ID'
         speed_test '44895' 'Bandah Aceh, ID'   
         speed_test '19302' 'Kuala Lum, MY'
+        speed_test '6389' 'Novosibirsk, RU'
     elif [ "$REGION" = "middle-east" ]; then
         speed_test '1692' 'Abu Dhabi, AE'
         speed_test '22129' 'Dubai, AE'
@@ -195,7 +196,7 @@ speed() {
         speed_test '56808' 'Phoenix, AZ' 
         speed_test '21541' 'Los Angeles, CA'
         speed_test '34840' 'Los Angeles, CA'
-        speed_test '8228' 'San Francisco, CA'   
+        speed_test '54611' 'San Jose, CA'   
         speed_test '56795' 'Seattle, WA'
         echo -e
         speed_test '11550' 'Mexico City, MX'
@@ -212,8 +213,35 @@ speed() {
         speed_test '21800' 'Quito, EC'
         speed_test '6277'  'Caracas, VE' 
         speed_test '44095' 'Bogota, CO'
-    # elif [ "$REGION" = "eu" ]; then
-    #     REGION_NAME="EUROPE"
+    elif [ "$REGION" = "eu" ]; then
+        speed_test '37536' 'London, UK'
+        speed_test '56451' 'London, UK'
+        speed_test '38157' 'Edinburgh, UK'
+        speed_test '38902' 'Dublin, IE' 
+        speed_test '51395' 'Amsterdam, NL'
+        speed_test '24215' 'Paris, FR'
+        speed_test '48390' 'Marseille, FR'
+        speed_test '14979' 'Madrid, ES'
+        speed_test '1695' 'Barcelona, ES'
+        speed_test '34265' 'Lisbon, PT' 
+        speed_test '3243' 'Rome, IT'
+        speed_test '23969' 'Zurich, CH'
+        speed_test '44081' 'Frankfurt, DE'
+        speed_test '21514' 'Munich, DE'
+        speed_test '12390' 'Vienna, AT'  
+        speed_test '1697' 'Budapest, HU' 
+        speed_test '7200' 'Gdansk, PL'
+        speed_test '51157' 'Warsaw, PL'
+        speed_test '29259' 'Lviv, UA'   
+        speed_test '9332' 'Kyiv, UA'
+        speed_test '27486' 'Minsk, PL'
+        speed_test '22669' 'Helsinki, FI'
+        speed_test '44597' 'Stockholm, SE'   
+        speed_test '35461' 'Oslo, NO'
+        speed_test '1907' 'Moscow, RU'
+        speed_test '3682' 'Moscow, RU'
+        speed_test '31851' 'Istanbul, TR'
+        speed_test '12702' 'Antalya, TR'
     elif [ "$REGION" = "au" ]; then
         speed_test '44735' 'Sydney'
         speed_test '12492' 'Sydney'
@@ -575,10 +603,10 @@ while getopts ":r:" opt; do
           REGION="sa"
           REGION_NAME="SOUTH AMERICA"
           ;;
-        # eu)
-        #   REGION="eu"
-        #   REGION_NAME="EUROPE"
-        #   ;;
+        eu)
+          REGION="eu"
+          REGION_NAME="EUROPE"
+          ;;
         au)
           REGION="au"
           REGION_NAME="AUSTRALIA/NZ"
