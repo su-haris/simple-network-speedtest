@@ -255,6 +255,24 @@ speed() {
         speed_test '18711' 'Canberra'
         speed_test '4953'  'Auckland' 
         speed_test '34083' 'Auckland'
+    elif [ "$REGION" = "cn" ]; then
+        speed_test '24447' 'CU - Shanghai'
+        speed_test '3633'  'CT - Shanghai' 
+        speed_test '25858'  'CM - Beijing' 
+        speed_test '26352' 'CT - Nanjing'
+        speed_test '37235' 'CU - Shenyang'
+        speed_test '5396' 'CT - Suzhou'
+        speed_test '5317' 'CT - Yangzhou'
+        speed_test '54312' 'CM - Hangzhou'
+        speed_test '36646' 'CU - Zhengzhou'
+        speed_test '28225' 'CT - Changsha'
+        speed_test '4870' 'CU - Changsha'
+        speed_test '4575' 'CM - Chengdu'
+        echo -e
+        speed_test '32155' 'CM - Kwai Chung'
+        speed_test '37639'  'CM - Hong Kong' 
+        speed_test '34555' 'Hong Kong'    
+        speed_test '28912' 'Hong Kong'  
     else
         speed_test '29372' 'Kochi, IN'
         # speed_test '18976' 'Bangalore, IN'
@@ -438,7 +456,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.04.08)"
+    echo " Version            : $(_green v2023.04.09)"
     # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
 }
 
@@ -613,8 +631,13 @@ while getopts ":r:" opt; do
           REGION="au"
           REGION_NAME="AUSTRALIA/NZ"
           ;;
+        cn)
+          REGION="cn"
+          REGION_NAME="CHINA 中华民国"
+          ;;  
         *)
           echo "Invalid REGION: $OPTARG" >&2
+          echo "Valid Regions: na, sa, eu, au, middle-east, india, cn"
           echo "Visit network-speed.xyz for instructions."
           exit 1
           ;;
