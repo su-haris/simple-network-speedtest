@@ -144,7 +144,8 @@ speed() {
         speed_test '3633'  'China Telecom' 
         speed_test '22126' 'Hong Kong, CN'
         speed_test '5528' 'Karachi, PK'
-        speed_test '21678' 'Lahore, PK'
+        speed_test '32898' 'Islamabad, PK'
+        speed_test '55587' 'Kathmandu, NP'
         speed_test '46291' 'Colombo, SL'
         speed_test '10424' 'Dhaka, BD'
         speed_test '8990'  'Bangkok, TH' 
@@ -152,9 +153,10 @@ speed() {
         speed_test '16416' 'Hanoi, VN'
         speed_test '18445' 'Tapei, TW' 
         speed_test '13039' 'Jakarta, ID'
-        speed_test '44895' 'Bandah Aceh, ID'   
+        speed_test '40611' 'Bandah Aceh, ID'   
         speed_test '19302' 'Kuala Lum, MY'
         speed_test '6389' 'Novosibirsk, RU'
+        speed_test '31851' 'Istanbul, TR'
     elif [ "$REGION" = "middle-east" ]; then
         speed_test '1692' 'Abu Dhabi, AE'
         speed_test '22129' 'Dubai, AE'
@@ -178,9 +180,8 @@ speed() {
         speed_test '53393' 'Toronto, ON'
         speed_test '46416' 'Montreal, QC'
         echo -e
-        speed_test '18956' 'New York, NY'
+        speed_test '35055' 'New York, NY'
         speed_test '32493' 'Ashburn, VA'
-        speed_test '22774' 'Secaucus, NJ'
         speed_test '27833' 'Charlotte, NC' 
         speed_test '26653' 'Atlanta, GA'
         speed_test '47746' 'Miami, FL'
@@ -614,23 +615,23 @@ while getopts ":r:" opt; do
           ;;
         *)
           echo "Invalid REGION: $OPTARG" >&2
+          echo "Visit network-speed.xyz for instructions."
           exit 1
           ;;
       esac
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
+      echo "Visit network-speed.xyz for instructions."
       exit 1
       ;;
     :)
       echo "Option -$OPTARG requires an argument." >&2
+      echo "Visit network-speed.xyz for instructions."
       exit 1
       ;;
   esac
 done
-
-# echo "The REGION parameter is: $REGION"
-# echo "The REGION_NAME parameter is: $REGION_NAME"
 
 
 # run_speed_sh 
