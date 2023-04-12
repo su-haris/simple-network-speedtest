@@ -14,6 +14,7 @@ Shows the following info:
       - Asia
       - GCC Middle East
       - India
+      - China
       - More coming soon!
    - Statistics from the speedtest
    - Shareable Link (FroCDN) of the result 
@@ -32,7 +33,7 @@ wget -qO- network-speed.xyz | bash
 ```
 
 ### Regional Speedtest
-region_name = na, sa, eu, asia, india, middle-east
+region_name = na, sa, eu, asia, india, middle-east, cn
 ```
 curl -sL network-speed.xyz | bash -s -- -r region_name
 ```
