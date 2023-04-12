@@ -227,7 +227,7 @@ speed() {
         speed_test '3243' 'Rome, IT'
         speed_test '23969' 'Zurich, CH'
         speed_test '44081' 'Frankfurt, DE'
-        speed_test '21514' 'Munich, DE'
+        speed_test '55665' 'Berlin, DE'
         speed_test '12390' 'Vienna, AT'  
         speed_test '1697' 'Budapest, HU' 
         speed_test '7200' 'Gdansk, PL'
@@ -456,8 +456,9 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.04.09)"
-    # echo " Usage              : $(_red "wget -qO- network-speed.xyz | bash")"
+    echo " Version            : $(_green v2023.04.12)"
+    echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
+    echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
 
 # Get System information
@@ -633,7 +634,7 @@ while getopts ":r:" opt; do
           ;;
         cn)
           REGION="cn"
-          REGION_NAME="CHINA 中华民国"
+          REGION_NAME="CHINA 中華人民共和國"
           ;;  
         *)
           echo "Invalid REGION: $OPTARG" >&2
