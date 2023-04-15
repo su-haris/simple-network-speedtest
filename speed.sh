@@ -2,8 +2,8 @@
 #
 # Description: A Network Test Script by <sh@suh.ovh>
 # Copyright (C) 2022 - 2023 <sh@suh.ovh>
-# URL: http://network-speed.xyz/
-# https://github.com/su-haris/network-tester
+# URL: https://network-speed.xyz/
+# https://github.com/su-haris/simple-network-speedtest
 #
 trap _exit INT QUIT TERM
 
