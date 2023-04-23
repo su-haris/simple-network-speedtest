@@ -255,7 +255,14 @@ speed() {
         speed_test '18711' 'Canberra'
         speed_test '4953'  'Auckland' 
         speed_test '34083' 'Auckland'
-    elif [ "$REGION" = "cn" ]; then
+    elif [ "$REGION" = "iran" ]; then
+        speed_test '18512' 'Tehran'
+        speed_test '4317'  'Tehran' 
+        speed_test '43844'  'Tehran' 
+        speed_test '9889' 'Shiraz'
+        speed_test '22245' 'Isfahan'
+        speed_test '9888' 'Tabriz'
+    elif [ "$REGION" = "china" ]; then
         speed_test '24447' 'CU - Shanghai'
         speed_test '3633'  'CT - Shanghai' 
         speed_test '25858'  'CM - Beijing' 
@@ -272,7 +279,7 @@ speed() {
         speed_test '32155' 'CM - Kwai Chung'
         speed_test '37639'  'CM - Hong Kong' 
         speed_test '34555' 'Hong Kong'    
-        speed_test '28912' 'Hong Kong'  
+        speed_test '28912' 'Hong Kong'      
     else
         speed_test '29372' 'Kochi, IN'
         # speed_test '18976' 'Bangalore, IN'
@@ -456,7 +463,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.04.12)"
+    echo " Version            : $(_green v2023.04.23)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -606,7 +613,7 @@ while getopts ":r:" opt; do
       case $OPTARG in
         india)
           REGION="india"
-          REGION_NAME="INDIA"
+          REGION_NAME="INDIA भारत"
           ;;
         asia)
           REGION="asia"
@@ -632,13 +639,17 @@ while getopts ":r:" opt; do
           REGION="au"
           REGION_NAME="AUSTRALIA/NZ"
           ;;
-        cn)
-          REGION="cn"
+        iran)
+          REGION="iran"
+          REGION_NAME="IRAN ایران"
+          ;;  
+        china)
+          REGION="china"
           REGION_NAME="CHINA 中華人民共和國"
           ;;  
         *)
           echo "Invalid REGION: $OPTARG" >&2
-          echo "Valid Regions: na, sa, eu, au, middle-east, india, cn"
+          echo "Valid Regions: na, sa, eu, au, middle-east, india, china, iran"
           echo "Visit network-speed.xyz for instructions."
           exit 1
           ;;
