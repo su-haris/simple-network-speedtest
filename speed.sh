@@ -119,21 +119,24 @@ speed() {
     echo -e
 
     if [ "$REGION" = "india" ]; then
-        speed_test '47668' 'Mumbai'
-        speed_test '9691' 'Mumbai'
-        speed_test '24687'  'Hyderabad' 
-        speed_test '52216' 'Bangalore'
-        speed_test '33603' 'Pune'
-        speed_test '9690' 'Chennai'
-        speed_test '7644' 'Coimbatore'
-        speed_test '10112'  'Kochi' 
-        speed_test '29372' 'Kochi'
-        speed_test '43322' 'Trivandrum'
-        speed_test '12221' 'Kolkata'
-        speed_test '47291' 'Nagpur'
-        speed_test '15797' 'Delhi'
-        speed_test '9930'  'Gurgaon' 
-        speed_test '25959' 'Patna'
+        speed_test '47668' 'Mumbai, MH'
+        speed_test '24161' 'Mumbai. MH'
+        speed_test '33603' 'Pune, MH'
+        speed_test '18977' 'Hyderabad, AP-TL' 
+        speed_test '52216' 'Bangalore, KA'
+        speed_test '7379' 'Bangalore, KA'
+        speed_test '35402' 'Mangalore, KA'
+        speed_test '9690' 'Chennai, TN'
+        speed_test '40455' 'Chennai, TN'
+        speed_test '20107' 'Coimbatore, TN'
+        speed_test '34444' 'Madurai, TN'
+        speed_test '10112' 'Kochi, KL' 
+        speed_test '29372' 'Kochi, KL'
+        speed_test '43322' 'Trivandrum, KL'
+        speed_test '12221' 'Kolkata, WB'
+        speed_test '15797' 'Delhi, DL'
+        speed_test '10020'  'Gurgaon, HR' 
+        speed_test '25959' 'Patna, BH'
     elif [ "$REGION" = "asia" ]; then
         speed_test '40507' 'Mumbai, IN'
         speed_test '9690'  'Chennai, IN' 
@@ -142,6 +145,7 @@ speed() {
         speed_test '38241' 'Tokyo, JP'
         speed_test '24447' 'China Unicom'
         speed_test '3633'  'China Telecom' 
+        speed_test '41910' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
         speed_test '5528' 'Karachi, PK'
         speed_test '32898' 'Islamabad, PK'
@@ -195,7 +199,6 @@ speed() {
         speed_test '10162' 'Portland, OR'
         speed_test '53984' 'Las Vegas, NV'  
         speed_test '56808' 'Phoenix, AZ' 
-        speed_test '21541' 'Los Angeles, CA'
         speed_test '34840' 'Los Angeles, CA'
         speed_test '49365' 'San Jose, CA'   
         speed_test '56795' 'Seattle, WA'
@@ -242,7 +245,7 @@ speed() {
         speed_test '1907' 'Moscow, RU'
         speed_test '3682' 'Moscow, RU'
         speed_test '31851' 'Istanbul, TR'
-        speed_test '12702' 'Antalya, TR'
+        speed_test '3151' 'Istanbul, TR'
     elif [ "$REGION" = "au" ]; then
         speed_test '18473' 'Brisbane'
         speed_test '44735' 'Sydney'
@@ -463,7 +466,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.04.25)"
+    echo " Version            : $(_green v2023.05.01)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
