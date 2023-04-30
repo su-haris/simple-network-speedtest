@@ -186,7 +186,7 @@ speed() {
         speed_test '26653' 'Atlanta, GA'
         speed_test '47746' 'Miami, FL'
         speed_test '22288' 'Dallas, TX'
-        speed_test '53968' 'Kansas, MO'
+        speed_test '47512' 'Kansas, MO'
         speed_test '15869' 'Minneapolis, MN'
         speed_test '46119' 'Chicago, IL' 
         speed_test '27834' 'Cleveland, OH'
