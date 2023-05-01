@@ -120,7 +120,7 @@ speed() {
 
     if [ "$REGION" = "india" ]; then
         speed_test '47668' 'Mumbai, MH'
-        speed_test '24161' 'Mumbai. MH'
+        speed_test '24161' 'Mumbai, MH'
         speed_test '33603' 'Pune, MH'
         speed_test '18977' 'Hyderabad, AP-TL' 
         speed_test '52216' 'Bangalore, KA'
@@ -258,6 +258,21 @@ speed() {
         speed_test '18711' 'Canberra'
         speed_test '4953'  'Auckland' 
         speed_test '34083' 'Auckland'
+    elif [ "$REGION" = "africa" ]; then
+        speed_test '2962' 'Cape Town, SA'
+        speed_test '1491' 'Cape Town, SA'
+        speed_test '21570' 'Johannesburg, SA'
+        speed_test '56612' 'Harare, ZW'
+        speed_test '28816' 'Maputo, MZ' 
+        speed_test '7755' 'Antananarivo, MG'
+        speed_test '3846' 'Darusalaam, TZ'
+        speed_test '8402' 'Nairobi, KE'
+        speed_test '48973' 'Addis Ababa, ET'
+        speed_test '34283'  'Cairo,EG' 
+        speed_test '15495' 'Alexandria, EG' 
+        speed_test '54524' 'Rabat, MA' 
+        speed_test '15631' 'Algiers, DZ' 
+        speed_test '33159' 'Lagos, NG'    
     elif [ "$REGION" = "iran" ]; then
         speed_test '18512' 'Tehran'
         speed_test '4317'  'Tehran' 
@@ -642,6 +657,10 @@ while getopts ":r:" opt; do
           REGION="au"
           REGION_NAME="AUSTRALIA/NZ"
           ;;
+        africa)
+          REGION="africa"
+          REGION_NAME="AFRICA"
+          ;;  
         iran)
           REGION="iran"
           REGION_NAME="IRAN ایران"
@@ -652,7 +671,7 @@ while getopts ":r:" opt; do
           ;;  
         *)
           echo "Invalid REGION: $OPTARG" >&2
-          echo "Valid Regions: na, sa, eu, au, middle-east, india, china, iran"
+          echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran"
           echo "Visit network-speed.xyz for instructions."
           exit 1
           ;;

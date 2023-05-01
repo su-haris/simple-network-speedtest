@@ -12,6 +12,7 @@ Shows the following info:
       - South America
       - Europe
       - Asia
+      - Africa
       - GCC Middle East
       - India
       - China
@@ -34,7 +35,7 @@ wget -qO- network-speed.xyz | bash
 ```
 
 ### Regional Speedtest
-region_name = na, sa, eu, asia, middle-east, india, china, iran
+region_name = na, sa, eu, asia, africa, middle-east, india, china, iran
 ```
 curl -sL network-speed.xyz | bash -s -- -r region_name
 ```
