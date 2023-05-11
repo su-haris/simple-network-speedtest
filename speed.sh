@@ -142,13 +142,13 @@ speed() {
         speed_test '9690'  'Chennai, IN' 
         speed_test '52216' 'Bangalore, IN'
         speed_test '40508' 'Singapore, SG'
-        speed_test '38241' 'Tokyo, JP'
+        speed_test '48463' 'Tokyo, JP'
         speed_test '24447' 'China Unicom'
         speed_test '3633'  'China Telecom' 
         speed_test '41910' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
-        speed_test '5528' 'Karachi, PK'
-        speed_test '32898' 'Islamabad, PK'
+        speed_test '32238' 'Karachi, PK'
+        speed_test '4774' 'Islamabad, PK'
         speed_test '55587' 'Kathmandu, NP'
         speed_test '46291' 'Colombo, SL'
         speed_test '10424' 'Dhaka, BD'
@@ -187,7 +187,7 @@ speed() {
         speed_test '35055' 'New York, NY'
         speed_test '32493' 'Ashburn, VA'
         speed_test '27833' 'Charlotte, NC' 
-        speed_test '26653' 'Atlanta, GA'
+        speed_test '40889' 'Atlanta, GA'
         speed_test '47746' 'Miami, FL'
         speed_test '22288' 'Dallas, TX'
         speed_test '47512' 'Kansas, MO'
@@ -481,7 +481,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.05.01)"
+    echo " Version            : $(_green v2023.05.12)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
