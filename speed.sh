@@ -332,14 +332,14 @@ speed() {
     fi 
     
 
-    TOTAL_DATA=$(awk "BEGIN {print $UL_USED+$DL_USED; exit}")
-    TOTAL_DATA_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $TOTAL_DATA/1024; exit }")
+    TOTAL_DATA=$(awk -v dl="$DL_USED" -v ul="$UL_USED" 'BEGIN { total=dl+ul; printf "%.2f\n", total }')
+    TOTAL_DATA_IN_GB=$(awk -v total="$TOTAL_DATA" 'BEGIN { printf "%.2f\n", total/1024 }')
 
-    DL_USED_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $DL_USED/1024; exit }")
-    UL_USED_IN_GB=$(awk "BEGIN { printf \"%.2f\n\", $UL_USED/1024; exit }")
+    DL_USED_IN_GB=$(awk -v dl="$DL_USED" 'BEGIN { printf "%.2f\n", dl/1024 }')
+    UL_USED_IN_GB=$(awk -v ul="$UL_USED" 'BEGIN { printf "%.2f\n", ul/1024 }')
 
-    AVG_DL_SPEED=$(awk "BEGIN { printf \"%.2f\n\", $AVG_DL_SPEED/$SUCCESS_TEST; exit }")
-    AVG_UL_SPEED=$(awk "BEGIN { printf \"%.2f\n\", $AVG_UL_SPEED/$SUCCESS_TEST; exit }")
+    AVG_DL_SPEED=$(awk -v avg_dl="$AVG_DL_SPEED" -v success="$SUCCESS_TEST" 'BEGIN { printf "%.2f\n", avg_dl/success }')
+    AVG_UL_SPEED=$(awk -v avg_ul="$AVG_UL_SPEED" -v success="$SUCCESS_TEST" 'BEGIN { printf "%.2f\n", avg_ul/success }')
 }
 
 io_test() {
@@ -599,8 +599,8 @@ get_runs_counter() {
 }
 
 run_speed_sh() {
-    ! _exists "wget" && _red "Error: wget command not found.\n" && exit 1
-    ! _exists "free" && _red "Error: free command not found.\n" && exit 1
+    ! _exists "wget" && _red "Error: wget command not found.\n" && kill -INT $$ && exit 1
+    ! _exists "free" && _red "Error: free command not found.\n" && kill -INT $$ && exit 1
 
     start_time=$(date +%s)
     get_system_info
