@@ -141,7 +141,8 @@ speed() {
         speed_test '40507' 'Mumbai, IN'
         speed_test '9690'  'Chennai, IN' 
         speed_test '52216' 'Bangalore, IN'
-        speed_test '40508' 'Singapore, SG'
+        speed_test '5935' 'Singapore, SG'
+        speed_test '4235' 'Singapore, SG'
         speed_test '48463' 'Tokyo, JP'
         speed_test '24447' 'China Unicom'
         speed_test '3633'  'China Telecom' 
@@ -155,6 +156,7 @@ speed() {
         speed_test '8990'  'Bangkok, TH' 
         speed_test '26853' 'Ho Chi Minh, VN'
         speed_test '16416' 'Hanoi, VN'
+        speed_test '7167' 'Manila, PH'
         speed_test '18445' 'Tapei, TW' 
         speed_test '13039' 'Jakarta, ID'
         speed_test '40611' 'Bandah Aceh, ID'   
@@ -195,7 +197,7 @@ speed() {
         speed_test '46119' 'Chicago, IL' 
         speed_test '27834' 'Cleveland, OH'
         speed_test '1773' 'Albuquerque, NM'
-        speed_test '10051' 'Denver, CO'
+        speed_test '56839' 'Denver, CO'
         speed_test '10162' 'Portland, OR'
         speed_test '53984' 'Las Vegas, NV'  
         speed_test '56808' 'Phoenix, AZ' 
@@ -222,12 +224,14 @@ speed() {
         speed_test '38157' 'Edinburgh, UK'
         speed_test '38092' 'Dublin, IE' 
         speed_test '51395' 'Amsterdam, NL'
+        speed_test '20005' 'Dronten, NL'
         speed_test '24215' 'Paris, FR'
         speed_test '48390' 'Marseille, FR'
         speed_test '14979' 'Madrid, ES'
         speed_test '1695' 'Barcelona, ES'
         speed_test '34265' 'Lisbon, PT' 
         speed_test '3243' 'Rome, IT'
+        speed_test '4302' 'Milan, IT'
         speed_test '23969' 'Zurich, CH'
         speed_test '44081' 'Frankfurt, DE'
         speed_test '55665' 'Berlin, DE'
@@ -239,13 +243,14 @@ speed() {
         speed_test '9332' 'Kyiv, UA'
         speed_test '27486' 'Minsk, BY'
         speed_test '16457' 'Bucharest, RO'
+        speed_test '11502' 'Iasi, RO'
         speed_test '22669' 'Helsinki, FI'
         speed_test '44597' 'Stockholm, SE'   
         speed_test '35461' 'Oslo, NO'
-        speed_test '1907' 'Moscow, RU'
         speed_test '3682' 'Moscow, RU'
+        speed_test '4247' 'Petersburg, RU'
+        speed_test '11945' 'Tbilisi, GE'
         speed_test '31851' 'Istanbul, TR'
-        speed_test '3151' 'Istanbul, TR'
     elif [ "$REGION" = "au" ]; then
         speed_test '18473' 'Brisbane'
         speed_test '44735' 'Sydney'
@@ -268,7 +273,7 @@ speed() {
         speed_test '3846' 'Darusalaam, TZ'
         speed_test '8402' 'Nairobi, KE'
         speed_test '48973' 'Addis Ababa, ET'
-        speed_test '34283'  'Cairo,EG' 
+        speed_test '34283'  'Cairo, EG' 
         speed_test '15495' 'Alexandria, EG' 
         speed_test '54524' 'Rabat, MA' 
         speed_test '15631' 'Algiers, DZ' 
@@ -297,7 +302,8 @@ speed() {
         speed_test '32155' 'CM - Kwai Chung'
         speed_test '37639'  'CM - Hong Kong' 
         speed_test '34555' 'Hong Kong'    
-        speed_test '28912' 'Hong Kong'      
+        speed_test '28912' 'Hong Kong'
+        speed_test '44745' 'Hong Kong'  
     else
         speed_test '29372' 'Kochi, IN'
         # speed_test '18976' 'Bangalore, IN'
@@ -481,7 +487,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.05.12)"
+    echo " Version            : $(_green v2023.05.24)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
