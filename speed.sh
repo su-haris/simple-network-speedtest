@@ -158,8 +158,8 @@ speed() {
         speed_test '16416' 'Hanoi, VN'
         speed_test '7167' 'Manila, PH'
         speed_test '18445' 'Tapei, TW' 
-        speed_test '13039' 'Jakarta, ID'
-        speed_test '40611' 'Bandah Aceh, ID'   
+        speed_test '797' 'Jakarta, ID'
+        speed_test '36700' 'Surabaya, ID'   
         speed_test '19302' 'Kuala Lum, MY'
         speed_test '6389' 'Novosibirsk, RU'
         speed_test '31851' 'Istanbul, TR'
@@ -324,6 +324,7 @@ speed() {
         speed_test '51157' 'Warsaw, PL'
         speed_test '37536' 'London, UK'
         speed_test '44081' 'Frankfurt, DE'
+        speed_test '15004' 'Bucharest, RO'
         echo -e 
         speed_test '4845'  'Dubai, AE'
         speed_test '34240' 'Fujairah, AE'
@@ -333,7 +334,7 @@ speed() {
         speed_test '26352' 'Nanjing, CT-CN'
         speed_test '1536'  'Hong Kong, HKG'
         speed_test '40508' 'Singapore, SG'
-        speed_test '13039' 'Jakarta, ID'
+        speed_test '56632' 'Jakarta, ID'
         speed_test '28910' 'Tokyo, JP'
     fi 
     
