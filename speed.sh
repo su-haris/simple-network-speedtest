@@ -186,7 +186,7 @@ speed() {
         speed_test '53393' 'Toronto, ON'
         speed_test '46416' 'Montreal, QC'
         echo -e
-        speed_test '35055' 'New York, NY'
+        speed_test '36817' 'New York, NY'
         speed_test '32493' 'Ashburn, VA'
         speed_test '27833' 'Charlotte, NC' 
         speed_test '40889' 'Atlanta, GA'
@@ -203,7 +203,7 @@ speed() {
         speed_test '56808' 'Phoenix, AZ' 
         speed_test '34840' 'Los Angeles, CA'
         speed_test '49365' 'San Jose, CA'   
-        speed_test '56795' 'Seattle, WA'
+        speed_test '50679' 'Seattle, WA'
         echo -e
         speed_test '11550' 'Mexico City, MX'
         speed_test '53961' 'Guadalajara, MX' 
@@ -315,7 +315,7 @@ speed() {
         speed_test '34840' 'Los Angeles, US'
         speed_test '22288' 'Dallas, US'
         speed_test '35055' 'New York, US'
-        speed_test '1782'  'Seattle, US'
+        speed_test '45799'  'Seattle, US'
         speed_test '47746' 'Miami, US'
         speed_test '46143' 'Toronto, CA'
         echo -e 
@@ -423,9 +423,6 @@ ip_info() {
     if [[ -n "$city" && -n "$region" && -n "$country" ]]; then
         echo " Location           : $(_yellow "$city, $region-$region_code, $country")"
     fi
-    # if [[ -n "$country" ]]; then
-    #     echo " Country            : $(_yellow "$country")"
-    # fi
 
     # IPINFO.IO Details - IPv4 only
 
@@ -440,10 +437,16 @@ ip_info() {
     local ipv4_country=$(echo "$response_ipv4" | grep -Po '"country": *\K"[^"]*"')
     local ipv4_country=${ipv4_country//\"}
 
+    local ipv4_asn=$(echo "$response_ipv4" | grep -Po '"org": *\K"[^"]*"')
+    local ipv4_asn=${ipv4_asn//\"}
     
     if [[ "$ipv4_city" != "$city" && "$ipv4_region" != "$region" && -n "$ipv4_city" && -n "$ipv4_region" && -n "$ipv4_country" ]]; then
         echo " Location (IPv4)    : $(_yellow "$ipv4_city, $ipv4_region, $ipv4_country")"
     fi
+
+    if [[ "$ipv4_asn" != "$as" ]]; then
+        echo " ASN (IPv4)         : $(_blue "$ipv4_asn")"
+    fi    
 }
 
 install_speedtest() {
@@ -488,7 +491,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.05.24)"
+    echo " Version            : $(_green v2023.05.28)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
