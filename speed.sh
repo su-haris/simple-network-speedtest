@@ -202,7 +202,8 @@ speed() {
         speed_test '53984' 'Las Vegas, NV'  
         speed_test '56808' 'Phoenix, AZ' 
         speed_test '34840' 'Los Angeles, CA'
-        speed_test '49365' 'San Jose, CA'   
+        speed_test '45777' 'Santa Clara, CA'
+        speed_test '49365' 'San Jose, CA'
         speed_test '50679' 'Seattle, WA'
         echo -e
         speed_test '11550' 'Mexico City, MX'
@@ -249,14 +250,14 @@ speed() {
         speed_test '35461' 'Oslo, NO'
         speed_test '3682' 'Moscow, RU'
         speed_test '4247' 'Petersburg, RU'
-        speed_test '11945' 'Tbilisi, GE'
         speed_test '31851' 'Istanbul, TR'
+        speed_test '11945' 'Tbilisi, GE'
     elif [ "$REGION" = "au" ]; then
         speed_test '18473' 'Brisbane'
         speed_test '44735' 'Sydney'
         speed_test '12492' 'Sydney'
         speed_test '15136' 'Perth'
-        speed_test '50848'  'Perth' 
+        speed_test '50848' 'Perth' 
         speed_test '43024' 'Melbourne'
         speed_test '12491' 'Melbourne'
         speed_test '13277' 'Adelaide'
@@ -409,21 +410,6 @@ ip_info() {
     local as=$(echo "$response" | grep -Po '"as": *\K"[^"]*"')
     local as=${as//\"}
 
-    if [[ -n "$net_type" ]]; then
-        echo " Primary Network    : $(_green "$net_type")"
-    fi
-
-    if [[ -n "$isp" && -n "$as" ]]; then
-        echo " ISP                : $(_blue "$isp")"
-        echo " ASN                : $(_blue "$as")"
-    fi
-    if [[ -n "$org" ]]; then
-        echo " Host               : $(_blue "$org")"
-    fi
-    if [[ -n "$city" && -n "$region" && -n "$country" ]]; then
-        echo " Location           : $(_yellow "$city, $region-$region_code, $country")"
-    fi
-
     # IPINFO.IO Details - IPv4 only
 
     local response_ipv4=$(wget -qO- ipinfo.io)
@@ -439,13 +425,30 @@ ip_info() {
 
     local ipv4_asn=$(echo "$response_ipv4" | grep -Po '"org": *\K"[^"]*"')
     local ipv4_asn=${ipv4_asn//\"}
-    
-    if [[ "$ipv4_city" != "$city" && "$ipv4_region" != "$region" && -n "$ipv4_city" && -n "$ipv4_region" && -n "$ipv4_country" ]]; then
-        echo " Location (IPv4)    : $(_yellow "$ipv4_city, $ipv4_region, $ipv4_country")"
+
+    if [[ -n "$net_type" ]]; then
+        echo " Primary Network    : $(_green "$net_type")"
+    fi
+
+    if [[ -n "$isp" && -n "$as" ]]; then
+        echo " ISP                : $(_blue "$isp")"
+        echo " ASN                : $(_blue "$as")"
     fi
 
     if [[ "$ipv4_asn" != "$as" ]]; then
         echo " ASN (IPv4)         : $(_blue "$ipv4_asn")"
+    fi   
+
+    if [[ -n "$org" ]]; then
+        echo " Host               : $(_blue "$org")"
+    fi
+
+    if [[ -n "$city" && -n "$region" && -n "$country" ]]; then
+        echo " Location           : $(_yellow "$city, $region-$region_code, $country")"
+    fi
+
+    if [[ "$ipv4_city" != "$city" && "$ipv4_region" != "$region" && -n "$ipv4_city" && -n "$ipv4_region" && -n "$ipv4_country" ]]; then
+        echo " Location (IPv4)    : $(_yellow "$ipv4_city, $ipv4_region, $ipv4_country")"
     fi    
 }
 
