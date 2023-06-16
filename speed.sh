@@ -189,7 +189,7 @@ speed() {
         speed_test '36817' 'New York, NY'
         speed_test '32493' 'Ashburn, VA'
         speed_test '27833' 'Charlotte, NC' 
-        speed_test '40889' 'Atlanta, GA'
+        speed_test '41360' 'Atlanta, GA'
         speed_test '47746' 'Miami, FL'
         speed_test '22288' 'Dallas, TX'
         speed_test '47512' 'Kansas, MO'
@@ -204,10 +204,11 @@ speed() {
         speed_test '34840' 'Los Angeles, CA'
         speed_test '45777' 'Santa Clara, CA'
         speed_test '49365' 'San Jose, CA'
+        speed_test '58291' 'Spokane, WA'
         speed_test '50679' 'Seattle, WA'
         echo -e
-        speed_test '11550' 'Mexico City, MX'
-        speed_test '53961' 'Guadalajara, MX' 
+        speed_test '54754' 'Mexico City, MX'
+        speed_test '7945'  'Guadalajara, MX' 
         speed_test '43759' 'Hermosillo, MX'
     elif [ "$REGION" = "sa" ]; then
         speed_test '21568' 'Sao Paulo, BR'
@@ -290,6 +291,7 @@ speed() {
         speed_test '24447' 'CU - Shanghai'
         speed_test '3633'  'CT - Shanghai' 
         speed_test '25858'  'CM - Beijing' 
+        speed_test '43752'  'CU - Beijing'
         speed_test '26352' 'CT - Nanjing'
         speed_test '37235' 'CU - Shenyang'
         speed_test '5396' 'CT - Suzhou'
@@ -299,6 +301,8 @@ speed() {
         speed_test '28225' 'CT - Changsha'
         speed_test '4870' 'CU - Changsha'
         speed_test '4575' 'CM - Chengdu'
+        speed_test '23844' 'CT - Wuhan'
+        speed_test '29105' 'CM - Xi an'
         echo -e
         speed_test '32155' 'CM - Kwai Chung'
         speed_test '37639'  'CM - Hong Kong' 
@@ -494,7 +498,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.05.28)"
+    echo " Version            : $(_green v2023.06.16)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
