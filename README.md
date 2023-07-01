@@ -211,18 +211,28 @@ wget -qO- network-speed.xyz | bash -s -- -r india
 ```
 
 ## Bandwidth Usage 
-The script usually takes around 10-15 minutes to complete execution for global speedtest.\
+The script usually takes around 10-15 minutes to complete execution.\
 Data usage is hard to estimate since it is completely dependant on the connection and location.\
 However, below is a very rough estimate - based on a few tests on different networks.
 
-| Port Speed (DL/UL) | Data Used | Country 
-|--|--|--|
-|10Gbps Symmetric    | ~130GB | SG |
-|5Gbps Symmetric     | ~60GB  | KR |
-|1Gbps Symmetric     | ~40GB  | US |
-|750Mbps Symmetric   | ~35GB  | DE |
-|500Mbps Symmetric   | ~25GB  | IN |
-|100Mbps Symmetric   | ~6GB   | US |
-|--|--|--|
-|2Gbps/250Mbps       | ~50GB  | DE |
-|1Gbps/250Mbps       | ~35GB  | CA |
+| Port Speed (DL/UL) | Data Used | Country | Test Region 
+|--|--|--|--|
+|10Gbps Symmetric    | ~130GB | SG | GLOBAL
+|5Gbps Symmetric     | ~60GB  | KR | GLOBAL
+|1Gbps Symmetric     | ~40GB  | US | GLOBAL
+|750Mbps Symmetric   | ~35GB  | DE | GLOBAL
+|500Mbps Symmetric   | ~25GB  | IN | GLOBAL
+|100Mbps Symmetric   | ~6GB   | US | GLOBAL
+|--|--|--|--|
+|2Gbps/250Mbps       | ~50GB  | DE | GLOBAL
+|1Gbps/250Mbps       | ~35GB  | CA | GLOBAL
+|--|--|--|--|
+|10Gbps Symmetric    | ~440GB | DE | EU
+|10Gbps Symmetric    | ~400GB | NL | EU
+|1Gbps Symmetric     | ~50GB  | UK | EU
+|--|--|--|--|
+|10Gbps Symmetric    | ~240GB | SG | ASIA
+|--|--|--|--|
+|10Gbps Symmetric    | ~150GB | SG | INDIA
+|--|--|--|--|
+|1Gbps Symmetric     | ~55GB  | US | NA
