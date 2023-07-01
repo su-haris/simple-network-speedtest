@@ -222,7 +222,7 @@ speed() {
         speed_test '6277'  'Caracas, VE' 
         speed_test '44095' 'Bogota, CO'
     elif [ "$REGION" = "eu" ]; then
-        speed_test '37536' 'London, UK'
+        speed_test '26434' 'London, UK'
         speed_test '38157' 'Edinburgh, UK'
         speed_test '38092' 'Dublin, IE' 
         speed_test '51395' 'Amsterdam, NL'
@@ -239,8 +239,8 @@ speed() {
         speed_test '55665' 'Berlin, DE'
         speed_test '12390' 'Vienna, AT'  
         speed_test '1697' 'Budapest, HU' 
-        speed_test '7200' 'Gdansk, PL'
-        speed_test '51157' 'Warsaw, PL'
+        speed_test '23122' 'Gdansk, PL'
+        speed_test '4166'  'Warsaw, PL'
         speed_test '29259' 'Lviv, UA'   
         speed_test '9332' 'Kyiv, UA'
         speed_test '27486' 'Minsk, BY'
@@ -311,36 +311,35 @@ speed() {
         speed_test '44745' 'Hong Kong'  
     else
         speed_test '29372' 'Kochi, IN'
-        # speed_test '18976' 'Bangalore, IN'
         speed_test '52216' 'Bangalore, IN'
-        speed_test '9690'  'Chennai, IN' 
+        speed_test '37352' 'Chennai, IN' 
         speed_test '40507' 'Mumbai, IN'
-        speed_test '29658' 'Delhi, IN'
+        speed_test '56195' 'Delhi, IN'
         echo -e
+        speed_test '45799' 'Seattle, US'
         speed_test '34840' 'Los Angeles, US'
         speed_test '22288' 'Dallas, US'
-        speed_test '35055' 'New York, US'
-        speed_test '45799'  'Seattle, US'
         speed_test '47746' 'Miami, US'
+        speed_test '35055' 'New York, US'
         speed_test '46143' 'Toronto, CA'
         echo -e 
-        speed_test '24215' 'Paris, FR'
-        speed_test '35058' 'Amsterdam, NL'
-        speed_test '51157' 'Warsaw, PL'
         speed_test '37536' 'London, UK'
+        speed_test '35058' 'Amsterdam, NL'
+        speed_test '24215' 'Paris, FR'
         speed_test '44081' 'Frankfurt, DE'
+        speed_test '51157' 'Warsaw, PL'
         speed_test '15004' 'Bucharest, RO'
         echo -e 
+        speed_test '14580' 'Jeddah, KSA'
         speed_test '4845'  'Dubai, AE'
         speed_test '34240' 'Fujairah, AE'
-        speed_test '14580' 'Jeddah, KSA'
         echo -e 
+        speed_test '28910' 'Tokyo, JP'
         speed_test '24447' 'Shanghai, CU-CN'
         speed_test '26352' 'Nanjing, CT-CN'
         speed_test '1536'  'Hong Kong, HKG'
         speed_test '40508' 'Singapore, SG'
         speed_test '56632' 'Jakarta, ID'
-        speed_test '28910' 'Tokyo, JP'
     fi 
     
 
@@ -434,9 +433,16 @@ ip_info() {
         echo " Primary Network    : $(_green "$net_type")"
     fi
 
-    if [[ -n "$isp" && -n "$as" ]]; then
+    if [[ -n "$isp" ]]; then
         echo " ISP                : $(_blue "$isp")"
+    else
+        echo " ISP                : Unknown"
+    fi
+
+    if [[ -n "$as" ]]; then
         echo " ASN                : $(_blue "$as")"
+    else
+        echo " ASN                : Unknown"
     fi
 
     if [[ "$ipv4_asn" != "$as" ]]; then
@@ -498,7 +504,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.06.16)"
+    echo " Version            : $(_green v2023.07.02)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
