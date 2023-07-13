@@ -120,17 +120,17 @@ speed() {
 
     if [ "$REGION" = "india" ]; then
         speed_test '47668' 'Mumbai, MH'
-        speed_test '24161' 'Mumbai, MH'
+        speed_test '6879' 'Mumbai, MH'
         speed_test '33603' 'Pune, MH'
         speed_test '18977' 'Hyderabad, AP-TL' 
         speed_test '52216' 'Bangalore, KA'
         speed_test '7379' 'Bangalore, KA'
         speed_test '35402' 'Mangalore, KA'
-        speed_test '9690' 'Chennai, TN'
-        speed_test '40455' 'Chennai, TN'
+        speed_test '19117' 'Chennai, TN'
+        speed_test '22796' 'Chennai, TN'
         speed_test '20107' 'Coimbatore, TN'
         speed_test '34444' 'Madurai, TN'
-        speed_test '10112' 'Kochi, KL' 
+        speed_test '24682' 'Kochi, KL' 
         speed_test '29372' 'Kochi, KL'
         speed_test '43322' 'Trivandrum, KL'
         speed_test '12221' 'Kolkata, WB'
@@ -139,11 +139,11 @@ speed() {
         speed_test '25959' 'Patna, BH'
     elif [ "$REGION" = "asia" ]; then
         speed_test '40507' 'Mumbai, IN'
-        speed_test '9690'  'Chennai, IN' 
+        speed_test '22796'  'Chennai, IN' 
         speed_test '52216' 'Bangalore, IN'
         speed_test '5935' 'Singapore, SG'
         speed_test '4235' 'Singapore, SG'
-        speed_test '48463' 'Tokyo, JP'
+        speed_test '24333' 'Tokyo, JP'
         speed_test '24447' 'China Unicom'
         speed_test '3633'  'China Telecom' 
         speed_test '41910' 'China Mobile'
@@ -159,7 +159,7 @@ speed() {
         speed_test '7167' 'Manila, PH'
         speed_test '18445' 'Tapei, TW' 
         speed_test '797' 'Jakarta, ID'
-        speed_test '36700' 'Surabaya, ID'   
+        speed_test '56045' 'Surabaya, ID'   
         speed_test '19302' 'Kuala Lum, MY'
         speed_test '6389' 'Novosibirsk, RU'
         speed_test '31851' 'Istanbul, TR'
@@ -219,7 +219,7 @@ speed() {
         speed_test '8017' 'Santiago, CL'
         speed_test '3455' 'Lima, PE'
         speed_test '21800' 'Quito, EC'
-        speed_test '6277'  'Caracas, VE' 
+        speed_test '56516'  'Caracas, VE' 
         speed_test '44095' 'Bogota, CO'
     elif [ "$REGION" = "eu" ]; then
         speed_test '26434' 'London, UK'
@@ -227,11 +227,11 @@ speed() {
         speed_test '38092' 'Dublin, IE' 
         speed_test '51395' 'Amsterdam, NL'
         speed_test '20005' 'Dronten, NL'
-        speed_test '24215' 'Paris, FR'
+        speed_test '29542' 'Bordeux, FR'
         speed_test '48390' 'Marseille, FR'
         speed_test '14979' 'Madrid, ES'
         speed_test '1695' 'Barcelona, ES'
-        speed_test '34265' 'Lisbon, PT' 
+        speed_test '29467' 'Lisbon, PT' 
         speed_test '3243' 'Rome, IT'
         speed_test '4302' 'Milan, IT'
         speed_test '23969' 'Zurich, CH'
@@ -325,7 +325,7 @@ speed() {
         echo -e 
         speed_test '37536' 'London, UK'
         speed_test '35058' 'Amsterdam, NL'
-        speed_test '24215' 'Paris, FR'
+        speed_test '28308' 'Paris, FR'
         speed_test '44081' 'Frankfurt, DE'
         speed_test '51157' 'Warsaw, PL'
         speed_test '15004' 'Bucharest, RO'
@@ -504,7 +504,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.07.02)"
+    echo " Version            : $(_green v2023.07.14)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
