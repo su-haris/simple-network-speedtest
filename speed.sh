@@ -122,7 +122,7 @@ speed() {
         speed_test '47668' 'Mumbai, MH'
         speed_test '6879' 'Mumbai, MH'
         speed_test '33603' 'Pune, MH'
-        speed_test '18977' 'Hyderabad, AP-TL' 
+        speed_test '18977' 'Hyderabad, AP/TL' 
         speed_test '52216' 'Bangalore, KA'
         speed_test '7379' 'Bangalore, KA'
         speed_test '35402' 'Mangalore, KA'
@@ -200,7 +200,7 @@ speed() {
         speed_test '56839' 'Denver, CO'
         speed_test '10162' 'Portland, OR'
         speed_test '53984' 'Las Vegas, NV'  
-        speed_test '56808' 'Phoenix, AZ' 
+        speed_test '27746' 'Phoenix, AZ' 
         speed_test '34840' 'Los Angeles, CA'
         speed_test '45777' 'Santa Clara, CA'
         speed_test '49365' 'San Jose, CA'
@@ -209,7 +209,7 @@ speed() {
         echo -e
         speed_test '54754' 'Mexico City, MX'
         speed_test '7945'  'Guadalajara, MX' 
-        speed_test '43759' 'Hermosillo, MX'
+        speed_test '3499' 'Hermosillo, MX'
     elif [ "$REGION" = "sa" ]; then
         speed_test '21568' 'Sao Paulo, BR'
         speed_test '3065' 'Rio, BR'
@@ -504,7 +504,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.07.14)"
+    echo " Version            : $(_green v2023.07.23)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -614,7 +614,7 @@ print_end_time() {
 }
 
 get_runs_counter() {
-    local counter=$(wget -qO- https://counter.network-speed.xyz/)
+    local counter=$(wget -qO- https://count.network-speed.xyz/)
 
     if [[ -n "$counter" ]]; then
         echo " Total Script Runs  : $(_green "$counter")"
