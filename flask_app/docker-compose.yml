@@ -1,0 +1,8 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "2141:8000"
+    volumes:
+      - ./counter.txt:/app/counter.txt
