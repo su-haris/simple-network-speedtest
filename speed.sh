@@ -504,7 +504,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.07.23)"
+    echo " Version            : $(_green v2023.07.24)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -614,7 +614,7 @@ print_end_time() {
 }
 
 get_runs_counter() {
-    local counter=$(wget -qO- https://count.network-speed.xyz/)
+    local counter=$(wget -qO- https://runs.network-speed.xyz/)
 
     if [[ -n "$counter" ]]; then
         echo " Total Script Runs  : $(_green "$counter")"
