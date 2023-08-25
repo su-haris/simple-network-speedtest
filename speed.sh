@@ -504,7 +504,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.07.24)"
+    echo " Version            : $(_green v2023.08.25)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -718,7 +718,7 @@ done
 run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
 
 if command -v curl >/dev/null; then
-  share_link=$(curl -s -X POST -F 'file=@network-speed.txt' https://frocdn.com/curl.php)
+  share_link=$(curl -s -X POST -F 'file=@network-speed.txt' -F "region=$REGION" https://result.network-speed.xyz/upload)
   if [ $? -ne 0 ]; then
     echo " Unable to share result online"
     echo " Result stored locally in $PWD/network-speed.txt"
