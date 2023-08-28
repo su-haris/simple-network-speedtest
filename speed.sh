@@ -126,11 +126,12 @@ speed() {
         speed_test '52216' 'Bangalore, KA'
         speed_test '7379' 'Bangalore, KA'
         speed_test '35402' 'Mangalore, KA'
-        speed_test '19117' 'Chennai, TN'
-        speed_test '22796' 'Chennai, TN'
+        #speed_test '19117' 'Chennai, TN'
+        #speed_test '22796' 'Chennai, TN'
+        speed_test '9690' 'Chennai, TN'
         speed_test '20107' 'Coimbatore, TN'
         speed_test '34444' 'Madurai, TN'
-        speed_test '24682' 'Kochi, KL' 
+        speed_test '10112' 'Kochi, KL' 
         speed_test '29372' 'Kochi, KL'
         speed_test '43322' 'Trivandrum, KL'
         speed_test '12221' 'Kolkata, WB'
@@ -139,13 +140,15 @@ speed() {
         speed_test '25959' 'Patna, BH'
     elif [ "$REGION" = "asia" ]; then
         speed_test '40507' 'Mumbai, IN'
-        speed_test '22796'  'Chennai, IN' 
+        speed_test '9690'  'Chennai, IN' 
         speed_test '52216' 'Bangalore, IN'
         speed_test '5935' 'Singapore, SG'
         speed_test '4235' 'Singapore, SG'
         speed_test '24333' 'Tokyo, JP'
-        speed_test '24447' 'China Unicom'
-        speed_test '3633'  'China Telecom' 
+        #speed_test '24447' 'China Unicom'
+        #speed_test '3633'  'China Telecom' 
+        speed_test '28225' 'China Telecom'
+        speed_test '4870' 'China Unicom'
         speed_test '41910' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
         speed_test '32238' 'Karachi, PK'
@@ -204,7 +207,7 @@ speed() {
         speed_test '34840' 'Los Angeles, CA'
         speed_test '45777' 'Santa Clara, CA'
         speed_test '49365' 'San Jose, CA'
-        speed_test '58291' 'Spokane, WA'
+        #speed_test '58291' 'Spokane, WA'
         speed_test '50679' 'Seattle, WA'
         echo -e
         speed_test '54754' 'Mexico City, MX'
@@ -263,6 +266,7 @@ speed() {
         speed_test '12491' 'Melbourne'
         speed_test '13277' 'Adelaide'
         speed_test '18711' 'Canberra'
+        echo -e
         speed_test '4953'  'Auckland' 
         speed_test '34083' 'Auckland'
     elif [ "$REGION" = "africa" ]; then
@@ -284,7 +288,7 @@ speed() {
         speed_test '18512' 'Tehran'
         speed_test '4317'  'Tehran' 
         speed_test '43844'  'Tehran' 
-        speed_test '9889' 'Shiraz'
+        speed_test '22297' 'Shiraz'
         speed_test '22245' 'Isfahan'
         speed_test '9888' 'Tabriz'
     elif [ "$REGION" = "china" ]; then
@@ -303,6 +307,8 @@ speed() {
         speed_test '4575' 'CM - Chengdu'
         speed_test '23844' 'CT - Wuhan'
         speed_test '29105' 'CM - Xi an'
+        speed_test '17145' 'CT - Hefei'
+        speed_test '34115' 'CT - TianJin'
         echo -e
         speed_test '32155' 'CM - Kwai Chung'
         speed_test '37639'  'CM - Hong Kong' 
@@ -312,7 +318,7 @@ speed() {
     else
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
-        speed_test '37352' 'Chennai, IN' 
+        speed_test '9690' 'Chennai, IN' 
         speed_test '40507' 'Mumbai, IN'
         speed_test '56195' 'Delhi, IN'
         echo -e
@@ -320,7 +326,7 @@ speed() {
         speed_test '34840' 'Los Angeles, US'
         speed_test '22288' 'Dallas, US'
         speed_test '47746' 'Miami, US'
-        speed_test '35055' 'New York, US'
+        speed_test '46120' 'New York, US'
         speed_test '46143' 'Toronto, CA'
         echo -e 
         speed_test '37536' 'London, UK'
@@ -335,7 +341,8 @@ speed() {
         speed_test '34240' 'Fujairah, AE'
         echo -e 
         speed_test '28910' 'Tokyo, JP'
-        speed_test '24447' 'Shanghai, CU-CN'
+        #speed_test '24447' 'Shanghai, CU-CN'
+        speed_test '37235' 'Shenyang, CU-CN'
         speed_test '26352' 'Nanjing, CT-CN'
         speed_test '1536'  'Hong Kong, HKG'
         speed_test '40508' 'Singapore, SG'
@@ -504,7 +511,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.07.24)"
+    echo " Version            : $(_green v2023.08.28)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -727,7 +734,7 @@ if command -v curl >/dev/null; then
         echo " Result             : $share_link"
         rm network-speed.txt
     else
-        echo " Unable to share result online - There is some issue with the provider."
+        echo " Unable to share result online - There is some issue with the online uploader."
         echo " Result stored locally in $PWD/network-speed.txt"
     fi    
   fi
