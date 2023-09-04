@@ -216,9 +216,10 @@ speed() {
         #speed_test '58291' 'Spokane, WA'
         speed_test '50679' 'Seattle, WA'
         echo -e
-        speed_test '54754' 'Mexico City, MX'
-        speed_test '7945'  'Guadalajara, MX' 
         speed_test '3499' 'Hermosillo, MX'
+        speed_test '7945'  'Guadalajara, MX'
+        speed_test '54754' 'Mexico City, MX' 
+        speed_test '9176' 'Merida, MX'
     elif [ "$REGION" = "sa" ]; then
         speed_test '21568' 'Sao Paulo, BR'
         speed_test '3065' 'Rio, BR'
@@ -276,9 +277,9 @@ speed() {
         speed_test '4953'  'Auckland' 
         speed_test '34083' 'Auckland'
     elif [ "$REGION" = "africa" ]; then
-        speed_test '2962' 'Cape Town, SA'
-        speed_test '1491' 'Cape Town, SA'
-        speed_test '21570' 'Johannesburg, SA'
+        speed_test '2962' 'Cape Town, ZA'
+        speed_test '1491' 'Cape Town, ZA'
+        speed_test '21570' 'Johannesburg, ZA'
         speed_test '56612' 'Harare, ZW'
         speed_test '28816' 'Maputo, MZ' 
         speed_test '7755' 'Antananarivo, MG'
