@@ -166,6 +166,8 @@ speed() {
         speed_test '19302' 'Kuala Lum, MY'
         speed_test '6389' 'Novosibirsk, RU'
         speed_test '31851' 'Istanbul, TR'
+        speed_test '17336' 'Dubai, AE'
+        speed_test '1733' 'Jeddah, SA'
     elif [ "$REGION" = "middle-east" ]; then
         speed_test '1692' 'Abu Dhabi, AE'
         speed_test '22129' 'Dubai, AE'
@@ -187,6 +189,7 @@ speed() {
         speed_test '3049' 'Vancouver, BC'
         #speed_test '3575'  'Toronto, ON' 
         speed_test '4207'  'Calgary, AB'
+        speed_test '1493'  'Winnipeg, MB'
         speed_test '53393' 'Toronto, ON'
         speed_test '46416' 'Montreal, QC'
         echo -e
@@ -196,6 +199,7 @@ speed() {
         speed_test '41360' 'Atlanta, GA'
         speed_test '47746' 'Miami, FL'
         speed_test '22288' 'Dallas, TX'
+        speed_test '45284' 'Houston, TX'
         speed_test '47512' 'Kansas, MO'
         speed_test '15869' 'Minneapolis, MN'
         speed_test '21364' 'Chicago, IL' 
@@ -338,7 +342,7 @@ speed() {
         speed_test '51157' 'Warsaw, PL'
         speed_test '15004' 'Bucharest, RO'
         echo -e 
-        speed_test '14580' 'Jeddah, KSA'
+        speed_test '14580' 'Jeddah, SA'
         speed_test '4845'  'Dubai, AE'
         speed_test '34240' 'Fujairah, AE'
         echo -e 
