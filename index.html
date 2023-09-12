@@ -16,19 +16,20 @@
 <body class="stackedit">
   <div class="stackedit__html"><h1 id="network-speed.xyz">network-speed.xyz</h1>
 <p><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=Visitors&amp;edge_flat=false" alt="Hits"></a></p>
-<p>Just a simple script for testing network performance.</p>
-<p>Shows the following info:</p>
+<p>Your Reliable Script for Comprehensive Network Performance Testing.</p>
+<h2 id="features">Features</h2>
 <ul>
-<li>Basic System Info - like CPU, RAM, Disk etc</li>
-<li>Basic Network Info - Protocol (IPv4/v6), ISP, Location etc</li>
-<li>Global Ookla <a href="http://speedtest.net">speedtest.net</a> to servers around the world with speed, ping, packet loss etc</li>
-<li>Regional Ookla <a href="http://speedtest.net">speedtest.net</a> for below regions
+<li>System Overview: Quick snapshot of your device's core hardware components like CPU, RAM, Disk and more.</li>
+<li>Network Overview: Detailed information including your protocol type (IPv4/v6), ISP, geographical location and other network-based data.</li>
+<li>Comprehensive Speedtest: Perform an all-encompassing speedtest using the renowned Ookla speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.</li>
+<li>Regional Speedtest: Get a regional perspective towards your network performance with tests targeted towards specific parts of the world, currently including:
 <ul>
 <li>North America</li>
 <li>South America</li>
 <li>Europe</li>
 <li>Asia</li>
 <li>Africa</li>
+<li>Australia</li>
 <li>GCC Middle East</li>
 <li>India</li>
 <li>China</li>
@@ -36,8 +37,8 @@
 <li>More coming soon!</li>
 </ul>
 </li>
-<li>Statistics from the speedtest</li>
-<li>Shareable Link (FroCDN) of the result</li>
+<li>Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.</li>
+<li>Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.</li>
 </ul>
 <p>Thanks to Teddysun <a href="mailto:i@teddysun.com">i@teddysun.com</a> for the base <a href="http://bench.sh">bench.sh</a> script</p>
 <h2 id="usage">Usage</h2>
@@ -47,7 +48,7 @@
 <pre><code>wget -qO- network-speed.xyz | bash
 </code></pre>
 <h3 id="regional-speedtest">Regional Speedtest</h3>
-<p>region_name = na, sa, eu, asia, africa, middle-east, india, china, iran</p>
+<p>region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran</p>
 <pre><code>curl -sL network-speed.xyz | bash -s -- -r region_name
 </code></pre>
 <pre><code>wget -qO- network-speed.xyz | bash -s -- -r region_name
