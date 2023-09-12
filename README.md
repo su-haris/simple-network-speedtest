@@ -1,13 +1,13 @@
-# A simple script for testing network performance with speedtest-cli
+# A simple script for benchmarking network performance with speedtest-cli
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
-Just a simple script for testing network performance.
+Your Reliable Script for Comprehensive Network Performance Testing.
 
-Shows the following info:
-   - Basic System Info - like CPU, RAM, Disk etc
-   - Basic Network Info - Protocol (IPv4/v6), ISP, Location etc
-   - Global Ookla speedtest.net to servers around the world with speed, ping, packet loss etc
-   - Regional Ookla speedtest.net for below regions
+## Features
+   - System Overview: Quick snapshot of your device's core hardware components like CPU, RAM, Disk and more.
+   - Network Overview: Detailed information including your protocol type (IPv4/v6), ISP, geographical location and other network-based data.
+   - Comprehensive Speedtest: Perform an all-encompassing speedtest using the renowned Ookla speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.
+   - Regional Speedtest: Get a regional perspective towards your network performance with tests targeted towards specific parts of the world, currently including:
       - North America
       - South America
       - Europe
@@ -17,9 +17,9 @@ Shows the following info:
       - India
       - China
       - Iran
-      - More coming soon!
-   - Statistics from the speedtest
-   - Shareable Link of the result 
+      - And more coming soon!
+   - Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.
+   - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
 
 
 Thanks to Teddysun <i@teddysun.com> for the base bench.sh script
