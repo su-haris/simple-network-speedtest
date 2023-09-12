@@ -337,7 +337,7 @@ speed() {
         speed_test '46143' 'Toronto, CA'
         echo -e 
         speed_test '37536' 'London, UK'
-        speed_test '35058' 'Amsterdam, NL'
+        speed_test '23094' 'Amsterdam, NL'
         speed_test '28308' 'Paris, FR'
         speed_test '44081' 'Frankfurt, DE'
         speed_test '51157' 'Warsaw, PL'
@@ -348,8 +348,8 @@ speed() {
         speed_test '34240' 'Fujairah, AE'
         echo -e 
         speed_test '28910' 'Tokyo, JP'
-        #speed_test '24447' 'Shanghai, CU-CN'
-        speed_test '37235' 'Shenyang, CU-CN'
+        speed_test '24447' 'Shanghai, CU-CN'
+        #speed_test '37235' 'Shenyang, CU-CN'
         speed_test '26352' 'Nanjing, CT-CN'
         speed_test '1536'  'Hong Kong, CN'
         speed_test '40508' 'Singapore, SG'
