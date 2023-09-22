@@ -310,7 +310,7 @@ speed() {
         echo -e
         speed_test '5065' 'Bandung'
         speed_test '32223' 'Bekasi'
-        speed_test '40893' 'Bogor'
+        speed_test '40839' 'Bogor'
         speed_test '40832' 'Malang'
         speed_test '55786' 'Semarang'
         speed_test '56045' 'Surabaya'
