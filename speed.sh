@@ -323,7 +323,7 @@ speed() {
         echo -e 
         speed_test '21959' 'Bali'
         speed_test '45884' 'Makassar'
-        speed_test '54900' 'Depok'
+        speed_test '45520' 'Depok'
         speed_test '47361' 'Tangerang'
     elif [ "$REGION" = "china" ]; then
         speed_test '24447' 'CU - Shanghai'
