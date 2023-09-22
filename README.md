@@ -18,6 +18,7 @@ Your Reliable Script for Comprehensive Network Performance Testing.
       - India
       - China
       - Iran
+      - Indonesia
       - And more coming soon!
    - Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.
    - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
@@ -36,7 +37,7 @@ wget -qO- network-speed.xyz | bash
 ```
 
 ### Regional Speedtest
-region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran
+region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran, indonesia
 ```
 curl -sL network-speed.xyz | bash -s -- -r region_name
 ```

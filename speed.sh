@@ -211,7 +211,7 @@ speed() {
         speed_test '54751' 'Salt Lake, UT'  
         speed_test '27746' 'Phoenix, AZ' 
         speed_test '34840' 'Los Angeles, CA'
-        speed_test '48240' 'Santa Clara, CA'
+        #speed_test '48240' 'Santa Clara, CA'
         speed_test '49365' 'San Jose, CA'
         #speed_test '58291' 'Spokane, WA'
         speed_test '50679' 'Seattle, WA'
@@ -243,7 +243,8 @@ speed() {
         speed_test '1695' 'Barcelona, ES'
         speed_test '29467' 'Lisbon, PT' 
         speed_test '3243' 'Rome, IT'
-        speed_test '4302' 'Milan, IT'
+        #speed_test '4302' 'Milan, IT'
+        speed_test '7839' 'Milan, IT'
         speed_test '23969' 'Zurich, CH'
         speed_test '44081' 'Frankfurt, DE'
         speed_test '55665' 'Berlin, DE'
@@ -287,7 +288,7 @@ speed() {
         speed_test '8402' 'Nairobi, KE'
         speed_test '48973' 'Addis Ababa, ET'
         speed_test '34283'  'Cairo, EG' 
-        speed_test '15495' 'Alexandria, EG' 
+        speed_test '26790' 'Alexandria, EG' 
         speed_test '54524' 'Rabat, MA' 
         speed_test '15631' 'Algiers, DZ' 
         speed_test '33159' 'Lagos, NG'    
@@ -295,12 +296,38 @@ speed() {
         speed_test '18512' 'Tehran'
         speed_test '4317'  'Tehran' 
         speed_test '43844'  'Tehran' 
+        speed_test '10076'  'Mashhad' 
+        speed_test '22295'  'Mashhad'
         speed_test '22297' 'Shiraz'
         speed_test '22245' 'Isfahan'
         speed_test '9888' 'Tabriz'
+    elif [ "$REGION" = "indonesia" ]; then
+        speed_test '14325' 'Jakarta'
+        speed_test '49585' 'Jakarta'
+        speed_test '56632' 'Jakarta'
+        speed_test '13039' 'Jakarta'
+        speed_test '11118' 'Jakarta'
+        echo -e
+        speed_test '5065' 'Bandung'
+        speed_test '32223' 'Bekasi'
+        speed_test '40893' 'Bogor'
+        speed_test '40832' 'Malang'
+        speed_test '55786' 'Semarang'
+        speed_test '56045' 'Surabaya'
+        speed_test '24587' 'Yogyakarta'
+        echo -e 
+        speed_test '59117' 'Banda Aceh'
+        speed_test '46100' 'Medan'
+        speed_test '57191' 'Palembang'
+        speed_test '53101' 'Pekanbaru' 
+        echo -e 
+        speed_test '21959' 'Bali'
+        speed_test '45884' 'Makassar'
+        speed_test '54900' 'Depok'
+        speed_test '47361' 'Tangerang'
     elif [ "$REGION" = "china" ]; then
         speed_test '24447' 'CU - Shanghai'
-        speed_test '3633'  'CT - Shanghai' 
+        # speed_test '3633'  'CT - Shanghai' 
         speed_test '25858'  'CM - Beijing' 
         speed_test '43752'  'CU - Beijing'
         speed_test '26352' 'CT - Nanjing'
@@ -676,7 +703,7 @@ while getopts ":r:" opt; do
           ;;
         middle-east)
           REGION="middle-east"
-          REGION_NAME="GCC MIDDLE EAST"
+          REGION_NAME="GCC MIDDLE EAST | مجلس التعاون خلیج العربب"
           ;;
         na)
           REGION="na"
@@ -684,7 +711,7 @@ while getopts ":r:" opt; do
           ;;
         sa)
           REGION="sa"
-          REGION_NAME="SOUTH AMERICA"
+          REGION_NAME="SOUTH AMERICA | LA AMÉRICA DEL SUR"
           ;;
         eu)
           REGION="eu"
@@ -700,12 +727,16 @@ while getopts ":r:" opt; do
           ;;  
         iran)
           REGION="iran"
-          REGION_NAME="IRAN ایران"
+          REGION_NAME="IRAN | ایران"
           ;;  
         china)
           REGION="china"
-          REGION_NAME="CHINA 中華人民共和國"
+          REGION_NAME="CHINA | 中華人民共和國"
           ;;  
+        indonesia)
+          REGION="indonesia"
+          REGION_NAME="INDONESIA"
+          ;;    
         *)
           echo "Invalid REGION: $OPTARG" >&2
           echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran"
