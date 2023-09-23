@@ -23,8 +23,8 @@ Your Reliable Script for Comprehensive Network Performance Testing.
    - Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.
    - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
 
-
-Thanks to Teddysun <i@teddysun.com> for the base bench.sh script
+Big Thanks and shout out to [Crunchbits LLC](https://crunchbits.com/) for sponsoring the Hosting Infrastructure.<br>
+Thanks to Teddysun <i@teddysun.com> for the base bench.sh script.
 
 ## Usage
 
