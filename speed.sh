@@ -176,7 +176,7 @@ speed() {
         speed_test '11271' 'Seeb, OM'
         speed_test '15570' 'Sanaa, YE'
         speed_test '6193' 'Doha, QA'
-        speed_test '51669' 'Lusail, QA'
+        speed_test '51657' 'Rayan, QA'
         speed_test '17574'  'Manama, BH' 
         speed_test '52650' 'Rifa, BH'
         speed_test '25444' 'Kuwait, KW'
