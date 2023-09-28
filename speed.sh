@@ -119,7 +119,7 @@ speed() {
     echo -e
 
     if [ "$REGION" = "india" ]; then
-        speed_test '47668' 'Mumbai, MH'
+        speed_test '24161' 'Mumbai, MH'
         speed_test '6879' 'Mumbai, MH'
         speed_test '33603' 'Pune, MH'
         speed_test '18977' 'Hyderabad, AP/TL' 
@@ -152,7 +152,7 @@ speed() {
         speed_test '41910' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
         speed_test '32238' 'Karachi, PK'
-        speed_test '4774' 'Islamabad, PK'
+        speed_test '9716' 'Lahore, PK'
         speed_test '55587' 'Kathmandu, NP'
         speed_test '46291' 'Colombo, SL'
         speed_test '10424' 'Dhaka, BD'
