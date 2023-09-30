@@ -427,11 +427,15 @@ calc_size() {
 ip_info() {
     echo " Basic Network Info"
     next
-    local net_type="$(wget -qO- http://ip6.me/api/ | cut -d, -f1)"
-    local net_ip="$(wget -qO- http://ip6.me/api/ | cut -d, -f2)"
+    # local net_type="$(wget -T 5 -qO- http://ip6.me/api/ | cut -d, -f1)"
+
+    local ipv4_check=$((ping -4 -c 1 -W 4 ipv4.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -4 icanhazip.com 2> /dev/null)
+    local ipv6_check=$((ping -6 -c 1 -W 4 ipv6.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -6 icanhazip.com 2> /dev/null)
+
+    local net_ip="$(wget -T 5 -qO- ipconfig.io)"
 
     # IP-API Details - IPv6/IPv4
-    local response=$(wget -qO- http://ip-api.com/json/$net_ip)
+    local response=$(wget -qO- -T 5 http://ip-api.com/json/$net_ip)
 
     local country=$(echo "$response" | grep -Po '"country": *\K"[^"]*"')
     local country=${country//\"}
@@ -456,7 +460,7 @@ ip_info() {
 
     # IPINFO.IO Details - IPv4 only
 
-    local response_ipv4=$(wget -qO- ipinfo.io)
+    local response_ipv4=$(wget -qO- -T 5 ipinfo.io)
 
     local ipv4_city=$(echo "$response_ipv4" | grep -Po '"city": *\K"[^"]*"')
     local ipv4_city=${ipv4_city//\"}
@@ -472,6 +476,18 @@ ip_info() {
 
     if [[ -n "$net_type" ]]; then
         echo " Primary Network    : $(_green "$net_type")"
+    fi
+
+    if [[ -n "$ipv6_check" ]]; then
+        echo " IPv6 Access        : $(_green "\xE2\x9C\x94 Online")"
+    else
+        echo " IPv6 Access        : $(_red "\xE2\x9D\x8C Offline")"
+    fi
+
+    if [[ -n "$ipv4_check" ]]; then
+        echo " IPv4 Access        : $(_green "\xE2\x9C\x94 Online")"
+    else
+        echo " IPv4 Access        : $(_red "\xE2\x9D\x8C Offline")"
     fi
 
     if [[ -n "$isp" ]]; then
@@ -545,7 +561,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.09.29)"
+    echo " Version            : $(_green v2023.09.30)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
