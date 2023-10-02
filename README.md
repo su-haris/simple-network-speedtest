@@ -230,6 +230,19 @@ wget -qO- network-speed.xyz | bash -s -- -r india
 ---------------------------------------------------------------------------
 ```
 
+## Sample Output (All Regions)
+NA        : https://result.network-speed.xyz/r/1694522045_QVORYM_NA.txt <br>
+SA        : https://result.network-speed.xyz/r/1694528715_JFU3T1_SA.txt <br>
+EU        : https://result.network-speed.xyz/r/1694529083_9KFDDK_EU.txt <br>
+Asia      : https://result.network-speed.xyz/r/1694528694_SIR554_ASIA.txt <br>
+Africa    : https://result.network-speed.xyz/r/1694537113_747AYT_AFRICA.txt <br>
+AU        : https://result.network-speed.xyz/r/1694536652_DGXND8_AU.txt <br>
+GCC       : https://result.network-speed.xyz/r/1694531543_BZ6K6M_MIDDLE-EAST.txt <br>
+India     : https://result.network-speed.xyz/r/1694530534_3C9IAU_INDIA.txt <br>
+China     : https://result.network-speed.xyz/r/1694528635_EI46XX_CHINA.txt <br>
+Iran      : https://result.network-speed.xyz/r/1694528246_6GOL8A_IRAN.txt <br>
+Indonesia : https://result.network-speed.xyz/r/1695397374_P9DYIL_INDONESIA.txt <br>
+
 ## Bandwidth Usage 
 The script usually takes around 10-15 minutes to complete execution.\
 Data usage is hard to estimate since it is completely dependant on the connection and location.\
