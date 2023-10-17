@@ -242,7 +242,7 @@ speed() {
         speed_test '26434' 'London, UK'
         speed_test '38157' 'Edinburgh, UK'
         speed_test '38092' 'Dublin, IE' 
-        speed_test '51395' 'Amsterdam, NL'
+        speed_test '37363' 'Amsterdam, NL'
         speed_test '20005' 'Dronten, NL'
         speed_test '24215' 'Paris, FR'
         speed_test '48390' 'Marseille, FR'
