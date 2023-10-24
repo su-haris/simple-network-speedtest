@@ -166,7 +166,7 @@ speed() {
         speed_test '52216' 'Bangalore, IN'
         speed_test '32238' 'Karachi, PK'
         speed_test '9716'  'Lahore, PK'
-        speed_test '55587' 'Kathmandu, NP'
+        speed_test '54919' 'Kathmandu, NP'
         speed_test '46291' 'Colombo, SL'
         speed_test '10424' 'Dhaka, BD'
         echo -e
