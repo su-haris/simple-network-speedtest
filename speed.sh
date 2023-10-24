@@ -721,7 +721,7 @@ while getopts ":r:" opt; do
       case $OPTARG in
         india)
           REGION="india"
-          REGION_NAME="INDIA भारत"
+          REGION_NAME="INDIA | भारत"
           ;;
         asia)
           REGION="asia"
@@ -729,7 +729,7 @@ while getopts ":r:" opt; do
           ;;
         middle-east)
           REGION="middle-east"
-          REGION_NAME="GCC MIDDLE EAST | مجلس التعاون خلیج العربب"
+          REGION_NAME="GCC MIDDLE EAST | دول مجلس تعاون الخليج العربي"
           ;;
         na)
           REGION="na"
