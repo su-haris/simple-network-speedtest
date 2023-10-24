@@ -92,7 +92,9 @@ speed_test() {
             packet_loss="N/A"
         fi
 
-        if [[ -n "${dl_speed}" && -n "${up_speed}" && -n "${latency}" ]]; then
+        if grep -q "Limit reached" ./speedtest-cli/speedtest.log; then
+            printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${nodeName}" "FAILED - IP has been rate limited. Try again after 1 hour."
+        elif [[ -n "${dl_speed}" && -n "${up_speed}" && -n "${latency}" ]]; then
             printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${nodeName}" "${latency}" "${packet_loss}" "${dl_speed}" "${up_speed}" "${server_details}"
 
             DL_USED=$(awk "BEGIN {print $dl_data_used+$DL_USED; exit}")
@@ -100,7 +102,7 @@ speed_test() {
 
             SUCCESS_TEST=$((SUCCESS_TEST + 1))
             AVG_DL_SPEED=$(awk "BEGIN {print $AVG_DL_SPEED+$dl_speed_num; exit}")
-            AVG_UL_SPEED=$(awk "BEGIN {print $AVG_UL_SPEED+$up_speed_num; exit}")
+            AVG_UL_SPEED=$(awk "BEGIN {print $AVG_UL_SPEED+$up_speed_num; exit}")    
         else
             printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${nodeName}" "FAILED"   
         fi
@@ -148,8 +150,8 @@ speed() {
         speed_test '41910' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
         echo -e
-        speed_test '16749' 'Ho Chi Minh, VN'
-        speed_test '54811' 'Hanoi, VN'
+        speed_test '18250' 'Ho Chi Minh, VN'
+        speed_test '2552' 'Hanoi, VN'
         speed_test '8990'  'Bangkok, TH' 
         speed_test '7167' 'Manila, PH'
         echo -e
@@ -210,7 +212,7 @@ speed() {
         speed_test '21566' 'Kansas, MO'
         speed_test '15869' 'Minneapolis, MN'
         speed_test '21364' 'Chicago, IL' 
-        speed_test '27834' 'Cleveland, OH'
+        speed_test '16969' 'Columbus, OH'
         speed_test '1773' 'Albuquerque, NM'
         speed_test '56839' 'Denver, CO'
         speed_test '10162' 'Portland, OR'
@@ -222,11 +224,12 @@ speed() {
         speed_test '49365' 'San Jose, CA'
         #speed_test '58291' 'Spokane, WA'
         speed_test '50679' 'Seattle, WA'
+        speed_test '980' 'Anchorage, AK'
         echo -e
         speed_test '3499' 'Hermosillo, MX'
         speed_test '7945'  'Guadalajara, MX'
         speed_test '54754' 'Mexico City, MX' 
-        speed_test '9176' 'Merida, MX'
+        #speed_test '9176' 'Merida, MX'
     elif [ "$REGION" = "sa" ]; then
         speed_test '21568' 'Sao Paulo, BR'
         speed_test '3065' 'Rio, BR'
@@ -243,7 +246,7 @@ speed() {
         speed_test '38157' 'Edinburgh, UK'
         speed_test '38092' 'Dublin, IE' 
         speed_test '51395' 'Amsterdam, NL'
-        speed_test '20005' 'Dronten, NL'
+        speed_test '60666' 'Eygelshoen, NL'
         speed_test '24215' 'Paris, FR'
         speed_test '48390' 'Marseille, FR'
         speed_test '14979' 'Madrid, ES'
@@ -397,8 +400,8 @@ speed() {
     DL_USED_IN_GB=$(awk -v dl="$DL_USED" 'BEGIN { printf "%.2f\n", dl/1024 }')
     UL_USED_IN_GB=$(awk -v ul="$UL_USED" 'BEGIN { printf "%.2f\n", ul/1024 }')
 
-    AVG_DL_SPEED=$(awk -v avg_dl="$AVG_DL_SPEED" -v success="$SUCCESS_TEST" 'BEGIN { printf "%.2f\n", avg_dl/success }')
-    AVG_UL_SPEED=$(awk -v avg_ul="$AVG_UL_SPEED" -v success="$SUCCESS_TEST" 'BEGIN { printf "%.2f\n", avg_ul/success }')
+    AVG_DL_SPEED=$(awk -v avg_dl="$AVG_DL_SPEED" -v success="$SUCCESS_TEST" 'BEGIN { if (success != 0) printf "%.2f\n", avg_dl/success; else print "0.00" }')
+    AVG_UL_SPEED=$(awk -v avg_ul="$AVG_UL_SPEED" -v success="$SUCCESS_TEST" 'BEGIN { if (success != 0) printf "%.2f\n", avg_ul/success; else print "0.00" }')
 }
 
 io_test() {
@@ -434,7 +437,7 @@ calc_size() {
 ip_info() {
     echo " Basic Network Info"
     next
-    # local net_type="$(wget -T 5 -qO- http://ip6.me/api/ | cut -d, -f1)"
+    local net_type="$(wget -T 5 -qO- http://ip6.me/api/ | cut -d, -f1)"
 
     local ipv4_check=$((ping -4 -c 1 -W 4 ipv4.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -4 icanhazip.com 2> /dev/null)
     local ipv6_check=$((ping -6 -c 1 -W 4 ipv6.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -6 icanhazip.com 2> /dev/null)
@@ -568,7 +571,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.09.30)"
+    echo " Version            : $(_green v2023.10.24)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -686,8 +689,8 @@ get_runs_counter() {
 }
 
 run_speed_sh() {
-    ! _exists "wget" && _red "Error: wget command not found.\n" && kill -INT $$ && exit 1
-    ! _exists "free" && _red "Error: free command not found.\n" && kill -INT $$ && exit 1
+    ! _exists "wget" && _red "network-speed.xyz is unable to run.\nError: wget command not found.\n" && kill -INT $$ && exit 1
+    ! _exists "free" && _red "network-speed.xyz is unable to run.\nError: free command not found.\n" && kill -INT $$ && exit 1
 
     start_time=$(date +%s)
     get_system_info
