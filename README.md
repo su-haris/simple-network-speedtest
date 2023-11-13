@@ -271,3 +271,6 @@ However, below is a very rough estimate - based on a few tests on different netw
 |10Gbps Symmetric    | ~150GB | SG | INDIA
 |--|--|--|--|
 |1Gbps Symmetric     | ~55GB  | US | NA
+
+## Donations
+<a href="https://www.buymeacoffee.com/shsky97" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
