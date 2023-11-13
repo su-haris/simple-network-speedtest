@@ -14,7 +14,7 @@ Your Reliable Script for Comprehensive Network Performance Testing.
       - Asia
       - Africa
       - Australia
-      - GCC Middle East
+      - Middle East
       - India
       - China
       - Iran
@@ -55,7 +55,7 @@ wget -qO- network-speed.xyz | bash -s -- -r india
 ---------------------------- network-speed.xyz ----------------------------
       A simple script to test network performance using speedtest-cli
 ---------------------------------------------------------------------------
- Version            : v2023.09.04
+ Version            : v2023.11.13
  Global Speedtest   : wget -qO- network-speed.xyz | bash
  Region Speedtest   : wget -qO- network-speed.xyz | bash -s -- -r <region>
 ---------------------------------------------------------------------------
@@ -66,19 +66,21 @@ wget -qO- network-speed.xyz | bash -s -- -r india
  CPU Cache          : 16384 KB
  AES-NI             : ✔ Enabled
  VM-x/AMD-V         : ❌ Disabled
- Total Disk         : 9.3 GB (5.1 GB Used)
- Total RAM          : 461.3 MB (89.1 MB Used)
- Total Swap         : 1024.0 MB (22.7 MB Used)
- System uptime      : 2 days, 18 hour 44 min
- Load average       : 0.26, 0.16, 0.10
- OS                 : Debian GNU/Linux 11
+ Total Disk         : 9.3 GB (4.7 GB Used)
+ Total RAM          : 451.8 MB (145.5 MB Used)
+ Total Swap         : 1024.0 MB (19.5 MB Used)
+ System uptime      : 20 days, 20 hour 41 min
+ Load average       : 0.10, 0.12, 0.09
+ OS                 : Debian GNU/Linux 12
  Arch               : x86_64 (64 Bit)
- Kernel             : 5.10.0-25-amd64
+ Kernel             : 6.1.0-10-amd64
  Virtualization     : MICROSOFT
 ---------------------------------------------------------------------------
  Basic Network Info
 ---------------------------------------------------------------------------
  Primary Network    : IPv6
+ IPv6 Access        : ✔ Online
+ IPv4 Access        : ✔ Online
  ISP                : SkyInfo Networks
  ASN                : AS198383 Suhail Haris
  ASN (IPv4)         : AS20473 The Constant Company, LLC
@@ -91,51 +93,51 @@ wget -qO- network-speed.xyz | bash -s -- -r india
 
  ISP: SkyInfo Networks
 
- Nearest          0.65 ms     N/A     5825.81 Mbps   4367.15 Mbps   Netprotect - Frankfurt
+ Nearest          0.35 ms     N/A     7300.45 Mbps   6933.75 Mbps   Netprotect - Frankfurt
 
- Kochi, IN        166.39 ms   0.0%    1534.84 Mbps   332.29 Mbps    Asianet Broadband - Cochin
- Bangalore, IN    165.97 ms   0.0%    4838.29 Mbps   301.89 Mbps    Bharti Airtel Ltd - Bangalore
- Chennai, IN      144.35 ms   N/A     2369.05 Mbps   490.77 Mbps    Jio - Chennai
- Mumbai, IN       159.55 ms   0.0%    2441.16 Mbps   347.43 Mbps    i3D.net - Mumbai
- Delhi, IN        182.50 ms   0.0%    1748.42 Mbps   265.91 Mbps    Tata Teleservices Ltd - New Delhi
+ Kochi, IN        159.48 ms   0.3%    1459.82 Mbps   315.04 Mbps    Asianet Broadband - Cochin
+ Bangalore, IN    157.37 ms   0.0%    5284.20 Mbps   401.48 Mbps    Bharti Airtel Ltd - Bangalore
+ Chennai, IN      136.23 ms   N/A     3149.75 Mbps   531.86 Mbps    Jio - Chennai
+ Mumbai, IN       154.50 ms   0.0%    3619.55 Mbps   356.70 Mbps    i3D.net - Mumbai
+ Delhi, IN        176.92 ms   0.0%    1855.95 Mbps   326.83 Mbps    Tata Teleservices Ltd - New Delhi
 
- Seattle, US      144.21 ms   0.0%    1880.66 Mbps   693.76 Mbps    Ziply Fiber - Seattle, WA
- Los Angeles, US  146.02 ms   0.0%    3555.92 Mbps   459.52 Mbps    ReliableSite Hosting - Los Angeles, CA
- Dallas, US       114.84 ms   0.0%    1359.02 Mbps   625.42 Mbps    Hivelocity - Dallas, TX
- Miami, US        117.13 ms   0.0%    832.79 Mbps    697.95 Mbps    AT&T - Miami, FL
- New York, US     79.25 ms    0.0%    1424.08 Mbps   922.86 Mbps    GSL Networks - New York, NY
- Toronto, CA      91.89 ms    0.0%    3554.54 Mbps   596.88 Mbps    Rogers - Toronto, ON
+ Seattle, US      154.51 ms   N/A     5147.97 Mbps   367.07 Mbps    Comcast - Seattle, WA
+ Los Angeles, US  140.80 ms   0.0%    4171.92 Mbps   484.00 Mbps    ReliableSite Hosting - Los Angeles, CA
+ Dallas, US       114.10 ms   0.0%    1462.60 Mbps   1060.46 Mbps   Hivelocity - Dallas, TX
+ Miami, US        114.77 ms   0.0%    540.83 Mbps    841.71 Mbps    AT&T - Miami, FL
+ New York, US     77.47 ms    0.0%    1111.33 Mbps   1572.51 Mbps   GSL Networks - New York, NY
+ Toronto, CA      99.76 ms    0.0%    3340.15 Mbps   761.06 Mbps    Rogers - Toronto, ON
 
- London, UK       13.27 ms    0.0%    1638.93 Mbps   2453.90 Mbps   VeloxServ Communications - London
- Amsterdam, NL    8.39 ms     0.0%    2266.10 Mbps   3434.54 Mbps   31173 Services AB - Amsterdam
- Paris, FR        11.42 ms    N/A     2249.74 Mbps   3654.48 Mbps   Axione - Paris
- Frankfurt, DE    0.91 ms     0.0%    5753.63 Mbps   3310.13 Mbps   23M GmbH - Frankfurt am Main
- Warsaw, PL       19.52 ms    0.0%    2580.89 Mbps   3198.52 Mbps   UPC Polska - Warszawa
- Bucharest, RO    27.67 ms    0.0%    3549.34 Mbps   2232.75 Mbps   Vodafone Romania Fixed – Bucharest - Bucharest
+ London, UK       13.29 ms    0.0%    1518.03 Mbps   4729.92 Mbps   VeloxServ Communications - London
+ Amsterdam, NL    8.06 ms     0.0%    1724.37 Mbps   5010.59 Mbps   31173 Services AB - Amsterdam
+ Paris, FR        11.26 ms    0.0%    1814.50 Mbps   4910.65 Mbps   Axione - Paris
+ Frankfurt, DE    0.71 ms     0.0%    6677.77 Mbps   5637.42 Mbps   23M GmbH - Frankfurt am Main
+ Warsaw, PL       20.50 ms    0.0%    3935.68 Mbps   3760.08 Mbps   UPC Polska - Warszawa
+ Bucharest, RO    28.84 ms    0.0%    3702.69 Mbps   2633.95 Mbps   Vodafone Romania Fixed – Bucharest - Bucharest
 
- Jeddah, SA       73.54 ms    0.0%    3740.51 Mbps   1100.64 Mbps   Saudi Telecom Company
- Dubai, AE        139.74 ms   0.0%    1398.81 Mbps   614.05 Mbps    du - Dubai
- Fujairah, AE     112.11 ms   0.0%    1500.53 Mbps   775.26 Mbps    ETISALAT-UAE - Fujairah
+ Jeddah, SA       68.81 ms    0.0%    1544.08 Mbps   1529.36 Mbps   Saudi Telecom Company
+ Dubai, AE        129.41 ms   0.0%    2030.13 Mbps   709.97 Mbps    du - Dubai
+ Fujairah, AE     111.42 ms   0.0%    1075.53 Mbps   1069.90 Mbps   ETISALAT-UAE - Fujairah
 
- Tokyo, JP        235.93 ms   N/A     24.83 Mbps     468.72 Mbps    fdcservers.net - Tokyo
- Shanghai, CU-CN  258.23 ms   0.0%    455.67 Mbps    274.77 Mbps    China Unicom 5G - Shanghai
- Nanjing, CT-CN   FAILED
- Hong Kong, CN    162.22 ms   N/A     4250.26 Mbps   337.73 Mbps    STC - Hong Kong
- Singapore, SG    184.25 ms   0.0%    4020.46 Mbps   231.34 Mbps    i3D.net - Singapore
- Jakarta, ID      181.16 ms   0.0%    3412.86 Mbps   268.35 Mbps    PT. Telekomunikasi Indonesia - Jakarta
+ Tokyo, JP        252.68 ms   N/A     1092.10 Mbps   117.95 Mbps    fdcservers.net - Tokyo
+ Shanghai, CU-CN  251.73 ms   0.0%    255.51 Mbps    297.89 Mbps    China Unicom 5G - Shanghai
+ Nanjing, CT-CN   232.57 ms   4.7%    802.23 Mbps    156.29 Mbps    China Telecom JiangSu 5G - Nanjing
+ Hong Kong, CN    169.09 ms   N/A     2668.89 Mbps   433.96 Mbps    STC - Hong Kong
+ Singapore, SG    321.90 ms   0.0%    2420.56 Mbps   252.71 Mbps    i3D.net - Singapore
+ Jakarta, ID      186.61 ms   0.0%    2775.35 Mbps   295.97 Mbps    PT. Telekomunikasi Indonesia - Jakarta
 ---------------------------------------------------------------------------
- Avg DL Speed       : 2623.35 Mbps
- Avg UL Speed       : 1248.34 Mbps
+ Avg DL Speed       : 2684.52 Mbps
+ Avg UL Speed       : 1685.16 Mbps
 
- Total DL Data      : 102.32 GB
- Total UL Data      : 42.85 GB
- Total Data         : 145.17 GB
+ Total DL Data      : 94.97 GB
+ Total UL Data      : 60.95 GB
+ Total Data         : 155.91 GB
 ---------------------------------------------------------------------------
- Duration           : 13 min 25 sec
- System Time        : 12/09/2023 - 12:54:43 UTC
- Total Script Runs  : 23045
+ Duration           : 13 min 12 sec
+ System Time        : 13/11/2023 - 14:57:41 UTC
+ Total Script Runs  : 26989
 ---------------------------------------------------------------------------
- Result             : https://result.network-speed.xyz/r/1694523284_GP4IDB_GLOBAL.txt
+ Result             : https://result.network-speed.xyz/r/1699886944_1G6LDH_GLOBAL.txt
 ---------------------------------------------------------------------------
 ```
 
@@ -144,104 +146,104 @@ wget -qO- network-speed.xyz | bash -s -- -r india
 ---------------------------- network-speed.xyz ----------------------------
       A simple script to test network performance using speedtest-cli
 ---------------------------------------------------------------------------
- Version            : v2023.09.04
+ Version            : v2023.11.13
  Global Speedtest   : wget -qO- network-speed.xyz | bash
  Region Speedtest   : wget -qO- network-speed.xyz | bash -s -- -r <region>
 ---------------------------------------------------------------------------
  Basic System Info
 ---------------------------------------------------------------------------
- CPU Model          : AMD Ryzen 9 3900X 12-Core Processor
- CPU Cores          : 1 @ 3799.998 MHz
+ CPU Model          : AMD EPYC-Rome Processor
+ CPU Cores          : 16 @ 2799.998 MHz
  CPU Cache          : 512 KB
  AES-NI             : ✔ Enabled
  VM-x/AMD-V         : ✔ Enabled
- Total Disk         : 19.6 GB (2.7 GB Used)
- Total RAM          : 457.8 MB (73.2 MB Used)
- Total Swap         : 1024.0 MB (8.5 MB Used)
- System uptime      : 11 days, 19 hour 16 min
- Load average       : 0.00, 0.00, 0.00
- OS                 : Debian GNU/Linux 12
+ Total Disk         : 1.2 TB (399.3 GB Used)
+ Total RAM          : 62.8 GB (1.8 GB Used)
+ System uptime      : 10 days, 20 hour 23 min
+ Load average       : 0.31, 0.30, 0.22
+ OS                 : Ubuntu 22.04.3 LTS
  Arch               : x86_64 (64 Bit)
- Kernel             : 6.1.0-11-amd64
+ Kernel             : 5.15.0-88-generic
  Virtualization     : KVM
 ---------------------------------------------------------------------------
  Basic Network Info
 ---------------------------------------------------------------------------
  Primary Network    : IPv6
- ISP                : IncogNET LLC
- ASN                : AS210630 IncogNET LLC
- Host               : Incognet LLC
- Location           : Coeur d'Alene, Idaho-ID, United States
- Location (IPv4)    : Liberty Lake, Washington, US
+ IPv6 Access        : ✔ Online
+ IPv4 Access        : ✔ Online
+ ISP                : HIVELOCITY, Inc.
+ ASN                : AS29802 HIVELOCITY, Inc.
+ Host               : HIVELOCITY, Inc.
+ Location           : Tampa, Florida-FL, United States
+ Location (IPv4)    : New York City, New York, US
 ---------------------------------------------------------------------------
  Speedtest.net (Region: NORTH AMERICA)
 ---------------------------------------------------------------------------
  Location         Latency     Loss    DL Speed       UP Speed       Server
 
- ISP: IncogNET LLC
+ ISP: HIVELOCITY
 
- Nearest          10.27 ms    0.0%    4388.07 Mbps   2078.65 Mbps   Intechtel - Managed IT Services - Coeur d'Alene, ID
+ Nearest          32.13 ms    0.0%    969.65 Mbps    979.59 Mbps    Ideatek Telcom - Wichita, KS
 
- Vancouver, BC    14.23 ms    N/A     4254.83 Mbps   1868.32 Mbps   TELUS - Vancouver, BC
- Calgary, AB      25.67 ms    N/A     4364.03 Mbps   951.55 Mbps    Shaw Communications - Calgary, AB
- Winnipeg, MB     53.87 ms    0.0%    4272.62 Mbps   450.01 Mbps    Voyageur Internet - Winnipeg, MB
- Toronto, ON      57.44 ms    0.0%    4182.94 Mbps   426.85 Mbps    Bell Canada - Toronto, ON
- Montreal, QC     89.83 ms    0.0%    4156.79 Mbps   418.51 Mbps    Rogers Wireless - Montréal, QC
+ Vancouver, BC    60.61 ms    N/A     967.70 Mbps    1135.93 Mbps   TELUS - Vancouver, BC
+ Calgary, AB      71.34 ms    N/A     979.29 Mbps    1150.40 Mbps   Shaw Communications - Calgary, AB
+ Winnipeg, MB     33.30 ms    0.0%    981.48 Mbps    1033.50 Mbps   Voyageur Internet - Winnipeg, MB
+ Toronto, ON      13.33 ms    0.0%    966.90 Mbps    1030.24 Mbps   Bell Canada - Toronto, ON
+ Montreal, QC     18.62 ms    0.0%    965.83 Mbps    1033.81 Mbps   Rogers Wireless - Montréal, QC
 
- New York, NY     77.75 ms    0.0%    3224.79 Mbps   517.52 Mbps    Surfshark Ltd - New York, NY
- Ashburn, VA      69.73 ms    0.0%    4216.00 Mbps   460.40 Mbps    Rackdog - Ashburn, VA
- Charlotte, NC    78.39 ms    0.0%    4039.11 Mbps   506.61 Mbps    Windstream - Charlotte, NC
- Atlanta, GA      70.17 ms    0.0%    3591.94 Mbps   302.66 Mbps    i3D.net - Atlanta, GA
- Miami, FL        90.52 ms    0.0%    2582.08 Mbps   495.01 Mbps    AT&T - Miami, FL
- Dallas, TX       68.19 ms    0.0%    3145.09 Mbps   445.25 Mbps    Hivelocity - Dallas, TX
- Houston, TX      64.35 ms    0.0%    3661.62 Mbps   514.67 Mbps    Ezee Fiber - Houston, TX
- Kansas, MO       51.98 ms    0.0%    3731.05 Mbps   824.11 Mbps    Xiber LLC - Kansas City, MO
- Minneapolis, MN  42.24 ms    0.0%    4137.50 Mbps   611.64 Mbps    US Internet - Minneapolis, MN
- Chicago, IL      57.96 ms    0.0%    3385.17 Mbps   563.70 Mbps    Enzu.com - Chicago, IL
- Cleveland, OH    65.96 ms    0.0%    3628.61 Mbps   628.28 Mbps    Windstream - Cleveland, OH
- Albuquerque, NM  52.43 ms    N/A     4213.14 Mbps   647.14 Mbps    Comcast - Albuquerque, NM
- Denver, CO       37.62 ms    0.0%    4383.44 Mbps   524.57 Mbps    T-Mobile Fiber | Intrepid - Denver, CO
- Portland, OR     14.54 ms    N/A     4342.97 Mbps   1669.50 Mbps   CenturyLink - Portland, OR
- Las Vegas, NV    37.90 ms    N/A     3785.99 Mbps   997.47 Mbps    Dish Wireless - Las Vegas, NV
- Salt Lake, UT    52.41 ms    N/A     3613.92 Mbps   837.56 Mbps    Novva Data Centers - Salt Lake City, UT
- Phoenix, AZ      51.21 ms    0.0%    4432.55 Mbps   757.47 Mbps    Xiber LLC - Phoenix, AZ
- Los Angeles, CA  35.60 ms    0.0%    4147.31 Mbps   921.31 Mbps    ReliableSite Hosting - Los Angeles, CA
- Santa Clara, CA  31.68 ms    0.0%    2812.62 Mbps   926.44 Mbps    AT&T - Santa Clara, CA
- San Jose, CA     30.04 ms    0.0%    3712.56 Mbps   1099.06 Mbps   Misaka Network, Inc. - San Jose, CA
- Seattle, WA      11.32 ms    0.0%    4219.65 Mbps   2260.36 Mbps   Misaka Network, Inc. - Seattle, WA
+ New York, NY     1.91 ms     0.0%    978.59 Mbps    1020.65 Mbps   Surfshark Ltd - New York, NY
+ Ashburn, VA      8.02 ms     0.0%    978.66 Mbps    1025.62 Mbps   Rackdog - Ashburn, VA
+ Charlotte, NC    29.94 ms    0.0%    982.01 Mbps    1017.43 Mbps   Windstream - Charlotte, NC
+ Atlanta, GA      21.22 ms    0.0%    966.61 Mbps    1034.20 Mbps   i3D.net - Atlanta, GA
+ Miami, FL        37.02 ms    0.0%    980.75 Mbps    1027.54 Mbps   AT&T - Miami, FL
+ Dallas, TX       38.83 ms    0.0%    964.68 Mbps    1033.02 Mbps   Hivelocity - Dallas, TX
+ Houston, TX      36.96 ms    0.0%    980.87 Mbps    1002.22 Mbps   Ezee Fiber - Houston, TX
+ Kansas, MO       27.70 ms    0.0%    976.04 Mbps    986.15 Mbps    Xiber LLC - Kansas City, MO
+ Minneapolis, MN  26.28 ms    0.0%    979.99 Mbps    1039.35 Mbps   US Internet - Minneapolis, MN
+ Chicago, IL      19.75 ms    0.0%    968.92 Mbps    1029.48 Mbps   Enzu.com - Chicago, IL
+ Cleveland, OH    18.24 ms    0.0%    981.91 Mbps    1030.18 Mbps   Windstream - Cleveland, OH
+ Albuquerque, NM  47.87 ms    N/A     972.68 Mbps    924.90 Mbps    Comcast - Albuquerque, NM
+ Denver, CO       42.72 ms    0.0%    970.74 Mbps    1028.73 Mbps   T-Mobile Fiber | Intrepid - Denver, CO
+ Portland, OR     74.28 ms    N/A     994.76 Mbps    1064.18 Mbps   CenturyLink - Portland, OR
+ Las Vegas, NV    72.70 ms    N/A     989.92 Mbps    1122.41 Mbps   Dish Wireless - Las Vegas, NV
+ Salt Lake, UT    60.37 ms    N/A     949.70 Mbps    1114.76 Mbps   Novva Data Centers - Salt Lake City, UT
+ Phoenix, AZ      56.70 ms    0.0%    984.85 Mbps    1081.14 Mbps   Xiber LLC - Phoenix, AZ
+ Los Angeles, CA  63.88 ms    0.0%    977.44 Mbps    1097.49 Mbps   ReliableSite Hosting - Los Angeles, CA
+ San Jose, CA     62.98 ms    0.0%    946.84 Mbps    1067.08 Mbps   Misaka Network, Inc. - San Jose, CA
+ Seattle, WA      64.65 ms    0.0%    964.93 Mbps    1072.61 Mbps   Misaka Network, Inc. - Seattle, WA
+ Anchorage, AK    95.29 ms    0.0%    939.39 Mbps    281.60 Mbps    Alaska Communications - Anchorage, AK
 
- Hermosillo, MX   65.15 ms    0.0%    3763.50 Mbps   595.44 Mbps    Megacable - Hermosillo
- Guadalajara, MX  87.52 ms    0.0%    1875.36 Mbps   449.49 Mbps    AT&T México - Guadalajara
- Mexico City, MX  79.24 ms    N/A     3946.76 Mbps   489.20 Mbps    INFINITUM - Mexico City
- Merida, MX       FAILED
+ Hermosillo, MX   79.29 ms    0.0%    979.21 Mbps    1129.69 Mbps   Megacable - Hermosillo
+ Guadalajara, MX  82.03 ms    0.0%    962.44 Mbps    524.70 Mbps    AT&T México - Guadalajara
+ Mexico City, MX  89.17 ms    N/A     972.72 Mbps    790.31 Mbps    INFINITUM - Mexico City
 ---------------------------------------------------------------------------
- Avg DL Speed       : 3807.07 Mbps
- Avg UL Speed       : 807.96 Mbps
+ Avg DL Speed       : 972.51 Mbps
+ Avg UL Speed       : 996.96 Mbps
 
- Total DL Data      : 161.70 GB
- Total UL Data      : 35.72 GB
- Total Data         : 197.42 GB
+ Total DL Data      : 35.81 GB
+ Total UL Data      : 40.86 GB
+ Total Data         : 76.67 GB
 ---------------------------------------------------------------------------
- Duration           : 13 min 59 sec
- System Time        : 12/09/2023 - 18:04:05 IST
- Total Script Runs  : 23044
+ Duration           : 12 min 31 sec
+ System Time        : 13/11/2023 - 14:59:22 UTC
+ Total Script Runs  : 26990
 ---------------------------------------------------------------------------
- Result             : https://result.network-speed.xyz/r/1694522045_QVORYM_NA.txt
+ Result             : https://result.network-speed.xyz/r/1699887044_OLENJV_NA.txt
 ---------------------------------------------------------------------------
 ```
 
 ## Sample Output (All Regions)
-NA        : https://result.network-speed.xyz/r/1694522045_QVORYM_NA.txt <br>
-SA        : https://result.network-speed.xyz/r/1694528715_JFU3T1_SA.txt <br>
-EU        : https://result.network-speed.xyz/r/1694529083_9KFDDK_EU.txt <br>
-Asia      : https://result.network-speed.xyz/r/1694528694_SIR554_ASIA.txt <br>
-Africa    : https://result.network-speed.xyz/r/1694537113_747AYT_AFRICA.txt <br>
-AU        : https://result.network-speed.xyz/r/1694536652_DGXND8_AU.txt <br>
-GCC       : https://result.network-speed.xyz/r/1694531543_BZ6K6M_MIDDLE-EAST.txt <br>
-India     : https://result.network-speed.xyz/r/1694530534_3C9IAU_INDIA.txt <br>
-China     : https://result.network-speed.xyz/r/1694528635_EI46XX_CHINA.txt <br>
-Iran      : https://result.network-speed.xyz/r/1694528246_6GOL8A_IRAN.txt <br>
-Indonesia : https://result.network-speed.xyz/r/1695397374_P9DYIL_INDONESIA.txt <br>
+NA          : https://result.network-speed.xyz/r/1694522045_QVORYM_NA.txt <br>
+SA          : https://result.network-speed.xyz/r/1694528715_JFU3T1_SA.txt <br>
+EU          : https://result.network-speed.xyz/r/1694529083_9KFDDK_EU.txt <br>
+Asia        : https://result.network-speed.xyz/r/1694528694_SIR554_ASIA.txt <br>
+Africa      : https://result.network-speed.xyz/r/1694537113_747AYT_AFRICA.txt <br>
+AU          : https://result.network-speed.xyz/r/1694536652_DGXND8_AU.txt <br>
+Middle East : https://result.network-speed.xyz/r/1699886816_J28SZ3_MIDDLE-EAST.txt <br>
+India       : https://result.network-speed.xyz/r/1694530534_3C9IAU_INDIA.txt <br>
+China       : https://result.network-speed.xyz/r/1694528635_EI46XX_CHINA.txt <br>
+Iran        : https://result.network-speed.xyz/r/1694528246_6GOL8A_IRAN.txt <br>
+Indonesia   : https://result.network-speed.xyz/r/1695397374_P9DYIL_INDONESIA.txt <br>
 
 ## Bandwidth Usage 
 The script usually takes around 10-15 minutes to complete execution.\
