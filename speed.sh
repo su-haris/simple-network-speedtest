@@ -194,6 +194,16 @@ speed() {
         speed_test '16051' 'Dammam, SA'
         speed_test '3196'  'Jeddah, SA' 
         speed_test '14580' 'Jeddah, SA'
+        echo -e
+        speed_test '4317' 'Tehran, IR'
+        speed_test '39247' 'Baghdad, IQ'
+        speed_test '27570' 'Beirut, LB'
+        speed_test '13150' 'Nicosia, CY'
+        speed_test '38212' 'Tel Aviv, IL' 
+        speed_test '31160' 'Amman, JO'
+        speed_test '41251' 'Cairo, EG'
+        speed_test '34283' 'Cairo, EG'
+        speed_test '3151' 'Istanbul, TR'
     elif [ "$REGION" = "na" ]; then
         speed_test '3049' 'Vancouver, BC'
         #speed_test '3575'  'Toronto, ON' 
@@ -212,7 +222,7 @@ speed() {
         speed_test '21566' 'Kansas, MO'
         speed_test '15869' 'Minneapolis, MN'
         speed_test '21364' 'Chicago, IL' 
-        speed_test '16969' 'Columbus, OH'
+        speed_test '27834' 'Cleveland, OH'
         speed_test '1773' 'Albuquerque, NM'
         speed_test '56839' 'Denver, CO'
         speed_test '10162' 'Portland, OR'
@@ -243,7 +253,8 @@ speed() {
         speed_test '44095' 'Bogota, CO'
     elif [ "$REGION" = "eu" ]; then
         speed_test '26434' 'London, UK'
-        speed_test '38157' 'Edinburgh, UK'
+        # speed_test '38157' 'Edinburgh, UK'
+        speed_test '23968' 'Manchester, UK'
         speed_test '38092' 'Dublin, IE' 
         speed_test '37363' 'Amsterdam, NL'
         speed_test '60666' 'Eygelshoen, NL'
@@ -571,7 +582,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.10.24)"
+    echo " Version            : $(_green v2023.11.13)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -729,7 +740,7 @@ while getopts ":r:" opt; do
           ;;
         middle-east)
           REGION="middle-east"
-          REGION_NAME="GCC MIDDLE EAST | دول مجلس تعاون الخليج العربي"
+          REGION_NAME="MIDDLE EAST | الشرق الأوسط"
           ;;
         na)
           REGION="na"
