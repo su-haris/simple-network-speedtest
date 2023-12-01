@@ -388,12 +388,15 @@ speed() {
         speed_test '23094' 'Amsterdam, NL'
         speed_test '28308' 'Paris, FR'
         speed_test '44081' 'Frankfurt, DE'
-        speed_test '51157' 'Warsaw, PL'
+        speed_test '37249' 'Warsaw, PL'
         speed_test '15004' 'Bucharest, RO'
+        speed_test '6386'  'Moscow, RU'
         echo -e 
         speed_test '14580' 'Jeddah, SA'
         speed_test '4845'  'Dubai, AE'
         speed_test '34240' 'Fujairah, AE'
+        speed_test '61326' 'Tehran, IR'
+        speed_test '34283' 'Cairo, EG'
         echo -e 
         speed_test '28910' 'Tokyo, JP'
         speed_test '24447' 'Shanghai, CU-CN'
@@ -582,7 +585,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.11.13)"
+    echo " Version            : $(_green v2023.12.01)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
@@ -665,6 +668,7 @@ print_system_info() {
     echo " Arch               : $(_blue "$arch ($lbit Bit)")"
     echo " Kernel             : $(_blue "$kern")"
     echo " Virtualization     : $(_blue "$virt_type")"
+    echo " TCP Control        : $(_blue "$tcpctrl")"
 }
 
 print_network_statistics() {
