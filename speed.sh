@@ -70,7 +70,7 @@ speed_test() {
         local dl_speed_num=$(awk '/Download/{print $3}' ./speedtest-cli/speedtest.log)
         local up_speed_num=$(awk '/Upload/{print $3}' ./speedtest-cli/speedtest.log)     
 
-        local latency=$(awk '/Latency/{print $2" "$3}' ./speedtest-cli/speedtest.log)
+        local latency=$(awk '/Latency/{print $3" "$4}' ./speedtest-cli/speedtest.log)
         local server_details=$(grep -Po 'Server: \K[^(]+' ./speedtest-cli/speedtest.log)
         local packet_loss=$(awk '/Packet Loss/{print $3}' ./speedtest-cli/speedtest.log)
 
@@ -137,6 +137,9 @@ speed() {
         speed_test '29372' 'Kochi, KL'
         speed_test '43322' 'Trivandrum, KL'
         speed_test '12221' 'Kolkata, WB'
+        speed_test '16273' 'Ahmedabad, GJ'
+        speed_test '47162' 'Jaipur, RJ'
+        speed_test '36668' 'Lucknow, UP'
         speed_test '15797' 'Delhi, DL'
         speed_test '10020'  'Gurgaon, HR' 
         speed_test '25959' 'Patna, BH'
@@ -218,8 +221,8 @@ speed() {
         speed_test '41360' 'Atlanta, GA'
         speed_test '47746' 'Miami, FL'
         speed_test '22288' 'Dallas, TX'
-        speed_test '45284' 'Houston, TX'
-        speed_test '21566' 'Kansas, MO'
+        speed_test '47743' 'Houston, TX'
+        speed_test '13628' 'Kansas, MO'
         speed_test '15869' 'Minneapolis, MN'
         speed_test '21364' 'Chicago, IL' 
         speed_test '27834' 'Cleveland, OH'
@@ -568,8 +571,8 @@ install_speedtest() {
             sys_bit="armel"
         fi
         [ -z "${sys_bit}" ] && _red "Error: Unsupported system architecture (${sysarch}).\n" && exit 1
-        url1="https://install.speedtest.net/app/cli/ookla-speedtest-1.1.1-linux-${sys_bit}.tgz"
-        url2="https://dl.lamp.sh/files/ookla-speedtest-1.1.1-linux-${sys_bit}.tgz"
+        url1="https://install.speedtest.net/app/cli/ookla-speedtest-1.2.0-linux-${sys_bit}.tgz"
+        url2="https://dl.lamp.sh/files/ookla-speedtest-1.2.0-linux-${sys_bit}.tgz"
         wget --no-check-certificate -q -T10 -O speedtest.tgz ${url1}
         if [ $? -ne 0 ]; then
             wget --no-check-certificate -q -T10 -O speedtest.tgz ${url2}
@@ -587,7 +590,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2023.12.28)"
+    echo " Version            : $(_green v2024.01.26)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
