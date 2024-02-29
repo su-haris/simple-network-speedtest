@@ -280,12 +280,14 @@ speed() {
         speed_test '29259' 'Lviv, UA'   
         speed_test '62769' 'Kyiv, UA'
         speed_test '27486' 'Minsk, BY'
-        speed_test '16457' 'Bucharest, RO'
-        speed_test '11502' 'Iasi, RO'
+        # speed_test '16457' 'Bucharest, RO'
+        speed_test '45318' 'Bucharest, RO'
+        speed_test '11500' 'Timisoara, RO'
         speed_test '22669' 'Helsinki, FI'
-        speed_test '44597' 'Stockholm, SE'   
+        speed_test '44597' 'Stockholm, SE'
         speed_test '35461' 'Oslo, NO'
-        speed_test '3682' 'Moscow, RU'
+        # speed_test '3682' 'Moscow, RU'
+        speed_test '1907' 'Moscow, RU'
         speed_test '6385' 'Petersburg, RU'
         speed_test '31851' 'Istanbul, TR'
         speed_test '11945' 'Tbilisi, GE'
@@ -592,7 +594,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2024.02.14)"
+    echo " Version            : $(_green v2024.02.29)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
