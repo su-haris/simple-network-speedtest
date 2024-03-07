@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Description: A Network Test Script by <sh@suh.ovh>
-# Copyright (C) 2022 - 2023 <sh@suh.ovh>
+# Description: A Network Benchmark Script by <sh@suh.ovh>
+# Copyright (C) 2022 - 2024 <sh@suh.ovh>
 # URL: https://network-speed.xyz/
 # https://github.com/su-haris/simple-network-speedtest
 #
@@ -358,10 +358,12 @@ speed() {
         speed_test '25858'  'CM - Beijing' 
         speed_test '43752'  'CU - Beijing'
         speed_test '26352' 'CT - Nanjing'
+        speed_test '60584' 'CT - Shenzen'
         speed_test '37235' 'CU - Shenyang'
         speed_test '5396' 'CT - Suzhou'
         speed_test '5317' 'CT - Yangzhou'
         speed_test '54312' 'CM - Hangzhou'
+        speed_test '59386' 'CT - Hangzhou'
         speed_test '36646' 'CU - Zhengzhou'
         speed_test '28225' 'CT - Changsha'
         speed_test '4870' 'CU - Changsha'
@@ -370,12 +372,21 @@ speed() {
         speed_test '29105' 'CM - Xi an'
         speed_test '17145' 'CT - Hefei'
         speed_test '34115' 'CT - TianJin'
+        speed_test '62416' 'CT - XiNing'
+        speed_test '59387' 'CT - NingBo'
+        speed_test '60794' 'CM - Guangzhou'
         echo -e
         speed_test '32155' 'CM - Kwai Chung'
-        speed_test '37639'  'CM - Hong Kong' 
-        speed_test '34555' 'Hong Kong'    
+        speed_test '37639' 'CM - Hong Kong' 
+        speed_test '37695' 'CUG - Hong Kong' 
+        # speed_test '34555' 'Hong Kong'    
         speed_test '28912' 'Hong Kong'
         speed_test '44745' 'Hong Kong'  
+        echo -e
+        speed_test '62147' 'CUG - Tokyo'
+        speed_test '62146' 'CUG - Singapore' 
+        speed_test '61417' 'CUG - LosAngeles' 
+        speed_test '61451' 'CUG - London'
     else
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
@@ -594,7 +605,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2024.02.29)"
+    echo " Version            : $(_green v2024.03.07)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
