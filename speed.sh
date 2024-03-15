@@ -150,10 +150,12 @@ speed() {
         #speed_test '3633'  'China Telecom'
         speed_test '26352' 'China Telecom'
         speed_test '24447' 'China Unicom'
-        speed_test '41910' 'China Mobile'
+        # speed_test '41910' 'China Mobile'
+        speed_test '54312' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
-        echo -e
-        speed_test '18250' 'Ho Chi Minh, VN'
+        echo -e 
+        # speed_test '18250' 'Ho Chi Minh, VN'
+        speed_test '17758' 'Ho Chi Minh, VN'
         speed_test '2552' 'Hanoi, VN'
         speed_test '8990'  'Bangkok, TH' 
         speed_test '7167' 'Manila, PH'
@@ -605,7 +607,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2024.03.07)"
+    echo " Version            : $(_green v2024.03.15)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
