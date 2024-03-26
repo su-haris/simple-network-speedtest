@@ -426,7 +426,7 @@ speed() {
         # speed_test '5396' 'Suzhou, CT-CN'
         speed_test '1536'  'Hong Kong, CN'
         speed_test '40508' 'Singapore, SG'
-        speed_test '56632' 'Jakarta, ID'
+        speed_test '63138' 'Jakarta, ID'
     fi 
     
 
