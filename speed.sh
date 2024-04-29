@@ -373,7 +373,7 @@ speed() {
         speed_test '4870' 'CU - Changsha'
         speed_test '4575' 'CM - Chengdu'
         # speed_test '23844' 'CT - Wuhan'
-        speed_test '29105' 'CM - Xi an'
+        speed_test '45170' 'CU - Wu Xi'
         speed_test '17145' 'CT - Hefei'
         speed_test '34115' 'CT - TianJin'
         speed_test '62416' 'CT - XiNing'
@@ -386,11 +386,11 @@ speed() {
         # speed_test '34555' 'Hong Kong'    
         speed_test '28912' 'Hong Kong'
         speed_test '44745' 'Hong Kong'  
-        echo -e
-        speed_test '62147' 'CUG - Tokyo'
-        speed_test '62146' 'CUG - Singapore' 
-        speed_test '61417' 'CUG - LosAngeles' 
-        speed_test '61451' 'CUG - London'
+        # echo -e
+        # speed_test '62147' 'CUG - Tokyo'
+        # speed_test '62146' 'CUG - Singapore' 
+        # speed_test '61417' 'CUG - LosAngeles' 
+        # speed_test '61451' 'CUG - London'
     else
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
