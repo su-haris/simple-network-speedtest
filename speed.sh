@@ -222,8 +222,8 @@ speed() {
         speed_test '32493' 'Ashburn, VA'
         speed_test '27833' 'Charlotte, NC' 
         speed_test '41360' 'Atlanta, GA'
-        speed_test '22361' 'Miami, FL'
-        speed_test '22288' 'Dallas, TX'
+        speed_test '35987' 'Miami, FL'
+        speed_test '43860' 'Dallas, TX'
         speed_test '45284' 'Houston, TX'
         speed_test '13628' 'Kansas, MO'
         speed_test '15869' 'Minneapolis, MN'
@@ -279,7 +279,7 @@ speed() {
         #speed_test '4302' 'Milan, IT'
         speed_test '7839' 'Milan, IT'
         speed_test '23969' 'Zurich, CH'
-        speed_test '31448' 'Frankfurt, DE'
+        speed_test '23095' 'Frankfurt, DE'
         speed_test '55665' 'Berlin, DE'
         speed_test '12390' 'Vienna, AT'  
         speed_test '7842' 'Budapest, HU' 
@@ -298,7 +298,7 @@ speed() {
         speed_test '1907' 'Moscow, RU'
         speed_test '6385' 'Petersburg, RU'
         speed_test '31851' 'Istanbul, TR'
-        speed_test '11945' 'Tbilisi, GE'
+        # speed_test '11945' 'Tbilisi, GE'
     elif [ "$REGION" = "au" ]; then
         speed_test '18473' 'Brisbane'
         speed_test '44735' 'Sydney'
@@ -406,7 +406,7 @@ speed() {
         echo -e
         speed_test '1782' 'Seattle, US'
         speed_test '34840' 'Los Angeles, US'
-        speed_test '22288' 'Dallas, US'
+        speed_test '43860' 'Dallas, US'
         speed_test '53685' 'Miami, US'
         speed_test '46120' 'New York, US'
         speed_test '46143' 'Toronto, CA'
@@ -427,7 +427,8 @@ speed() {
         speed_test '61326' 'Tehran, IR'
         # speed_test '34283' 'Cairo, EG'
         echo -e 
-        speed_test '28910' 'Tokyo, JP'
+        # speed_test '28910' 'Tokyo, JP'
+        speed_test '48463' 'Tokyo, JP'
         speed_test '24447' 'Shanghai, CU-CN'
         #speed_test '37235' 'Shenyang, CU-CN'
         speed_test '26352' 'Nanjing, CT-CN'
@@ -615,7 +616,7 @@ print_intro() {
     echo "---------------------------- network-speed.xyz ----------------------------"
     echo "      A simple script to test network performance using speedtest-cli      "
     next
-    echo " Version            : $(_green v2024.05.09)"
+    echo " Version            : $(_green v2024.05.26)"
     echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
 }
