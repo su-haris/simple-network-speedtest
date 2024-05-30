@@ -613,12 +613,13 @@ install_speedtest() {
 }
 
 print_intro() {
-    echo "---------------------------- network-speed.xyz ----------------------------"
-    echo "      A simple script to test network performance using speedtest-cli      "
+    #echo "---------------------------- network-speed.xyz ----------------------------"
+    echo "---------------------------------- nws.sh ---------------------------------"
+    echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.05.26)"
-    echo " Global Speedtest   : $(_red "wget -qO- network-speed.xyz | bash")"
-    echo " Region Speedtest   : $(_red "wget -qO- network-speed.xyz | bash -s -- -r <region>")"
+    echo " Version            : $(_green v2024.05.30)"
+    echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
+    echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
 
 # Get System information
@@ -727,7 +728,7 @@ print_end_time() {
 }
 
 get_runs_counter() {
-    local counter=$(wget -qO- https://runs.network-speed.xyz/)
+    local counter=$(wget -qO- https://runs.nws.xyz/)
 
     if [[ -n "$counter" ]]; then
         echo " Total Script Runs  : $(_green "$counter")"
@@ -819,12 +820,12 @@ while getopts ":r:" opt; do
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
-      echo "Visit network-speed.xyz for instructions."
+      echo "Visit nws.sh for instructions."
       exit 1
       ;;
     :)
       echo "Option -$OPTARG requires an argument." >&2
-      echo "Visit network-speed.xyz for instructions."
+      echo "Visit nws.sh for instructions."
       exit 1
       ;;
   esac
@@ -835,7 +836,7 @@ done
 run_speed_sh | tee >(sed $'s/\033[[][^A-Za-z]*[A-Za-z]//g' > network-speed.txt)
 
 if command -v curl >/dev/null; then
-  share_link=$(curl -s -X POST -F 'file=@network-speed.txt' -F "region=$REGION" https://result.network-speed.xyz/upload)
+  share_link=$(curl -s -X POST -F 'file=@network-speed.txt' -F "region=$REGION" https://result.nws.sh/upload)
   if [ $? -ne 0 ]; then
     echo " Unable to share result online"
     echo " Result stored locally in $PWD/network-speed.txt"

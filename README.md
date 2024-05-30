@@ -23,31 +23,34 @@ Your Reliable Script for Comprehensive Network Performance Testing.
    - Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.
    - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
 
-Big Thanks and shout out to [Crunchbits LLC](https://zip.xbit.win/go/crunchbits) for sponsoring the Hosting Infrastructure.<br>
+I would like to express my heartfelt thanks to our awesome sponsors for their invaluable support:
+- [Crunchbits](https://zip.xbit.win/go/crunchbits) for generously sponsoring the hosting infrastructure.
+- [IncogNET](https://zip.xbit.win/go/incognet) for kindly sponsoring the domain name.
+
 Thanks to Teddysun <i@teddysun.com> for the base bench.sh script.
 
 ## Usage
 
 ### Global Speedtest (default)
 ```
-curl -sL network-speed.xyz | bash
+curl -sL nws.sh | bash
 ```
 ```
-wget -qO- network-speed.xyz | bash
+wget -qO- nws.sh | bash
 ```
 
 ### Regional Speedtest
 region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran, indonesia
 ```
-curl -sL network-speed.xyz | bash -s -- -r region_name
+curl -sL nws.sh | bash -s -- -r region_name
 ```
 ```
-wget -qO- network-speed.xyz | bash -s -- -r region_name
+wget -qO- nws.sh | bash -s -- -r region_name
 ```
 
 ### Example:
 ```
-wget -qO- network-speed.xyz | bash -s -- -r india
+wget -qO- nws.sh | bash -s -- -r india
 ```
 
 ## Sample Output (Global)
