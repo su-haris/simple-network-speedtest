@@ -728,7 +728,7 @@ print_end_time() {
 }
 
 get_runs_counter() {
-    local counter=$(wget -qO- https://runs.nws.xyz/)
+    local counter=$(wget -qO- https://runs.nws.sh/)
 
     if [[ -n "$counter" ]]; then
         echo " Total Script Runs  : $(_green "$counter")"
