@@ -131,7 +131,8 @@ speed() {
         #speed_test '19117' 'Chennai, TN'
         #speed_test '22796' 'Chennai, TN'
         speed_test '9690' 'Chennai, TN'
-        speed_test '20107' 'Coimbatore, TN'
+        # speed_test '20107' 'Coimbatore, TN'
+        speed_test '9286' 'Coimbatore, TN'
         speed_test '34444' 'Madurai, TN'
         speed_test '10112' 'Kochi, KL' 
         speed_test '29372' 'Kochi, KL'
@@ -408,7 +409,7 @@ speed() {
         speed_test '34840' 'Los Angeles, US'
         speed_test '43860' 'Dallas, US'
         speed_test '53685' 'Miami, US'
-        speed_test '46120' 'New York, US'
+        speed_test '6030' 'New York, US'
         speed_test '46143' 'Toronto, CA'
         speed_test '54754' 'Mexico City, MX'
         echo -e 
@@ -418,7 +419,7 @@ speed() {
         speed_test '35692' 'Frankfurt, DE'
         speed_test '37249' 'Warsaw, PL'
         speed_test '15004' 'Bucharest, RO'
-        speed_test '48192' 'Moscow, RU'
+        speed_test '3682' 'Moscow, RU'
         echo -e 
         speed_test '14580' 'Jeddah, SA'
         speed_test '4845'  'Dubai, AE'
@@ -617,7 +618,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.05.30)"
+    echo " Version            : $(_green v2024.06.02)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
