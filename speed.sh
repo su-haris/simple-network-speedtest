@@ -145,7 +145,7 @@ speed() {
         speed_test '10020'  'Gurgaon, HR' 
         speed_test '25959' 'Patna, BH'
     elif [ "$REGION" = "asia" ]; then
-        speed_test '24333' 'Tokyo, JP'
+        speed_test '50686' 'Tokyo, JP'
         speed_test '18445' 'Tapei, TW'
         #speed_test '24447' 'China Unicom'
         #speed_test '3633'  'China Telecom'
@@ -618,7 +618,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.06.02)"
+    echo " Version            : $(_green v2024.08.09)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
