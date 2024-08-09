@@ -205,7 +205,7 @@ speed() {
         speed_test '4317' 'Tehran, IR'
         speed_test '39247' 'Baghdad, IQ'
         speed_test '27570' 'Beirut, LB'
-        speed_test '13150' 'Nicosia, CY'
+        speed_test '6276' 'Nicosia, CY'
         speed_test '38212' 'Tel Aviv, IL' 
         speed_test '31160' 'Amman, JO'
         speed_test '41251' 'Cairo, EG'
