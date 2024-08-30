@@ -284,7 +284,7 @@ speed() {
         speed_test '55665' 'Berlin, DE'
         speed_test '12390' 'Vienna, AT'  
         speed_test '7842' 'Budapest, HU' 
-        speed_test '23122' 'Gdansk, PL'
+        speed_test '23123' 'Krakow, PL'
         speed_test '4166'  'Warsaw, PL'
         speed_test '29259' 'Lviv, UA'   
         speed_test '62769' 'Kyiv, UA'
@@ -297,7 +297,7 @@ speed() {
         speed_test '31861' 'Oslo, NO'
         # speed_test '3682' 'Moscow, RU'
         speed_test '1907' 'Moscow, RU'
-        speed_test '6385' 'Petersburg, RU'
+        speed_test '4247' 'Petersburg, RU'
         speed_test '31851' 'Istanbul, TR'
         # speed_test '11945' 'Tbilisi, GE'
     elif [ "$REGION" = "au" ]; then
@@ -330,8 +330,9 @@ speed() {
         speed_test '15631' 'Algiers, DZ' 
         speed_test '33159' 'Lagos, NG'    
     elif [ "$REGION" = "iran" ]; then
-        speed_test '18512' 'Tehran'
         speed_test '4317'  'Tehran' 
+        speed_test '21031' 'Tehran'
+        speed_test '19534' 'Tehran'
         speed_test '43844'  'Tehran' 
         speed_test '10076'  'Mashhad' 
         speed_test '22295'  'Mashhad'
@@ -618,7 +619,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.08.09)"
+    echo " Version            : $(_green v2024.08.30)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
@@ -626,7 +627,7 @@ print_intro() {
 # Get System information
 get_system_info() {
     cname=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
-    cores=$( awk -F: '/processor/ {core++} END {print core}' /proc/cpuinfo )
+    cores=$( lscpu | grep "^[[:blank:]]*CPU(s):" | sed 's/CPU(s): *//g' )
     freq=$( awk -F'[ :]' '/cpu MHz/ {print $4;exit}' /proc/cpuinfo )
     ccache=$( awk -F: '/cache size/ {cache=$2} END {print cache}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
     cpu_aes=$( grep -i 'aes' /proc/cpuinfo )
