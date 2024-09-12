@@ -276,4 +276,7 @@ However, below is a very rough estimate - based on a few tests on different netw
 |1Gbps Symmetric     | ~55GB  | US | NA
 
 ## Donations
-<a href="https://www.buymeacoffee.com/shsky97" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+If you'd like to show your support or appreciation for this project, consider making a donation. Your generosity is greatly appreciated! <br><br>
+Monero      / XMR : 42whZjNSwLSZ7vtYXwUTUZd8xmNWa8EzYhfCBDYMP5jkgn3orztgUjvaZ5CCZuWqmaPgTMBRFdVASjesq3g4KWfKEEqwgbZ <br>
+Litecoin    / LTC : LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX
+<!-- <a href="https://www.buymeacoffee.com/shsky97" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a> -->
