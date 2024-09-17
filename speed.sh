@@ -339,6 +339,26 @@ speed() {
         speed_test '22297' 'Shiraz'
         speed_test '22245' 'Isfahan'
         speed_test '9888' 'Tabriz'
+    elif [ "$REGION" = "russia" ]; then
+        speed_test '1907' 'Moscow'
+        speed_test '48192' 'Moscow'
+        speed_test '10987' 'Moscow'
+        speed_test '44806' 'Moscow'
+        speed_test '45191' 'Moscow'
+        echo -e
+        speed_test '6051' 'Petersburg'
+        speed_test '6385' 'Petersburg'
+        speed_test '39860' 'Kazan'
+        speed_test '22240' 'Kazan'
+        speed_test '7486' 'Sevastopol'
+        speed_test '41096' 'Kaliningrad'
+        speed_test '37042' 'Volgograd'
+        echo -e
+        speed_test '4282' 'Omsk'
+        speed_test '6430' 'Novosibirsk'
+        speed_test '3545' 'Krasnoyarsk'
+        speed_test '9679' 'Yakutsk'
+        speed_test '54169' 'Vladivostok' 
     elif [ "$REGION" = "indonesia" ]; then
         speed_test '14325' 'Jakarta'
         speed_test '49585' 'Jakarta'
@@ -619,7 +639,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.09.11)"
+    echo " Version            : $(_green v2024.09.18)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
@@ -738,8 +758,8 @@ get_runs_counter() {
 }
 
 run_speed_sh() {
-    ! _exists "wget" && _red "network-speed.xyz is unable to run.\nError: wget command not found.\n" && kill -INT $$ && exit 1
-    ! _exists "free" && _red "network-speed.xyz is unable to run.\nError: free command not found.\n" && kill -INT $$ && exit 1
+    ! _exists "wget" && _red "nws.sh is unable to run.\nError: wget command not found.\n" && kill -INT $$ && exit 1
+    ! _exists "free" && _red "nws.sh is unable to run.\nError: free command not found.\n" && kill -INT $$ && exit 1
 
     start_time=$(date +%s)
     get_system_info
@@ -811,10 +831,14 @@ while getopts ":r:" opt; do
         indonesia)
           REGION="indonesia"
           REGION_NAME="INDONESIA"
-          ;;    
+          ;;   
+        russia)
+          REGION="russia"
+          REGION_NAME="RUSSIA | Россия"
+          ;;      
         *)
           echo "Invalid REGION: $OPTARG" >&2
-          echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran"
+          echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia"
           echo "Visit network-speed.xyz for instructions."
           exit 1
           ;;
