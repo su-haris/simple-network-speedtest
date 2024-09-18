@@ -297,7 +297,7 @@ speed() {
         speed_test '31861' 'Oslo, NO'
         # speed_test '3682' 'Moscow, RU'
         speed_test '1907' 'Moscow, RU'
-        speed_test '6385' 'Petersburg, RU'
+        speed_test '6051' 'Petersburg, RU'
         speed_test '31851' 'Istanbul, TR'
         # speed_test '11945' 'Tbilisi, GE'
     elif [ "$REGION" = "au" ]; then
@@ -347,7 +347,7 @@ speed() {
         speed_test '45191' 'Moscow'
         echo -e
         speed_test '6051' 'Petersburg'
-        speed_test '6385' 'Petersburg'
+        speed_test '42152' 'Petersburg'
         speed_test '39860' 'Kazan'
         speed_test '22240' 'Kazan'
         speed_test '7486' 'Sevastopol'
