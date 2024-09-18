@@ -647,7 +647,7 @@ print_intro() {
 # Get System information
 get_system_info() {
     cname=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
-    cores=$( lscpu | grep "^[[:blank:]]*CPU(s):" | sed 's/CPU(s): *//g' )
+    cores=$( awk -F: '/model name/ {core++} END {print core}' /proc/cpuinfo )
     freq=$( awk -F'[ :]' '/cpu MHz/ {print $4;exit}' /proc/cpuinfo )
     ccache=$( awk -F: '/cache size/ {cache=$2} END {print cache}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
     cpu_aes=$( grep -i 'aes' /proc/cpuinfo )

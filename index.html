@@ -40,6 +40,7 @@
 <li>China</li>
 <li>Iran</li>
 <li>Indonesia</li>
+<li>Russia</li>
 <li>More coming soon!</li>
 </ul>
 </li>
@@ -60,7 +61,7 @@ Thanks to Teddysun <a href="mailto:i@teddysun.com">i@teddysun.com</a> for the ba
 <pre><code>wget -qO- nws.sh | bash
 </code></pre>
 <h3 id="regional-speedtest">Regional Speedtest</h3>
-<p>region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran, indonesia</p>
+<p>region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran, indonesia, russia</p>
 <pre><code>curl -sL nws.sh | bash -s -- -r region_name
 </code></pre>
 <pre><code>wget -qO- nws.sh | bash -s -- -r region_name
@@ -69,196 +70,203 @@ Thanks to Teddysun <a href="mailto:i@teddysun.com">i@teddysun.com</a> for the ba
 <pre><code>wget -qO- nws.sh | bash -s -- -r india
 </code></pre>
 <h2 id="sample-output-global">Sample Output (Global)</h2>
-<pre><code>  ---------------------------- network-speed.xyz ----------------------------
-    A simple script to test network performance using speedtest-cli
-  ---------------------------------------------------------------------------
-  Version            : v2023.11.13
-  Global Speedtest   : wget -qO- network-speed.xyz | bash
-  Region Speedtest   : wget -qO- network-speed.xyz | bash -s -- -r <region>
-  ---------------------------------------------------------------------------
-  Basic System Info
-  ---------------------------------------------------------------------------
-  CPU Model          : AMD EPYC 7763 64-Core Processor
-  CPU Cores          : 5 @ 2445.406 MHz
-  CPU Cache          : 512 KB
-  AES-NI             : ✔ Enabled
-  VM-x/AMD-V         : ✔ Enabled
-  Total Disk         : 98.9 GB (13.5 GB Used)
-  Total RAM          : 9.7 GB (1.5 GB Used)
-  Total Swap         : 3.0 GB (6.0 MB Used)
-  System uptime      : 22 days, 1 hour 9 min
-  Load average       : 1.13, 1.04, 1.00
-  OS                 : Ubuntu 22.04.3 LTS
-  Arch               : x86_64 (64 Bit)
-  Kernel             : 5.15.0-87-generic
-  Virtualization     : KVM
-  ---------------------------------------------------------------------------
-  Basic Network Info
-  ---------------------------------------------------------------------------
-  Primary Network    : IPv6
-  IPv6 Access        : ✔ Online
-  IPv4 Access        : ✔ Online
-  ISP                : DataCamp Limited
-  ASN                : AS60068 Datacamp Limited
-  ASN (IPv4)         : AS212238 Datacamp Limited
-  Host               : CDN77 Singapore
-  Location           : Singapore, North West-03, Singapore
-  ---------------------------------------------------------------------------
-  Speedtest.net (Region: GLOBAL)
-  ---------------------------------------------------------------------------
-  Location         Latency     Loss    DL Speed       UP Speed       Server
+<pre><code>  ---------------------------------- nws.sh ---------------------------------
+  A simple script to bench network performance using speedtest-cli
+---------------------------------------------------------------------------
+Version            : v2024.09.18
+Global Speedtest   : wget -qO- nws.sh | bash
+Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+---------------------------------------------------------------------------
+Basic System Info
+---------------------------------------------------------------------------
+CPU Model          : AMD EPYC 7763 64-Core Processor
+CPU Cores          : 5 @ 2445.402 MHz
+CPU Cache          : 512 KB
+AES-NI             : ✔ Enabled
+VM-x/AMD-V         : ✔ Enabled
+Total Disk         : 98.9 GB (19.8 GB Used)
+Total RAM          : 9.7 GB (1.3 GB Used)
+Total Swap         : 3.0 GB (0 Used)
+System uptime      : 57 days, 10 hour 22 min
+Load average       : 0.24, 0.14, 0.13
+OS                 : Ubuntu 22.04.4 LTS
+Arch               : x86_64 (64 Bit)
+Kernel             : 5.15.0-116-generic
+Virtualization     : KVM
+TCP Control        : bbr
+---------------------------------------------------------------------------
+Basic Network Info
+---------------------------------------------------------------------------
+Primary Network    : IPv6
+IPv6 Access        : ✔ Online
+IPv4 Access        : ✔ Online
+ISP                : DataCamp Limited
+ASN                : AS60068 Datacamp Limited
+ASN (IPv4)         : AS212238 Datacamp Limited
+Host               : CDN77 Singapore
+Location           : Singapore, North West-03, Singapore
+---------------------------------------------------------------------------
+Speedtest.net (Region: GLOBAL)
+---------------------------------------------------------------------------
+Location         Latency     Loss    DL Speed       UP Speed       Server
 
-  ISP: Nexeon Technologies
+ISP: Nexeon Technologies
 
-  Nearest          1.30 ms     0.0%    9133.58 Mbps   8763.13 Mbps   GSL Networks - Singapore
+Nearest          1.30 ms     0.0%    6801.00 Mbps   6324.32 Mbps   NewMedia Express - Singapore
 
-  Kochi, IN        46.03 ms    0.0%    1815.47 Mbps   1667.91 Mbps   Asianet Broadband - Cochin
-  Bangalore, IN    39.87 ms    0.0%    2587.68 Mbps   2090.24 Mbps   Bharti Airtel Ltd - Bangalore
-  Chennai, IN      34.88 ms    N/A     2530.71 Mbps   2311.70 Mbps   Jio - Chennai
-  Mumbai, IN       52.76 ms    0.0%    2644.69 Mbps   1447.37 Mbps   i3D.net - Mumbai
-  Delhi, IN        74.03 ms    0.0%    1864.22 Mbps   1161.09 Mbps   Tata Teleservices Ltd - New Delhi
+Kochi, IN        135.14 ms   0.4%    2331.98 Mbps   503.91 Mbps    Asianet Broadband - Cochin
+Bangalore, IN    37.36 ms    0.0%    4150.99 Mbps   2259.01 Mbps   Bharti Airtel Ltd - Bangalore
+Chennai, IN      34.41 ms    N/A     4239.76 Mbps   3674.00 Mbps   Jio - Chennai
+Mumbai, IN       53.94 ms    0.0%    4438.07 Mbps   1628.58 Mbps   i3D.net - Mumbai
+Delhi, IN        68.89 ms    0.0%    5305.94 Mbps   1257.02 Mbps   Tata Play Fiber - New Delhi
 
-  Seattle, US      189.59 ms   N/A     2585.97 Mbps   404.03 Mbps    Comcast - Seattle, WA
-  Los Angeles, US  173.89 ms   0.0%    1531.72 Mbps   459.14 Mbps    ReliableSite Hosting - Los Angeles, CA
-  Dallas, US       206.32 ms   0.0%    1449.05 Mbps   406.50 Mbps    Hivelocity - Dallas, TX
-  Miami, US        274.77 ms   0.0%    780.60 Mbps    335.97 Mbps    AT&T - Miami, FL
-  New York, US     228.65 ms   0.0%    2017.60 Mbps   351.49 Mbps    GSL Networks - New York, NY
-  Toronto, CA      238.10 ms   0.0%    1637.05 Mbps   341.69 Mbps    Rogers - Toronto, ON
+Seattle, US      195.62 ms   N/A     2497.59 Mbps   474.90 Mbps    Comcast - Seattle, WA
+Los Angeles, US  168.02 ms   0.0%    3049.68 Mbps   528.34 Mbps    ReliableSite Hosting - Los Angeles, CA
+Dallas, US       203.97 ms   0.0%    3508.85 Mbps   425.87 Mbps    i3D.net - Dallas, TX
+Miami, US        260.42 ms   N/A     1652.07 Mbps   326.44 Mbps    Dish Wireless - Miami, FL
+New York, US     219.14 ms   0.0%    5247.94 Mbps   1094.72 Mbps   GSL Networks - New York, NY
+Toronto, CA      199.36 ms   0.0%    2609.28 Mbps   438.25 Mbps    Rogers - Toronto, ON
+Mexico City, MX  201.59 ms   N/A     3624.56 Mbps   424.48 Mbps    INFINITUM - Mexico City
 
-  London, UK       169.41 ms   0.0%    2899.98 Mbps   365.17 Mbps    VeloxServ Communications - London
-  Amsterdam, NL    168.70 ms   0.0%    2953.66 Mbps   389.57 Mbps    31173 Services AB - Amsterdam
-  Paris, FR        287.47 ms   N/A     2163.78 Mbps   271.59 Mbps    Axione - Paris
-  Frankfurt, DE    152.74 ms   0.0%    2909.40 Mbps   472.01 Mbps    23M GmbH - Frankfurt am Main
-  Warsaw, PL       266.11 ms   0.0%    1017.02 Mbps   282.95 Mbps    UPC Polska - Warszawa
-  Bucharest, RO    173.10 ms   0.0%    2016.98 Mbps   473.37 Mbps    Vodafone Romania Fixed – Bucharest - Bucharest
+London, UK       220.12 ms   0.0%    4299.89 Mbps   1103.14 Mbps   VeloxServ Communications - London
+Amsterdam, NL    166.55 ms   0.0%    5517.39 Mbps   1075.73 Mbps   31173 Services AB - Amsterdam
+Paris, FR        231.02 ms   N/A     4099.58 Mbps   823.54 Mbps    Axione - Paris
+Frankfurt, DE    175.67 ms   0.0%    1675.52 Mbps   560.19 Mbps    Clouvider Ltd - Frankfurt am Main
+Warsaw, PL       169.94 ms   0.0%    4316.61 Mbps   1410.42 Mbps   Play - Warszawa
+Bucharest, RO    173.98 ms   0.0%    4252.47 Mbps   388.07 Mbps    Vodafone Romania Fixed – Bucharest - Bucharest
+Moscow, RU       328.29 ms   0.0%    3919.06 Mbps   672.10 Mbps    RETN - Moscow
 
-  Jeddah, SA       224.96 ms   0.0%    2366.26 Mbps   382.92 Mbps    Saudi Telecom Company
-  Dubai, AE        90.66 ms    0.0%    4545.20 Mbps   945.34 Mbps    du - Dubai
-  Fujairah, AE     71.32 ms    0.0%    5358.82 Mbps   1037.11 Mbps   ETISALAT-UAE - Fujairah
+Jeddah, SA       194.02 ms   0.0%    4308.41 Mbps   1193.33 Mbps   Saudi Telecom Company
+Dubai, AE        85.45 ms    0.0%    4945.75 Mbps   1945.46 Mbps   du - Dubai
+Fujairah, AE     76.02 ms    0.0%    6330.62 Mbps   3262.74 Mbps   e& UAE - Fujairah
+Istanbul, TR     185.28 ms   0.0%    3309.72 Mbps   792.26 Mbps    Turkcell - Istanbul
+Tehran, IR       233.49 ms   0.0%    2594.74 Mbps   347.36 Mbps    Asiatech - Tehran
 
-  Tokyo, JP        72.36 ms    N/A     2122.02 Mbps   932.90 Mbps    fdcservers.net - Tokyo
-  Shanghai, CU-CN  205.94 ms   6.3%    1779.52 Mbps   285.10 Mbps    China Unicom 5G - Shanghai
-  Nanjing, CT-CN   298.32 ms   6.7%    1415.25 Mbps   51.06 Mbps     China Telecom JiangSu 5G - Nanjing
-  Hong Kong, CN    36.83 ms    N/A     2109.93 Mbps   2223.66 Mbps   STC - Hong Kong
-  Singapore, SG    2.04 ms     0.0%    7638.98 Mbps   8408.62 Mbps   i3D.net - Singapore
-  Jakarta, ID      16.56 ms    0.0%    2752.70 Mbps   2874.44 Mbps   PT. Telekomunikasi Indonesia - Jakarta
-  ---------------------------------------------------------------------------
-  Avg DL Speed       : 2763.99 Mbps
-  Avg UL Speed       : 1449.48 Mbps
+Tokyo, JP        179.32 ms   0.0%    4225.86 Mbps   492.61 Mbps    IPA CyberLab 400G - Tokyo
+Shanghai, CU-CN  224.31 ms   3.0%    3704.56 Mbps   125.70 Mbps    China Unicom 5G - Shanghai
+Nanjing, CT-CN   321.46 ms   7.3%    310.93 Mbps    4.53 Mbps      China Telecom JiangSu 5G - Nanjing
+Hong Kong, CN    36.81 ms    N/A     6591.88 Mbps   2226.31 Mbps   STC - Hong Kong
+Singapore, SG    0.84 ms     0.0%    8311.79 Mbps   8365.12 Mbps   i3D.net - Singapore
+Jakarta, ID      14.42 ms    0.0%    4735.94 Mbps   5984.13 Mbps   PT Solnet Indonesia - Jakarta
+---------------------------------------------------------------------------
+Avg DL Speed       : 4093.84 Mbps
+Avg UL Speed       : 1617.17 Mbps
 
-  Total DL Data      : 97.00 GB
-  Total UL Data      : 44.52 GB
-  Total Data         : 141.52 GB
-  ---------------------------------------------------------------------------
-  Duration           : 13 min 42 sec
-  System Time        : 13/11/2023 - 22:57:57 WIB
-  Total Script Runs  : 26997
-  ---------------------------------------------------------------------------
-  Result             : https://result.network-speed.xyz/r/1699890560_TTHK3D_GLOBAL.txt
-  ---------------------------------------------------------------------------
+Total DL Data      : 178.98 GB
+Total UL Data      : 62.39 GB
+Total Data         : 241.38 GB
+---------------------------------------------------------------------------
+Duration           : 16 min 24 sec
+System Time        : 18/09/2024 - 00:03:48 WIB
+Total Script Runs  : 81295
+---------------------------------------------------------------------------
+Result             : https://result.nws.sh/r/1726592066_XGBFET_GLOBAL.txt
+---------------------------------------------------------------------------
 </code></pre>
 <h2 id="sample-output-regional">Sample Output (Regional)</h2>
-<pre><code>  ---------------------------- network-speed.xyz ----------------------------
-    A simple script to test network performance using speedtest-cli
-  ---------------------------------------------------------------------------
-  Version            : v2023.11.13
-  Global Speedtest   : wget -qO- network-speed.xyz | bash
-  Region Speedtest   : wget -qO- network-speed.xyz | bash -s -- -r <region>
-  ---------------------------------------------------------------------------
-  Basic System Info
-  ---------------------------------------------------------------------------
-  CPU Model          : AMD EPYC-Rome Processor
-  CPU Cores          : 16 @ 2799.998 MHz
-  CPU Cache          : 512 KB
-  AES-NI             : ✔ Enabled
-  VM-x/AMD-V         : ✔ Enabled
-  Total Disk         : 1.2 TB (399.3 GB Used)
-  Total RAM          : 62.8 GB (1.8 GB Used)
-  System uptime      : 10 days, 20 hour 23 min
-  Load average       : 0.31, 0.30, 0.22
-  OS                 : Ubuntu 22.04.3 LTS
-  Arch               : x86_64 (64 Bit)
-  Kernel             : 5.15.0-88-generic
-  Virtualization     : KVM
-  ---------------------------------------------------------------------------
-  Basic Network Info
-  ---------------------------------------------------------------------------
-  Primary Network    : IPv6
-  IPv6 Access        : ✔ Online
-  IPv4 Access        : ✔ Online
-  ISP                : HIVELOCITY, Inc.
-  ASN                : AS29802 HIVELOCITY, Inc.
-  Host               : HIVELOCITY, Inc.
-  Location           : Tampa, Florida-FL, United States
-  Location (IPv4)    : New York City, New York, US
-  ---------------------------------------------------------------------------
-  Speedtest.net (Region: NORTH AMERICA)
-  ---------------------------------------------------------------------------
-  Location         Latency     Loss    DL Speed       UP Speed       Server
+<pre><code>  ---------------------------------- nws.sh ---------------------------------
+  A simple script to bench network performance using speedtest-cli
+---------------------------------------------------------------------------
+Version            : v2024.09.18
+Global Speedtest   : wget -qO- nws.sh | bash
+Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+---------------------------------------------------------------------------
+Basic System Info
+---------------------------------------------------------------------------
+CPU Model          : Intel(R) Core(TM) i7-6700K CPU @ 4.00GHz
+CPU Cores          : 8 @ 3902.256 MHz
+CPU Cache          : 8192 KB
+AES-NI             : ✔ Enabled
+VM-x/AMD-V         : ✔ Enabled
+Total Disk         : 438.5 GB (3.6 GB Used)
+Total RAM          : 62.4 GB (1.1 GB Used)
+Total Swap         : 512.0 MB (0 Used)
+System uptime      : 14 days, 14 hour 9 min
+Load average       : 0.34, 0.18, 0.14
+OS                 : Ubuntu 24.04.1 LTS
+Arch               : x86_64 (64 Bit)
+Kernel             : 6.8.0-41-generic
+Virtualization     : NONE
+TCP Control        : cubic
+---------------------------------------------------------------------------
+Basic Network Info
+---------------------------------------------------------------------------
+Primary Network    : IPv6
+IPv6 Access        : ✔ Online
+IPv4 Access        : ✔ Online
+ISP                : OVH SAS
+ASN                : AS16276 OVH SAS
+Host               : OVH Hosting, Inc
+Location           : Beauharnois, Quebec-QC, Canada
+---------------------------------------------------------------------------
+Speedtest.net (Region: NORTH AMERICA)
+---------------------------------------------------------------------------
+Location         Latency     Loss    DL Speed       UP Speed       Server
 
-  ISP: HIVELOCITY
+ISP: OVH SAS
 
-  Nearest          32.13 ms    0.0%    969.65 Mbps    979.59 Mbps    Ideatek Telcom - Wichita, KS
+Nearest          1.33 ms     0.0%    910.56 Mbps    862.76 Mbps    Bell Mobility - Montréal, QC
 
-  Vancouver, BC    60.61 ms    N/A     967.70 Mbps    1135.93 Mbps   TELUS - Vancouver, BC
-  Calgary, AB      71.34 ms    N/A     979.29 Mbps    1150.40 Mbps   Shaw Communications - Calgary, AB
-  Winnipeg, MB     33.30 ms    0.0%    981.48 Mbps    1033.50 Mbps   Voyageur Internet - Winnipeg, MB
-  Toronto, ON      13.33 ms    0.0%    966.90 Mbps    1030.24 Mbps   Bell Canada - Toronto, ON
-  Montreal, QC     18.62 ms    0.0%    965.83 Mbps    1033.81 Mbps   Rogers Wireless - Montréal, QC
+Vancouver, BC    83.49 ms    N/A     799.70 Mbps    360.88 Mbps    TELUS - Vancouver, BC
+Calgary, AB      59.25 ms    N/A     77.07 Mbps     25.17 Mbps     Shaw Communications - Calgary, AB
+Winnipeg, MB     41.94 ms    0.0%    287.59 Mbps    34.87 Mbps     Voyageur Internet - Winnipeg, MB
+Toronto, ON      8.43 ms     0.0%    703.13 Mbps    693.91 Mbps    Bell Canada - Toronto, ON
+Montreal, QC     55.63 ms    0.0%    385.50 Mbps    485.94 Mbps    Rogers Wireless - Montréal, QC
 
-  New York, NY     1.91 ms     0.0%    978.59 Mbps    1020.65 Mbps   Surfshark Ltd - New York, NY
-  Ashburn, VA      8.02 ms     0.0%    978.66 Mbps    1025.62 Mbps   Rackdog - Ashburn, VA
-  Charlotte, NC    29.94 ms    0.0%    982.01 Mbps    1017.43 Mbps   Windstream - Charlotte, NC
-  Atlanta, GA      21.22 ms    0.0%    966.61 Mbps    1034.20 Mbps   i3D.net - Atlanta, GA
-  Miami, FL        37.02 ms    0.0%    980.75 Mbps    1027.54 Mbps   AT&T - Miami, FL
-  Dallas, TX       38.83 ms    0.0%    964.68 Mbps    1033.02 Mbps   Hivelocity - Dallas, TX
-  Houston, TX      36.96 ms    0.0%    980.87 Mbps    1002.22 Mbps   Ezee Fiber - Houston, TX
-  Kansas, MO       27.70 ms    0.0%    976.04 Mbps    986.15 Mbps    Xiber LLC - Kansas City, MO
-  Minneapolis, MN  26.28 ms    0.0%    979.99 Mbps    1039.35 Mbps   US Internet - Minneapolis, MN
-  Chicago, IL      19.75 ms    0.0%    968.92 Mbps    1029.48 Mbps   Enzu.com - Chicago, IL
-  Cleveland, OH    18.24 ms    0.0%    981.91 Mbps    1030.18 Mbps   Windstream - Cleveland, OH
-  Albuquerque, NM  47.87 ms    N/A     972.68 Mbps    924.90 Mbps    Comcast - Albuquerque, NM
-  Denver, CO       42.72 ms    0.0%    970.74 Mbps    1028.73 Mbps   T-Mobile Fiber | Intrepid - Denver, CO
-  Portland, OR     74.28 ms    N/A     994.76 Mbps    1064.18 Mbps   CenturyLink - Portland, OR
-  Las Vegas, NV    72.70 ms    N/A     989.92 Mbps    1122.41 Mbps   Dish Wireless - Las Vegas, NV
-  Salt Lake, UT    60.37 ms    N/A     949.70 Mbps    1114.76 Mbps   Novva Data Centers - Salt Lake City, UT
-  Phoenix, AZ      56.70 ms    0.0%    984.85 Mbps    1081.14 Mbps   Xiber LLC - Phoenix, AZ
-  Los Angeles, CA  63.88 ms    0.0%    977.44 Mbps    1097.49 Mbps   ReliableSite Hosting - Los Angeles, CA
-  San Jose, CA     62.98 ms    0.0%    946.84 Mbps    1067.08 Mbps   Misaka Network, Inc. - San Jose, CA
-  Seattle, WA      64.65 ms    0.0%    964.93 Mbps    1072.61 Mbps   Misaka Network, Inc. - Seattle, WA
-  Anchorage, AK    95.29 ms    0.0%    939.39 Mbps    281.60 Mbps    Alaska Communications - Anchorage, AK
+New York, NY     18.60 ms    0.0%    314.49 Mbps    68.22 Mbps     Surfshark Ltd - New York, NY
+Ashburn, VA      13.91 ms    0.0%    254.49 Mbps    90.58 Mbps     Rackdog - Ashburn, VA
+Charlotte, NC    26.86 ms    N/A     568.84 Mbps    701.91 Mbps    Windstream - Charlotte, NC
+Atlanta, GA      26.42 ms    0.0%    300.25 Mbps    554.63 Mbps    i3D.net - Atlanta, GA
+Miami, FL        45.66 ms    0.0%    361.04 Mbps    436.30 Mbps    ReliableSite Hosting - Miami, FL
+Dallas, TX       40.58 ms    0.0%    406.51 Mbps    431.03 Mbps    i3D.net - Dallas, TX
+Houston, TX      45.43 ms    0.0%    337.63 Mbps    53.92 Mbps     AT&T - Houston, TX
+Kansas, MO       34.87 ms    0.0%    217.74 Mbps    56.69 Mbps     Nocix - Kansas City, MO
+Minneapolis, MN  38.98 ms    0.0%    191.44 Mbps    40.35 Mbps     US Internet - Minneapolis, MN
+Chicago, IL      28.64 ms    0.0%    411.01 Mbps    496.56 Mbps    Enzu.com - Chicago, IL
+Cleveland, OH    22.68 ms    N/A     705.58 Mbps    680.72 Mbps    Windstream - Cleveland, OH
+Albuquerque, NM  60.33 ms    N/A     423.95 Mbps    299.40 Mbps    Comcast - Albuquerque, NM
+Denver, CO       48.42 ms    0.0%    453.73 Mbps    547.28 Mbps    T-Mobile Fiber | Intrepid - Denver, CO
+Portland, OR     77.84 ms    N/A     949.26 Mbps    27.17 Mbps     CenturyLink - Portland, OR
+Las Vegas, NV    73.81 ms    N/A     78.22 Mbps     33.40 Mbps     Dish Wireless - Las Vegas, NV
+Salt Lake, UT    77.11 ms    N/A     47.18 Mbps     274.66 Mbps    Novva Data Centers - Salt Lake City, UT
+Phoenix, AZ      67.84 ms    0.0%    285.41 Mbps    36.93 Mbps     Xiber LLC - Phoenix, AZ
+Los Angeles, CA  67.80 ms    0.0%    294.04 Mbps    319.16 Mbps    ReliableSite Hosting - Los Angeles, CA
+San Jose, CA     86.80 ms    0.0%    511.81 Mbps    405.37 Mbps    Misaka Network, Inc. - San Jose, CA
+Spokane, WA      91.18 ms    0.0%    423.05 Mbps    280.95 Mbps    Crunchbits - Spokane, WA
+Seattle, WA      84.03 ms    0.0%    662.45 Mbps    313.70 Mbps    Misaka Network, Inc. - Seattle, WA
 
-  Hermosillo, MX   79.29 ms    0.0%    979.21 Mbps    1129.69 Mbps   Megacable - Hermosillo
-  Guadalajara, MX  82.03 ms    0.0%    962.44 Mbps    524.70 Mbps    AT&T México - Guadalajara
-  Mexico City, MX  89.17 ms    N/A     972.72 Mbps    790.31 Mbps    INFINITUM - Mexico City
-  ---------------------------------------------------------------------------
-  Avg DL Speed       : 972.51 Mbps
-  Avg UL Speed       : 996.96 Mbps
+Hermosillo, MX   84.72 ms    0.0%    408.72 Mbps    334.80 Mbps    Megacable - Hermosillo
+Guadalajara, MX  67.39 ms    0.0%    405.86 Mbps    42.69 Mbps     AT&T México - Guadalajara
+Mexico City, MX  70.60 ms    N/A     424.98 Mbps    386.61 Mbps    INFINITUM - Mexico City
+---------------------------------------------------------------------------
+Avg DL Speed       : 420.04 Mbps
+Avg UL Speed       : 312.55 Mbps
 
-  Total DL Data      : 35.81 GB
-  Total UL Data      : 40.86 GB
-  Total Data         : 76.67 GB
-  ---------------------------------------------------------------------------
-  Duration           : 12 min 31 sec
-  System Time        : 13/11/2023 - 14:59:22 UTC
-  Total Script Runs  : 26990
-  ---------------------------------------------------------------------------
-  Result             : https://result.network-speed.xyz/r/1699887044_OLENJV_NA.txt
-  ---------------------------------------------------------------------------
+Total DL Data      : 17.83 GB
+Total UL Data      : 10.49 GB
+Total Data         : 28.32 GB
+---------------------------------------------------------------------------
+Duration           : 13 min 55 sec
+System Time        : 18/09/2024 - 10:30:49 IST
+Total Script Runs  : 81340
+---------------------------------------------------------------------------
+Result             : https://result.nws.sh/r/1726635083_P6NU18_NA.txt
+---------------------------------------------------------------------------
 </code></pre>
 
 <h2 id="sample-output-all-regions">Sample Output (All Regions)</h2>
-<p>NA : <a href="https://result.network-speed.xyz/r/1694522045_QVORYM_NA.txt">https://result.network-speed.xyz/r/1694522045_QVORYM_NA.txt</a><br>
-SA : <a href="https://result.network-speed.xyz/r/1694528715_JFU3T1_SA.txt">https://result.network-speed.xyz/r/1694528715_JFU3T1_SA.txt</a><br>
-EU : <a href="https://result.network-speed.xyz/r/1694529083_9KFDDK_EU.txt">https://result.network-speed.xyz/r/1694529083_9KFDDK_EU.txt</a><br>
-Asia : <a href="https://result.network-speed.xyz/r/1694528694_SIR554_ASIA.txt">https://result.network-speed.xyz/r/1694528694_SIR554_ASIA.txt</a><br>
-Africa : <a href="https://result.network-speed.xyz/r/1694537113_747AYT_AFRICA.txt">https://result.network-speed.xyz/r/1694537113_747AYT_AFRICA.txt</a><br>
-AU : <a href="https://result.network-speed.xyz/r/1694536652_DGXND8_AU.txt">https://result.network-speed.xyz/r/1694536652_DGXND8_AU.txt</a><br>
-Middle East : <a href="https://result.network-speed.xyz/r/1699886816_J28SZ3_MIDDLE-EAST.txt">https://result.network-speed.xyz/r/1699886816_J28SZ3_MIDDLE-EAST.txt</a><br>
-India : <a href="https://result.network-speed.xyz/r/1694530534_3C9IAU_INDIA.txt">https://result.network-speed.xyz/r/1694530534_3C9IAU_INDIA.txt</a><br>
-China : <a href="https://result.network-speed.xyz/r/1694528635_EI46XX_CHINA.txt">https://result.network-speed.xyz/r/1694528635_EI46XX_CHINA.txt</a><br>
-Iran : <a href="https://result.network-speed.xyz/r/1694528246_6GOL8A_IRAN.txt">https://result.network-speed.xyz/r/1694528246_6GOL8A_IRAN.txt</a><br>
-Indonesia : <a href="https://result.network-speed.xyz/r/1695397374_P9DYIL_INDONESIA.txt">https://result.network-speed.xyz/r/1695397374_P9DYIL_INDONESIA.txt</a></p>
+<p>NA : <a href="https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt">https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt</a><br>
+SA : <a href="https://result.nws.sh/r/1726636253_DOOLEN_SA.txt">https://result.nws.sh/r/1726636253_DOOLEN_SA.txt</a><br>
+EU : <a href="https://result.nws.sh/r/1726636063_M5C2V5_EU.txt">https://result.nws.sh/r/1726636063_M5C2V5_EU.txt</a><br>
+Asia : <a href="https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt">https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt</a><br>
+Africa : <a href="https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt">https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt</a><br>
+AU : <a href="https://result.nws.sh/r/1726635412_6451TY_AU.txt">https://result.nws.sh/r/1726635412_6451TY_AU.txt</a><br>
+Middle East : <a href="https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt">https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt</a><br>
+India : <a href="https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt">https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt</a><br>
+China : <a href="https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt">https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt</a><br>
+Iran : <a href="https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt">https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt</a><br>
+Indonesia : <a href="https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt">https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt</a>
+Russia : <a href="https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt">https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt</a><br></p>
 
 <h2 id="bandwidth-usage">Bandwidth Usage</h2>
 <p>The script usually takes around 10-15 minutes to complete execution for global speedtest.<br>
