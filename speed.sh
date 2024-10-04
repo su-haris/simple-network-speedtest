@@ -141,7 +141,7 @@ speed() {
         speed_test '16273' 'Ahmedabad, GJ'
         speed_test '47162' 'Jaipur, RJ'
         speed_test '36668' 'Lucknow, UP'
-        speed_test '15797' 'Delhi, DL'
+        speed_test '2608' 'Delhi, DL'
         speed_test '10020'  'Gurgaon, HR' 
         speed_test '25959' 'Patna, BH'
     elif [ "$REGION" = "asia" ]; then
