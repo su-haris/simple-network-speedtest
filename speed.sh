@@ -2,7 +2,7 @@
 #
 # Description: A Network Benchmark Script by <sh@suh.ovh>
 # Copyright (C) 2022 - 2024 <sh@suh.ovh>
-# URL: https://network-speed.xyz/
+# URL: https://nws.sh/
 # https://github.com/su-haris/simple-network-speedtest
 #
 trap _exit INT QUIT TERM
@@ -164,7 +164,7 @@ speed() {
         speed_test '5935'  'Singapore, SG'
         speed_test '4235'  'Singapore, SG'
         speed_test '13039' 'Jakarta, ID'
-        speed_test '56045' 'Surabaya, ID'   
+        speed_test '56633' 'Surabaya, ID'   
         speed_test '19302' 'Kuala Lum, MY'
         echo -e
         speed_test '40507' 'Mumbai, IN'
@@ -174,10 +174,10 @@ speed() {
         # speed_test '9716'  'Lahore, PK' 
         speed_test '35816'  'Islamabad, PK'
         speed_test '54919' 'Kathmandu, NP'
-        speed_test '46291' 'Colombo, SL'
+        speed_test '60180' 'Colombo, SL'
         speed_test '10424' 'Dhaka, BD'
         echo -e
-        speed_test '6389' 'Novosibirsk, RU'
+        speed_test '6430' 'Novosibirsk, RU'
         speed_test '38516' 'Almaty, KZ'
         echo -e
         speed_test '4317' 'Tehran, IR'
@@ -192,7 +192,8 @@ speed() {
         speed_test '11271' 'Seeb, OM'
         speed_test '15570' 'Sanaa, YE'
         speed_test '6193' 'Doha, QA'
-        speed_test '51657' 'Rayan, QA'
+        # speed_test '51657' 'Rayan, QA'
+        speed_test '51669' 'Lusail, QA'
         speed_test '17574'  'Manama, BH' 
         speed_test '52650' 'Rifa, BH'
         speed_test '25444' 'Kuwait, KW'
@@ -205,7 +206,7 @@ speed() {
         speed_test '4317' 'Tehran, IR'
         speed_test '39247' 'Baghdad, IQ'
         speed_test '27570' 'Beirut, LB'
-        speed_test '6276' 'Nicosia, CY'
+        speed_test '54384' 'Nicosia, CY'
         speed_test '38212' 'Tel Aviv, IL' 
         speed_test '31160' 'Amman, JO'
         speed_test '41251' 'Cairo, EG'
@@ -639,7 +640,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.09.18)"
+    echo " Version            : $(_green v2024.10.06)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
@@ -839,7 +840,7 @@ while getopts ":r:" opt; do
         *)
           echo "Invalid REGION: $OPTARG" >&2
           echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia"
-          echo "Visit network-speed.xyz for instructions."
+          echo "Visit nws.sh for instructions."
           exit 1
           ;;
       esac
