@@ -121,7 +121,7 @@ speed() {
     echo -e
 
     if [ "$REGION" = "india" ]; then
-        speed_test '24161' 'Mumbai, MH'
+        speed_test '15171' 'Mumbai, MH'
         speed_test '6879' 'Mumbai, MH'
         speed_test '33603' 'Pune, MH'
         speed_test '18977' 'Hyderabad, AP/TL' 
