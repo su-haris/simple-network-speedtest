@@ -369,19 +369,19 @@ speed() {
         echo -e
         speed_test '5065' 'Bandung'
         speed_test '32223' 'Bekasi'
-        speed_test '40839' 'Bogor'
+        speed_test '63223' 'Bogor'
         speed_test '40832' 'Malang'
-        speed_test '55786' 'Semarang'
-        speed_test '56045' 'Surabaya'
+        speed_test '47972' 'Semarang'
+        speed_test '46091' 'Surabaya'
         speed_test '24587' 'Yogyakarta'
         echo -e 
         speed_test '59117' 'Banda Aceh'
-        speed_test '46100' 'Medan'
-        speed_test '57191' 'Palembang'
+        speed_test '61882' 'Medan'
+        speed_test '50465' 'Palembang'
         speed_test '53101' 'Pekanbaru' 
         echo -e 
-        speed_test '21959' 'Bali'
-        speed_test '45884' 'Makassar'
+        # speed_test '21959' 'Bali'
+        speed_test '46113' 'Makassar'
         speed_test '45520' 'Depok'
         speed_test '47361' 'Tangerang'
     elif [ "$REGION" = "china" ]; then
