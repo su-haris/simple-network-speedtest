@@ -450,9 +450,10 @@ speed() {
         speed_test '61326' 'Tehran, IR'
         # speed_test '34283' 'Cairo, EG'
         echo -e 
-        # speed_test '28910' 'Tokyo, JP'
-        speed_test '48463' 'Tokyo, JP'
-        speed_test '24447' 'Shanghai, CU-CN'
+        speed_test '50686' 'Tokyo, JP'
+        # speed_test '48463' 'Tokyo, JP'
+        # speed_test '24447' 'Shanghai, CU-CN'
+        speed_test '45170' 'Wu Xi, CU-CN'
         #speed_test '37235' 'Shenyang, CU-CN'
         speed_test '26352' 'Nanjing, CT-CN'
         # speed_test '5396' 'Suzhou, CT-CN'
@@ -640,7 +641,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.10.07)"
+    echo " Version            : $(_green v2024.10.17)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
