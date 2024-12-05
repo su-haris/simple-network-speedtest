@@ -124,7 +124,7 @@ speed() {
         speed_test '15171' 'Mumbai, MH'
         speed_test '6879' 'Mumbai, MH'
         speed_test '33603' 'Pune, MH'
-        speed_test '18977' 'Hyderabad, AP/TL' 
+        speed_test '12939' 'Hyderabad, AP/TL' 
         speed_test '52216' 'Bangalore, KA'
         speed_test '7379' 'Bangalore, KA'
         speed_test '35402' 'Mangalore, KA'
@@ -143,7 +143,8 @@ speed() {
         speed_test '36668' 'Lucknow, UP'
         speed_test '15797' 'Delhi, DL'
         speed_test '10020'  'Gurgaon, HR' 
-        speed_test '25959' 'Patna, BH'
+        speed_test '49231' 'Patna, BH'
+        speed_test '49231' 'Aizawl, MZ'
     elif [ "$REGION" = "asia" ]; then
         speed_test '50686' 'Tokyo, JP'
         speed_test '18445' 'Tapei, TW'
@@ -152,7 +153,7 @@ speed() {
         speed_test '26352' 'China Telecom'
         speed_test '24447' 'China Unicom'
         # speed_test '41910' 'China Mobile'
-        speed_test '54312' 'China Mobile'
+        speed_test '25858' 'China Mobile'
         speed_test '22126' 'Hong Kong, CN'
         echo -e 
         # speed_test '18250' 'Ho Chi Minh, VN'
@@ -424,7 +425,7 @@ speed() {
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
         speed_test '9690' 'Chennai, IN' 
-        speed_test '40507' 'Mumbai, IN'
+        speed_test '47668' 'Mumbai, IN'
         speed_test '29658' 'Delhi, IN'
         echo -e
         speed_test '1782' 'Seattle, US'
@@ -444,11 +445,12 @@ speed() {
         speed_test '22050' 'Moscow, RU'
         echo -e 
         speed_test '14580' 'Jeddah, SA'
-        speed_test '4845'  'Dubai, AE'
-        speed_test '34240' 'Fujairah, AE'
+        # speed_test '4845'  'Dubai, AE'
+        speed_test '17336'  'Dubai, AE'
+        # speed_test '34240' 'Fujairah, AE'
         speed_test '31851' 'Istanbul, TR'
         speed_test '61326' 'Tehran, IR'
-        # speed_test '34283' 'Cairo, EG'
+        speed_test '34283' 'Cairo, EG'
         echo -e 
         speed_test '50686' 'Tokyo, JP'
         # speed_test '48463' 'Tokyo, JP'
@@ -457,7 +459,8 @@ speed() {
         #speed_test '37235' 'Shenyang, CU-CN'
         speed_test '26352' 'Nanjing, CT-CN'
         # speed_test '5396' 'Suzhou, CT-CN'
-        speed_test '1536'  'Hong Kong, CN'
+        # speed_test '1536'  'Hong Kong, CN'
+        speed_test '44340'  'Hong Kong, CN'
         speed_test '40508' 'Singapore, SG'
         speed_test '63138' 'Jakarta, ID'
     fi 
@@ -641,7 +644,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.11.03)"
+    echo " Version            : $(_green v2024.12.05)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
