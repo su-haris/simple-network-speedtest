@@ -424,7 +424,7 @@ speed() {
     else
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
-        speed_test '9690' 'Chennai, IN' 
+        speed_test '67859' 'Chennai, IN' 
         speed_test '47668' 'Mumbai, IN'
         speed_test '29658' 'Delhi, IN'
         echo -e
