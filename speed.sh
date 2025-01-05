@@ -144,7 +144,7 @@ speed() {
         speed_test '15797' 'Delhi, DL'
         speed_test '10020'  'Gurgaon, HR' 
         speed_test '49231' 'Patna, BH'
-        speed_test '49231' 'Aizawl, MZ'
+        speed_test '60294' 'Aizawl, MZ'
     elif [ "$REGION" = "asia" ]; then
         speed_test '50686' 'Tokyo, JP'
         speed_test '18445' 'Tapei, TW'
@@ -176,7 +176,7 @@ speed() {
         speed_test '35816'  'Islamabad, PK'
         speed_test '54919' 'Kathmandu, NP'
         speed_test '60180' 'Colombo, SL'
-        speed_test '10424' 'Dhaka, BD'
+        speed_test '30815' 'Dhaka, BD'
         echo -e
         speed_test '6430' 'Novosibirsk, RU'
         speed_test '38516' 'Almaty, KZ'
@@ -263,7 +263,7 @@ speed() {
         speed_test '3455' 'Lima, PE'
         speed_test '4992' 'Lima, PE'
         speed_test '21800' 'Quito, EC'
-        speed_test '56516'  'Caracas, VE' 
+        speed_test '49339'  'Caracas, VE' 
         speed_test '44095' 'Bogota, CO'
     elif [ "$REGION" = "eu" ]; then
         speed_test '31183' 'London, UK'
@@ -352,11 +352,11 @@ speed() {
         speed_test '42152' 'Petersburg'
         speed_test '39860' 'Kazan'
         speed_test '22240' 'Kazan'
-        speed_test '7486' 'Sevastopol'
+        speed_test '65185' 'Sevastopol'
         speed_test '41096' 'Kaliningrad'
         speed_test '37042' 'Volgograd'
         echo -e
-        speed_test '4282' 'Omsk'
+        speed_test '39503' 'Omsk'
         speed_test '6430' 'Novosibirsk'
         speed_test '3545' 'Krasnoyarsk'
         speed_test '9679' 'Yakutsk'
@@ -644,7 +644,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2024.12.20)"
+    echo " Version            : $(_green v2025.01.05)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
