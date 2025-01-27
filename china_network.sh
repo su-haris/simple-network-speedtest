@@ -107,34 +107,36 @@ get_line_type() {
         line_type="Unknown Line |Path not recognized"
     fi
 
-    # Determine the preceding ASN's information
-    if [[ ${TIER1_ISPS[$preceding_asn]} ]]; then
-        via_info="via ${TIER1_ISPS[$preceding_asn]}"
-    else
-        via_info="via $preceding_asn"
+    # Determine the preceding ASN's information only for non-premium lines
+    if [[ ! $line_type =~ ^Premium ]]; then
+        if [[ ${TIER1_ISPS[$preceding_asn]} ]]; then
+            via_info="via ${TIER1_ISPS[$preceding_asn]}"
+        else
+            via_info="via $preceding_asn"
+        fi
+        line_type="$line_type $via_info"
     fi
 
-    # Append the "via" information to the line type
-    echo "$line_type $via_info"
+    echo "$line_type"
 }
 
 # Array of locations and IPs
 declare -A locations=(
-    ["China Beijing Telecom"]="219.141.136.12"
-    ["China Beijing Unicom"]="202.106.50.1"
-    ["China Beijing Mobile"]="221.179.155.161"
-    ["China Shanghai Telecom"]="202.96.209.133"
-    ["China Shanghai Unicom"]="210.22.97.1"
-    ["China Shanghai Mobile"]="211.136.112.200"
-    ["China Guangzhou Telecom"]="58.60.188.222"
-    ["China Guangzhou Unicom"]="210.21.196.6"
-    ["China Guangzhou Mobile"]="120.196.165.24"
-    ["China Chengdu Telecom"]="61.139.2.69"
-    ["China Chengdu Unicom"]="119.6.6.6"
-    ["China Chengdu Mobile"]="211.137.96.205"
-    ["CT"]="106.4.158.58"
-    ["CU"]="221.194.154.193"
-    ["CM"]="223.111.101.29"
+    ["Beijing - China Telecom"]="219.141.136.12"
+    ["Beijing - China Unicom"]="202.106.50.1"
+    ["Beijing - China Mobile"]="221.179.155.161"
+    ["Shanghai - China Telecom"]="202.96.209.133"
+    ["Shanghai - China Unicom"]="210.22.97.1"
+    ["Shanghai - China Mobile"]="211.136.112.200"
+    ["Guangzhou - China Telecom"]="58.60.188.222"
+    ["Guangzhou - China Unicom"]="210.21.196.6"
+    ["Guangzhou - China Mobile"]="120.196.165.24"
+    ["Chengdu - China Telecom"]="61.139.2.69"
+    ["Chengdu - China Unicom"]="119.6.6.6"
+    ["Chengdu - China Mobile"]="211.137.96.205"
+    ["Shanghai - China Telecom"]="106.4.158.58"
+    ["Shanghai - China Unicom"]="221.194.154.193"
+    ["Shanghai - China Mobile"]="223.111.101.29"
 )
 
 # Main execution
