@@ -35,11 +35,10 @@ print_separator() {
 # Function to print header
 print_header() {
     printf "%${SEPARATOR_WIDTH}s\n" | tr ' ' '='
-    echo "\n${BOLD}${BLUE}nws.sh - China Network Test${NC}"
+    echo -e "\n${BOLD}${BLUE}nws.sh - China Network Test${NC}"
     printf "%${SEPARATOR_WIDTH}s\n" | tr ' ' '='
     echo -e "${BOLD}Network                        | Details${NC}"
-    printf "%${SEPARATOR_WIDTH}s\n" | tr ' ' '='
-    # print_separator
+    print_separator
 }
 
 # Function to perform ping test
@@ -81,7 +80,7 @@ get_as_path() {
     done
 
     # Output the full AS path and the preceding ASN
-    return "$as_path|$preceding_asn"
+    echo "$as_path|$preceding_asn"
 }
 
 get_line_type() {
