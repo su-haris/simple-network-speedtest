@@ -119,16 +119,17 @@ get_line_type() {
     fi
 
     # Determine the preceding ASN's information only for non-premium lines
-    if [[ ! $line_type =~ ^Premium ]]; then
+    if [[ -n $preceding_asn ]]; then
         if [[ ${TIER1_ISPS[$preceding_asn]} ]]; then
-            via_info="via ${TIER1_ISPS[$preceding_asn]}"
+            via_info="via ${TIER1_ISPS[$preceding_asn]}"  # If in the T1 list, use the name
         else
-            via_info="via $preceding_asn"
+            via_info="via $preceding_asn"  # If not in the T1 list, show the ASN number
         fi
-        line_type="$line_type $via_info"
+    else
+        via_info="via Direct Peering"  # Handle cases where there is no preceding ASN
     fi
 
-    echo "$line_type"
+    echo "$line_type $via_info"
 }
 
 # Array of locations and IPs
