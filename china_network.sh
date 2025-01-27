@@ -34,8 +34,8 @@ print_separator() {
 
 # Function to print header
 print_header() {
-    printf "%${SEPARATOR_WIDTH}s\n" | tr ' ' '='
-    echo -e "\n${BOLD}${BLUE}nws.sh - China Network Test${NC}"
+    # printf "%${SEPARATOR_WIDTH}s\n" | tr ' ' '='
+    echo -e "\n${BOLD}${BLUE}nws.sh - China Network Test (v2025.01.27)${NC}"
     printf "%${SEPARATOR_WIDTH}s\n" | tr ' ' '='
     echo -e "${BOLD}Network                        | Details${NC}"
     print_separator
@@ -44,9 +44,20 @@ print_header() {
 # Function to perform ping test
 do_ping() {
     local ip=$1
-    ping_result=$(ping -c 5 $ip | grep -E 'min/avg/max' | awk -F '/' '{printf "%.0f", $5}')
+    ping_output=$(ping -c 5 $ip)
+    
+    # Extract the average ping time
+    ping_result=$(echo "$ping_output" | grep -E 'min/avg/max' | awk -F '/' '{printf "%.0f", $5}')
+    
+    # Extract the packet loss percentage
+    packet_loss=$(echo "$ping_output" | grep -oP '\d+(?=% packet loss)')
+    
     if [ -n "$ping_result" ]; then
-        echo "${ping_result}ms"
+        if [ "$packet_loss" -eq 0 ]; then
+            echo "${ping_result}ms [No Loss]"
+        else
+            echo "${ping_result}ms [${packet_loss}% loss]"
+        fi
     else
         echo "Failed"
     fi
