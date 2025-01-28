@@ -25,6 +25,9 @@ declare -A TIER1_ISPS=(
     [AS701]="Verizon"
     [AS6939]="Hurricane Electric"
     [AS6830]="Liberty Global"
+    [AS6461]="Zayo"
+    [AS3320]="Deutsche Telekom"
+    [AS5511]="Orange France"
 )
 
 # Function to print separator line
