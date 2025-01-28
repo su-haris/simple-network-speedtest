@@ -137,6 +137,7 @@ declare -A locations=(
     ["Beijing - China Telecom"]="219.141.136.12"
     ["Beijing - China Unicom"]="202.106.50.1"
     ["Beijing - China Mobile"]="221.179.155.161"
+    ["Beijing - CERNET"]="101.6.15.66"
     ["Shanghai - China Telecom"]="202.96.209.133"
     ["Shanghai - China Unicom"]="210.22.97.1"
     ["Shanghai - China Mobile"]="211.136.112.200"
