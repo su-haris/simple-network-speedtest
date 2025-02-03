@@ -649,6 +649,41 @@ print_intro() {
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
 
+# Get Disk Data
+get_disk_data() {
+    disk_total_size=0
+    disk_used_size=0
+    fs_list=("simfs" "ext2" "ext3" "ext4" "btrfs" "xfs" "ntfs" "swap")
+    known_path=()
+    for fs_type in "${fs_list[@]}"; do
+        while read -r fs_info; do
+            fs_path=$(echo "$fs_info" | awk '{ print $1 }')
+            fs_size=$(echo "$fs_info" | awk '{ print $2 }')
+            fs_used=$(echo "$fs_info" | awk '{ print $3 }')
+            is_skip=0
+            # Skip if path aleardy passed before
+            for i in "${known_path[@]}"; do
+                if [ "$i" == "$fs_path" ] ; then
+                    is_skip=1
+                    break
+                fi
+            done
+            if [ $is_skip -eq 1 ]; then
+                continue
+            fi
+            known_path+=($fs_path)
+            ((disk_total_size += fs_size))
+            ((disk_used_size += fs_used))
+            # df(1) return 512 instead 1K blocks for btrfs
+            if [ "$fs_type" == "btrfs" ]; then
+                ((disk_total_size = disk_total_size / 2))
+                ((disk_used_size = disk_used_size / 2))
+            fi
+        done < <(LANG=C; df -t "$fs_type" 2>/dev/null | tail -n +2)
+    done
+    echo -n "$disk_total_size $disk_used_size"
+}
+
 # Get System information
 get_system_info() {
     cname=$( awk -F: '/model name/ {name=$2} END {print name}' /proc/cpuinfo | sed 's/^[ \t]*//;s/[ \t]*$//' )
@@ -680,8 +715,13 @@ get_system_info() {
     fi
     kern=$( uname -r )
     disk_total_size=$( LANG=C; df -t simfs -t ext2 -t ext3 -t ext4 -t btrfs -t xfs -t vfat -t ntfs -t swap --total 2>/dev/null | grep total | awk '{ print $2 }' )
-    disk_total_size=$( calc_size $disk_total_size )
     disk_used_size=$( LANG=C; df -t simfs -t ext2 -t ext3 -t ext4 -t btrfs -t xfs -t vfat -t ntfs -t swap --total 2>/dev/null | grep total | awk '{ print $3 }' )
+    if [[ -z "$disk_total_size" || -z "$disk_used_size" ]]; then
+        disk_data=$( get_disk_data )
+        disk_total_size=$( echo "$disk_data" | awk '{ print $1 }' )
+        disk_used_size=$( echo "$disk_data" | awk '{ print $2 }' )
+    fi
+    disk_total_size=$( calc_size $disk_total_size )
     disk_used_size=$( calc_size $disk_used_size )
     tcpctrl=$( sysctl net.ipv4.tcp_congestion_control | awk -F ' ' '{print $3}' )
 
