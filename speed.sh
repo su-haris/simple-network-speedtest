@@ -295,7 +295,7 @@ speed() {
         speed_test '45318' 'Bucharest, RO'
         speed_test '11500' 'Timisoara, RO'
         speed_test '22669' 'Helsinki, FI'
-        speed_test '44597' 'Stockholm, SE'
+        speed_test '34024' 'Stockholm, SE'
         speed_test '31861' 'Oslo, NO'
         # speed_test '3682' 'Moscow, RU'
         speed_test '1907' 'Moscow, RU'
