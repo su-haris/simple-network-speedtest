@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -8,17 +9,42 @@
   <link rel="stylesheet" href="https://stackedit.io/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
   <style>
-  .stackedit__html {
-    max-width: 870px;
-	}
-  body {
-    font-family: 'Roboto Mono', monospace;
-    color: black;
-  }
+    .stackedit__html {
+      max-width: 870px;
+    }
+    body {
+      font-family: 'Roboto Mono', monospace;
+      color: black;
+    }
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    /* Theme Toggle Button */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      outline: none;
+      z-index: 999;
+    }
+    .theme-toggle:hover {
+      opacity: 0.8;
+    }
   </style>
 </head>
 
 <body class="stackedit">
+  <!-- Dark Mode Toggle Button -->
+  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
+    <span id="theme-icon">🌙</span>
+  </button>
+
   <div class="stackedit__html"><h1 id="network-speed.xyz">nws.sh</h1>
 <p><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=Visitors&amp;edge_flat=false" alt="Hits"></a></p>
 <p>Your Reliable Script for Comprehensive Network Performance Testing.</p>
@@ -50,10 +76,12 @@
 <p>
   I would like to express my heartfelt thanks to our awesome sponsors for their invaluable support:
   <ul>
-  <li><a href="https://zip.xbit.win/go/crunchbits">Crunchbits</a> for generously sponsoring the hosting infrastructure.</li>
-  <li><a href="https://zip.xbit.win/go/incognet">IncogNET</a> for kindly sponsoring the domain name.</li></ul>
-<!-- <p>Big Thanks and shout out to <a href="https://zip.xbit.win/go/crunchbits">Crunchbits LLC</a> for sponsoring the Hosting Infrastructure.<br> -->
-Thanks to Teddysun <a href="mailto:i@teddysun.com">i@teddysun.com</a> for the base <a href="http://bench.sh">bench.sh</a> script</p>
+    <li><a href="https://zip.xbit.win/go/crunchbits">Crunchbits</a> for generously sponsoring the hosting infrastructure.</li>
+    <li><a href="https://zip.xbit.win/go/incognet">IncogNET</a> for kindly sponsoring the domain name.</li>
+    <li><a href="https://zip.xbit.win/go/beanman">beanman109</a> for implementing dark mode on the website.</li>
+  </ul>
+  
+Thanks to Teddysun <a href="/cdn-cgi/l/email-protection#dbb29bafbebfbfa2a8aeb5f5b8b4b6"><span class="__cf_email__" data-cfemail="f69fb6829392928f858398d895999b">[email&#160;protected]</span></a> for the base <a href="http://bench.sh">bench.sh</a> script</p>
 <h2 id="usage">Usage</h2>
 <h3 id="global-speedtest-default">Global Speedtest (default)</h3>
 <pre><code>curl -sL nws.sh | bash
@@ -399,9 +427,7 @@ Data usage is hard to estimate since it is completely dependant on the connectio
 </tr>
 </tbody>
 </table>
-<!-- <center>
-<a href="https://www.buymeacoffee.com/shsky97" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
-</center> -->
+
 <h2 id="sample-output-all-regions">Donations</h2>
 <p>
 If you'd like to show your support or appreciation for this project, consider making a donation. Your generosity is greatly appreciated! <br><br>
@@ -412,5 +438,26 @@ LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX
 </p>
 
 </div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<!-- Dark Mode Toggle Script -->
+<script>
+  const body = document.body;
+  const themeToggle = document.getElementById("theme-toggle");
+  const themeIcon = document.getElementById("theme-icon");
+
+  themeToggle.addEventListener("click", () => {
+    // Toggle the dark-mode class on the body
+    body.classList.toggle("dark-mode");
+
+    // Swap the icon text based on current theme
+    if (body.classList.contains("dark-mode")) {
+      themeIcon.textContent = "☀️"; // Sun icon
+    } else {
+      themeIcon.textContent = "🌙"; // Moon icon
+    }
+  });
+</script>
+
 </body>
 </html>
