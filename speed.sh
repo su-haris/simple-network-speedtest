@@ -895,6 +895,7 @@ while getopts ":r:" opt; do
         russia)
           REGION="russia"
           REGION_NAME="RUSSIA | Россия"
+          ;;
         10gplus)
           REGION="10gplus"
           REGION_NAME="GLOBAL: 10G+"
