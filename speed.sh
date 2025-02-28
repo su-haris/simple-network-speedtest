@@ -421,6 +421,20 @@ speed() {
         # speed_test '62146' 'CUG - Singapore' 
         # speed_test '61417' 'CUG - LosAngeles' 
         # speed_test '61451' 'CUG - London'
+    elif [ "$REGION" = "10gplus" ]; then
+        speed_test '55137' 'London, UK'
+        speed_test '30376' 'London, UK'
+        speed_test '13764' 'Amsterdam, NL'
+        speed_test '51395' 'Amsterdam, NL'
+        speed_test '61933' 'Paris, FR'
+        speed_test '62943' 'Frankfurt, DE'
+        speed_test '62943' 'Frankfurt, DE'
+        speed_test '7839' 'Milan, IT'
+        speed_test '29467' 'Lisbon, PT'
+        speed_test '14979' 'Madrid, ES'
+        speed_test '65089' 'Warsaw, PL'
+        echo -e
+        speed_test '48463' 'Tokyo, JP'
     else
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
@@ -645,7 +659,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.01.28)"
+    echo " Version            : $(_green v2025.02.28)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
@@ -881,6 +895,9 @@ while getopts ":r:" opt; do
         russia)
           REGION="russia"
           REGION_NAME="RUSSIA | Россия"
+        10gplus)
+          REGION="10gplus"
+          REGION_NAME="GLOBAL: 10G+"
           ;;      
         *)
           echo "Invalid REGION: $OPTARG" >&2
