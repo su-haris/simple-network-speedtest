@@ -442,7 +442,7 @@ speed() {
         speed_test '46120' 'New York, NY' 
         speed_test '62109' 'Miami, FL'
         echo -e
-        speed_test '46120' 'Tokyo, JP'
+        speed_test '48463' 'Tokyo, JP'
     else
         speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
