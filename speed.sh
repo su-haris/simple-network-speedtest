@@ -907,11 +907,11 @@ while getopts ":r:" opt; do
           ;;
         10gplus)
           REGION="10gplus"
-          REGION_NAME="GLOBAL: 10G+"
+          REGION_NAME="GLOBAL - 10G+"
           ;;      
         *)
           echo "Invalid REGION: $OPTARG" >&2
-          echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia"
+          echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia, 10gplus"
           echo "Visit nws.sh for instructions."
           exit 1
           ;;
