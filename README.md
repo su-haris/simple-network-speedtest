@@ -1,5 +1,4 @@
 # A simple script for benchmarking network performance with speedtest-cli
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&count_bg=%2379C83D&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=Visitors&edge_flat=false)](https://hits.seeyoufarm.com)
 
 Your Reliable Script for Comprehensive Network Performance Testing.
 
@@ -7,6 +6,7 @@ Your Reliable Script for Comprehensive Network Performance Testing.
    - System Overview: Quick snapshot of your device's core hardware components like CPU, RAM, Disk and more.
    - Network Overview: Detailed information including your protocol type (IPv4/v6), ISP, geographical location and other network-based data.
    - Comprehensive Speedtest: Perform an all-encompassing speedtest using the renowned Ookla speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.
+   - Global High Speedtest: Check your ISPs performance with 10G+ servers across the world.
    - Regional Speedtest: Get a regional perspective towards your network performance with tests targeted towards specific parts of the world, currently including:
       - North America
       - South America
