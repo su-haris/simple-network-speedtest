@@ -470,6 +470,14 @@ LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX
     triggerThemeChange();
   }
 
+  // If set theme hasn't been changed by the user, check if the browser settings is set to prefer dark mode
+  // Will implicitly save dark mode to localStorage if the browser is set to dark mode, but I don't think that's a big problem.
+  if (!savedTheme) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      triggerThemeChange();
+    }
+  }
+
   themeToggle.addEventListener("click", triggerThemeChange);
 </script>
 
