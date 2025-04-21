@@ -447,18 +447,38 @@ LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX
   const body = document.body;
   const themeToggle = document.getElementById("theme-toggle");
   const themeIcon = document.getElementById("theme-icon");
+  const themeKey = "theme";
 
-  themeToggle.addEventListener("click", () => {
+  function triggerThemeChange()
+  {
     // Toggle the dark-mode class on the body
     body.classList.toggle("dark-mode");
 
     // Swap the icon text based on current theme
     if (body.classList.contains("dark-mode")) {
       themeIcon.textContent = "☀️"; // Sun icon
+      localStorage.setItem(themeKey, "dark");
     } else {
       themeIcon.textContent = "🌙"; // Moon icon
+      localStorage.setItem(themeKey, "light");
     }
-  });
+  }
+
+  const savedTheme = localStorage.getItem(themeKey);
+  if (savedTheme === "dark") {
+    // Default theme is light, so we toggle once to activate dark mode
+    triggerThemeChange();
+  }
+
+  // If set theme hasn't been changed by the user, check if the browser settings is set to prefer dark mode
+  // Will implicitly save dark mode to localStorage if the browser is set to dark mode, but I don't think that's a big problem.
+  if (!savedTheme) {
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      triggerThemeChange();
+    }
+  }
+
+  themeToggle.addEventListener("click", triggerThemeChange);
 </script>
 
 </body>
