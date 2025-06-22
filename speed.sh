@@ -1008,7 +1008,7 @@ cn_get_line_type() {
 }
 
 install_china_test() {
-    echo " China Routing Test (Region: $REGION_NAME)"
+    echo " Ping & Routing Test (Region: $REGION_NAME)"
     next
     printf "%-30s | %s\n" " Network" "Details"
     next
@@ -1169,7 +1169,7 @@ asn_get_as_path() {
 }
 
 install_asn_test() {
-    echo " Asia Ping & Routing Test (Region: $REGION_NAME)"
+    echo " Ping & Routing Test (Region: $REGION_NAME)"
     next
     printf "%-40s | %s\n" " Network" "Details"
     next
@@ -1208,6 +1208,7 @@ run_speed_sh() {
     next
     
     if [ -n "$ROUTING_TEST" ]; then
+        ! _exists "mtr" && _red "nws.sh is unable to run.\nError: mtr command not found.\n" && kill -INT $$ && exit 1
         speed
     else
         install_speedtest  
@@ -1232,11 +1233,11 @@ if [ "$1" = "-rt" ] && [ -n "$2" ]; then
     case "$2" in
         china)
             ROUTING_TEST="china"
-            REGION_NAME="CHINA ROUTING TEST"
+            REGION_NAME="CHINA"
             ;;
         asia)
             ROUTING_TEST="asia"
-            REGION_NAME="ASIA PING & ROUTING TEST"
+            REGION_NAME="ASIA"
             ;;
         *)
             echo "Invalid routing test type: $2" >&2
