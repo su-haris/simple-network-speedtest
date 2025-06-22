@@ -678,11 +678,10 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.05.01)"
+    echo " Version            : $(_green v2025.06.22)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
-    echo " Routing Tests      : $(_red "wget -qO- nws.sh | bash -s -- -rt <type>")"
-    echo "   Available Types  : china, asia"
+    echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
 }
 
 # Get Disk Data
