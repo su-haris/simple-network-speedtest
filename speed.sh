@@ -857,24 +857,53 @@ declare -A TIER1_ISPS=(
     [AS5511]="Orange France"
 )
 
-declare -A CN_LOCATIONS=(
-    ["Beijing - China Telecom"]="219.141.136.12"
-    ["Beijing - China Unicom"]="202.106.50.1"
-    ["Beijing - China Mobile"]="221.179.155.161"
-    ["Beijing - CERNET"]="101.6.15.66"
-    ["Shanghai - China Telecom"]="202.96.209.133"
-    ["Shanghai - China Unicom"]="210.22.97.1"
-    ["Shanghai - China Mobile"]="211.136.112.200"
-    ["Guangzhou - China Telecom"]="58.60.188.222"
-    ["Guangzhou - China Unicom"]="210.21.196.6"
-    ["Guangzhou - China Mobile"]="120.196.165.24"
-    ["Chengdu - China Telecom"]="61.139.2.69"
-    ["Chengdu - China Unicom"]="119.6.6.6"
-    ["Chengdu - China Mobile"]="211.137.96.205"
-    ["Shenzhen - China Telecom"]="106.4.158.58"
-    ["Shenzhen - China Unicom"]="221.194.154.193"
-    ["Shenzhen - China Mobile"]="223.111.101.29"
-)
+declare -a CN_LOCATION_NAMES
+declare -a CN_LOCATION_IPS
+
+# Initialize China routing test locations
+init_cn_locations() {
+    # Beijing
+    CN_LOCATION_NAMES+=("Beijing - China Telecom")
+    CN_LOCATION_IPS+=("219.141.136.12")
+    CN_LOCATION_NAMES+=("Beijing - China Unicom")
+    CN_LOCATION_IPS+=("202.106.50.1")
+    CN_LOCATION_NAMES+=("Beijing - China Mobile")
+    CN_LOCATION_IPS+=("221.179.155.161")
+    CN_LOCATION_NAMES+=("Beijing - CERNET")
+    CN_LOCATION_IPS+=("101.6.15.66")
+    
+    # Shanghai
+    CN_LOCATION_NAMES+=("Shanghai - China Telecom")
+    CN_LOCATION_IPS+=("202.96.209.133")
+    CN_LOCATION_NAMES+=("Shanghai - China Unicom")
+    CN_LOCATION_IPS+=("210.22.97.1")
+    CN_LOCATION_NAMES+=("Shanghai - China Mobile")
+    CN_LOCATION_IPS+=("211.136.112.200")
+    
+    # Guangzhou
+    CN_LOCATION_NAMES+=("Guangzhou - China Telecom")
+    CN_LOCATION_IPS+=("58.60.188.222")
+    CN_LOCATION_NAMES+=("Guangzhou - China Unicom")
+    CN_LOCATION_IPS+=("210.21.196.6")
+    CN_LOCATION_NAMES+=("Guangzhou - China Mobile")
+    CN_LOCATION_IPS+=("120.196.165.24")
+    
+    # Chengdu
+    CN_LOCATION_NAMES+=("Chengdu - China Telecom")
+    CN_LOCATION_IPS+=("61.139.2.69")
+    CN_LOCATION_NAMES+=("Chengdu - China Unicom")
+    CN_LOCATION_IPS+=("119.6.6.6")
+    CN_LOCATION_NAMES+=("Chengdu - China Mobile")
+    CN_LOCATION_IPS+=("211.137.96.205")
+    
+    # Shenzhen
+    CN_LOCATION_NAMES+=("Shenzhen - China Telecom")
+    CN_LOCATION_IPS+=("106.4.158.58")
+    CN_LOCATION_NAMES+=("Shenzhen - China Unicom")
+    CN_LOCATION_IPS+=("221.194.154.193")
+    CN_LOCATION_NAMES+=("Shenzhen - China Mobile")
+    CN_LOCATION_IPS+=("223.111.101.29")
+}
 
 cn_ping_test() {
     local ip=$1
@@ -987,10 +1016,12 @@ install_china_test() {
 }
 
 china_routing_test() {
+    init_cn_locations
     install_china_test
 
-    for location in "${!CN_LOCATIONS[@]}"; do
-        local ip=${CN_LOCATIONS[$location]}
+    for i in "${!CN_LOCATION_NAMES[@]}"; do
+        local location="${CN_LOCATION_NAMES[$i]}"
+        local ip="${CN_LOCATION_IPS[$i]}"
         
         # Get results
         local ping_result=$(cn_ping_test "$ip")
