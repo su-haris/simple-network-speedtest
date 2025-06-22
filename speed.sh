@@ -110,6 +110,16 @@ speed_test() {
 }
 
 speed() {
+    if [ "$ROUTING_TEST" = "china" ]; then
+        china_routing_test
+        return
+    fi
+    
+    if [ "$ROUTING_TEST" = "asia" ]; then
+        asia_ping_asn_test
+        return
+    fi
+    
     DL_USED=0
     UL_USED=0
 
@@ -671,6 +681,8 @@ print_intro() {
     echo " Version            : $(_green v2025.05.01)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
+    echo " Routing Tests      : $(_red "wget -qO- nws.sh | bash -s -- -rt <type>")"
+    echo "   Available Types  : china, asia"
 }
 
 # Get Disk Data
@@ -826,6 +838,331 @@ get_runs_counter() {
     fi
 }
 
+# China Network Routing Test Functions
+declare -A TIER1_ISPS=(
+    [AS174]="Cogent"
+    [AS3356]="Lumen"
+    [AS2914]="NTT"
+    [AS3257]="GTT"
+    [AS6453]="TATA"
+    [AS1299]="Arelion"
+    [AS3491]="PCCW Global"
+    [AS6762]="Telecom Italia"
+    [AS1239]="Sprint"
+    [AS701]="Verizon"
+    [AS6939]="Hurricane Electric"
+    [AS6830]="Liberty Global"
+    [AS6461]="Zayo"
+    [AS3320]="Deutsche Telekom"
+    [AS5511]="Orange France"
+)
+
+declare -A CN_LOCATIONS=(
+    ["Beijing - China Telecom"]="219.141.136.12"
+    ["Beijing - China Unicom"]="202.106.50.1"
+    ["Beijing - China Mobile"]="221.179.155.161"
+    ["Beijing - CERNET"]="101.6.15.66"
+    ["Shanghai - China Telecom"]="202.96.209.133"
+    ["Shanghai - China Unicom"]="210.22.97.1"
+    ["Shanghai - China Mobile"]="211.136.112.200"
+    ["Guangzhou - China Telecom"]="58.60.188.222"
+    ["Guangzhou - China Unicom"]="210.21.196.6"
+    ["Guangzhou - China Mobile"]="120.196.165.24"
+    ["Chengdu - China Telecom"]="61.139.2.69"
+    ["Chengdu - China Unicom"]="119.6.6.6"
+    ["Chengdu - China Mobile"]="211.137.96.205"
+    ["Shenzhen - China Telecom"]="106.4.158.58"
+    ["Shenzhen - China Unicom"]="221.194.154.193"
+    ["Shenzhen - China Mobile"]="223.111.101.29"
+)
+
+cn_ping_test() {
+    local ip=$1
+    local ping_output
+    local ping_result
+    local packet_loss
+    
+    if ! _exists "ping"; then
+        echo "N/A"
+        return
+    fi
+    
+    ping_output=$(ping -c 5 -W 4 "$ip" 2>/dev/null)
+    
+    # Extract the average ping time
+    ping_result=$(echo "$ping_output" | grep -E 'min/avg/max' | awk -F '/' '{printf "%.0f", $5}')
+    
+    # Extract the packet loss percentage
+    packet_loss=$(echo "$ping_output" | grep -oP '\d+(?=% packet loss)')
+    
+    if [ -n "$ping_result" ]; then
+        if [ "$packet_loss" -eq 0 ] 2>/dev/null; then
+            echo "${ping_result}ms [No Loss]"
+        else
+            echo "${ping_result}ms [${packet_loss}% loss]"
+        fi
+    else
+        echo "Failed"
+    fi
+}
+
+cn_get_as_path() {
+    local ip=$1
+    local as_path
+    local china_asn
+    local preceding_asn
+
+    if ! _exists "mtr"; then
+        echo "MTR not available|Unknown"
+        return
+    fi
+
+    # Extract the AS path using mtr
+    as_path=$(timeout 30 mtr -wz -c 3 "$ip" 2>/dev/null | grep "AS[0-9]" | awk '{
+        for (i=1; i<=NF; i++) {
+            if ($i ~ /^AS/) {
+                if (!seen[$i]++) {
+                    printf "%s ", $i
+                }
+            }
+        }
+    }' | sed 's/ $//')
+
+    # Find the first China ASN and the preceding ASN
+    for asn in $as_path; do
+        if [[ $asn =~ ^AS(4134|4837|58453|4809|9929|58807)$ ]]; then
+            china_asn=$asn
+            break
+        fi
+        preceding_asn=$asn
+    done
+
+    # Output the full AS path and the preceding ASN
+    echo "$as_path|$preceding_asn"
+}
+
+cn_get_line_type() {
+    local as_path_info=$1
+    local as_path=${as_path_info%|*}
+    local preceding_asn=${as_path_info#*|}
+    local line_type
+    local via_info
+
+    # Determine the line type based on the China ASN in the AS path
+    if [[ $as_path =~ AS4809 ]]; then
+        line_type="Premium Line |CN2 China Telecom Next Generation"
+    elif [[ $as_path =~ AS9929 ]]; then
+        line_type="Premium Line |CUIB CHINA UNICOM Industrial Internet"
+    elif [[ $as_path =~ AS58807 ]]; then
+        line_type="Premium Line |CMIN2 China Mobile International"
+    elif [[ $as_path =~ AS4134 ]]; then
+        line_type="Standard Line |China Telecom Backbone"
+    elif [[ $as_path =~ AS4837 ]]; then
+        line_type="Standard Line |China Unicom Backbone 169"
+    elif [[ $as_path =~ AS58453 ]]; then
+        line_type="Standard Line |China Mobile International"
+    else
+        line_type="Unknown Line |Path not recognized"
+    fi
+
+    # Determine the preceding ASN's information
+    if [[ -n $preceding_asn ]]; then
+        if [[ ${TIER1_ISPS[$preceding_asn]} ]]; then
+            via_info="via ${TIER1_ISPS[$preceding_asn]}"
+        else
+            via_info="via $preceding_asn"
+        fi
+    else
+        via_info="via Direct Peering"
+    fi
+
+    echo "$line_type $via_info"
+}
+
+install_china_test() {
+    echo " China Routing Test (Region: $REGION_NAME)"
+    next
+    printf "%-30s | %s\n" " Network" "Details"
+    next
+}
+
+china_routing_test() {
+    install_china_test
+
+    for location in "${!CN_LOCATIONS[@]}"; do
+        local ip=${CN_LOCATIONS[$location]}
+        
+        # Get results
+        local ping_result=$(cn_ping_test "$ip")
+        local as_path=$(cn_get_as_path "$ip")
+        local actual_as_path=$(echo "${as_path%%|*}")
+        local line_type=$(cn_get_line_type "$as_path")
+        
+        # Print results with consistent formatting
+        printf " %-29s | %s\n" "$location" "$ping_result"
+        printf " %-29s | %s\n" "$ip" "$actual_as_path"
+        printf " %-29s | %s\n" "$(echo "$line_type" | cut -d'|' -f1)" "$(echo "$line_type" | cut -d'|' -f2)"
+        next
+    done
+}
+
+# Asia Ping & ASN Test Functions
+declare -a ASN_LOCATION_NAMES
+declare -a ASN_LOCATION_IPS
+
+# Initialize ASN test locations
+init_asn_locations() {
+    # Singapore
+    ASN_LOCATION_NAMES+=("SG - Singapore: CDN77")
+    ASN_LOCATION_IPS+=("89.187.162.1")
+    ASN_LOCATION_NAMES+=("SG - Singapore: LeaseWeb Asia")
+    ASN_LOCATION_IPS+=("103.254.153.18")
+    ASN_LOCATION_NAMES+=("SG - Singapore: Host Universal")
+    ASN_LOCATION_IPS+=("27.0.234.239")
+    ASN_LOCATION_NAMES+=("SG - Singapore: GSL")
+    ASN_LOCATION_IPS+=("103.167.150.90")
+    ASN_LOCATION_NAMES+=("SG - Singapore: HE")
+    ASN_LOCATION_IPS+=("core2.sin1.he.net")
+    ASN_LOCATION_NAMES+=("SG - Singapore: ZenLayer")
+    ASN_LOCATION_IPS+=("001.sin2.sg.k1s.zenlayer.win")
+    ASN_LOCATION_NAMES+=("SG - Singapore: TATA")
+    ASN_LOCATION_IPS+=("gin-asina-tcore1.as6453.net")
+    ASN_LOCATION_NAMES+=("SG - Singapore: Telstra")
+    ASN_LOCATION_IPS+=("202.84.219.173")
+
+    # Japan
+    ASN_LOCATION_NAMES+=("JP - Tokyo: xTom")
+    ASN_LOCATION_IPS+=("103.201.131.131")
+    ASN_LOCATION_NAMES+=("JP - Tokyo: Shock Hosting")
+    ASN_LOCATION_IPS+=("43.230.161.31")
+    ASN_LOCATION_NAMES+=("JP - Tokyo: SoftBank")
+    ASN_LOCATION_IPS+=("103.214.168.128")
+    ASN_LOCATION_NAMES+=("JP - Tokyo: CDN77")
+    ASN_LOCATION_IPS+=("89.187.160.1")
+    ASN_LOCATION_NAMES+=("JP - Osaka: Vultr")
+    ASN_LOCATION_IPS+=("64.176.34.94")
+    ASN_LOCATION_NAMES+=("JP - Tokyo: HE")
+    ASN_LOCATION_IPS+=("core2.tyo1.he.net")
+
+    # Hong Kong
+    ASN_LOCATION_NAMES+=("HK - Hong Kong: ZenLayer")
+    ASN_LOCATION_IPS+=("006.hkg3.hk.k1s.zenlayer.win")
+    ASN_LOCATION_NAMES+=("HK - Hong Kong: GCore")
+    ASN_LOCATION_IPS+=("5.188.230.129")
+    ASN_LOCATION_NAMES+=("HK - Hong Kong: LeaseWeb Asia")
+    ASN_LOCATION_IPS+=("43.249.36.49")
+    ASN_LOCATION_NAMES+=("HK - Hong Kong: HE")
+    ASN_LOCATION_IPS+=("core2.hkg2.he.net")
+    ASN_LOCATION_NAMES+=("HK - Hong Kong: CDN77")
+    ASN_LOCATION_IPS+=("84.17.57.129")
+    ASN_LOCATION_NAMES+=("HK - Hong Kong: Telstra")
+    ASN_LOCATION_IPS+=("202.84.173.22")
+
+    # South Korea
+    ASN_LOCATION_NAMES+=("SK - Busan: Telstra")
+    ASN_LOCATION_IPS+=("202.84.149.162")
+
+    # Indonesia
+    ASN_LOCATION_NAMES+=("ID - Jakarta: WarnaHost")
+    ASN_LOCATION_IPS+=("103.157.146.2")
+
+    # India
+    ASN_LOCATION_NAMES+=("IN - Mumbai: Vultr")
+    ASN_LOCATION_IPS+=("65.20.66.100")
+    ASN_LOCATION_NAMES+=("IN - Mumbai: Jio")
+    ASN_LOCATION_IPS+=("49.44.93.128")
+    ASN_LOCATION_NAMES+=("IN - Kochi: Airtel")
+    ASN_LOCATION_IPS+=("125.21.255.190")
+    ASN_LOCATION_NAMES+=("IN - Chennai: Linode")
+    ASN_LOCATION_IPS+=("speedtest-1.maa1.in.prod.linode.com")
+    ASN_LOCATION_NAMES+=("IN - Chennai: ZenLayer")
+    ASN_LOCATION_IPS+=("001.maa2.in.k1s.zenlayer.win")
+    ASN_LOCATION_NAMES+=("IN - Chennai: Jio")
+    ASN_LOCATION_IPS+=("49.44.93.133")
+
+    # Pakistan
+    ASN_LOCATION_NAMES+=("PK - Islamabad: Virtury")
+    ASN_LOCATION_IPS+=("103.151.111.249")
+}
+
+asn_ping_test() {
+    local ip=$1
+    local ping_output
+    local ping_result
+    local packet_loss
+    
+    if ! _exists "ping"; then
+        echo "N/A"
+        return
+    fi
+    
+    ping_output=$(ping -c 5 -W 4 "$ip" 2>/dev/null)
+    
+    # Extract the average ping time
+    ping_result=$(echo "$ping_output" | grep -E 'min/avg/max' | awk -F '/' '{printf "%.0f", $5}')
+    
+    # Extract the packet loss percentage
+    packet_loss=$(echo "$ping_output" | grep -oP '\d+(?=% packet loss)')
+    
+    if [ -n "$ping_result" ]; then
+        if [ "$packet_loss" -eq 0 ] 2>/dev/null; then
+            echo "${ping_result}ms [No Loss]"
+        else
+            echo "${ping_result}ms [${packet_loss}% loss]"
+        fi
+    else
+        echo "Failed"
+    fi
+}
+
+asn_get_as_path() {
+    local ip=$1
+    local as_path
+
+    if ! _exists "mtr"; then
+        echo "MTR not available"
+        return
+    fi
+
+    # Extract the AS path using mtr
+    as_path=$(timeout 30 mtr -wz -c 3 "$ip" 2>/dev/null | grep "AS[0-9]" | awk '{
+        for (i=1; i<=NF; i++) {
+            if ($i ~ /^AS/) {
+                if (!seen[$i]++) {
+                    printf "%s ", $i
+                }
+            }
+        }
+    }' | sed 's/ $//')
+
+    echo "$as_path"
+}
+
+install_asn_test() {
+    echo " Asia Ping & Routing Test (Region: $REGION_NAME)"
+    next
+    printf "%-40s | %s\n" " Network" "Details"
+    next
+}
+
+asia_ping_asn_test() {
+    init_asn_locations
+    install_asn_test
+
+    for i in "${!ASN_LOCATION_NAMES[@]}"; do
+        local location="${ASN_LOCATION_NAMES[$i]}"
+        local ip="${ASN_LOCATION_IPS[$i]}"
+        
+        # Get results
+        local ping_result=$(asn_ping_test "$ip")
+        local as_path=$(asn_get_as_path "$ip")
+        
+        # Print results with consistent formatting
+        printf " %-39s | %s\n" "$location" "$ping_result"
+        printf " %-39s | %s\n" "$ip" "$as_path"
+        next
+    done
+}
 run_speed_sh() {
     ! _exists "wget" && _red "nws.sh is unable to run.\nError: wget command not found.\n" && kill -INT $$ && exit 1
     ! _exists "free" && _red "nws.sh is unable to run.\nError: free command not found.\n" && kill -INT $$ && exit 1
@@ -839,11 +1176,17 @@ run_speed_sh() {
     next
     ip_info
     next
-    install_speedtest  
-    speed 
-    rm -fr speedtest-cli
-    next
-    print_network_statistics
+    
+    if [ -n "$ROUTING_TEST" ]; then
+        speed
+    else
+        install_speedtest  
+        speed 
+        rm -fr speedtest-cli
+        next
+        print_network_statistics
+    fi
+    
     next
     print_end_time
     get_runs_counter
@@ -852,6 +1195,29 @@ run_speed_sh() {
 
 REGION="global"
 REGION_NAME="GLOBAL"
+ROUTING_TEST=""
+
+# Handle -rt flag specially (before getopts)
+if [ "$1" = "-rt" ] && [ -n "$2" ]; then
+    case "$2" in
+        china)
+            ROUTING_TEST="china"
+            REGION_NAME="CHINA ROUTING TEST"
+            ;;
+        asia)
+            ROUTING_TEST="asia"
+            REGION_NAME="ASIA PING & ROUTING TEST"
+            ;;
+        *)
+            echo "Invalid routing test type: $2" >&2
+            echo "Valid routing test types: china, asia"
+            echo "Usage: -rt <type>"
+            exit 1
+            ;;
+    esac
+    # Clear the arguments so getopts doesn't process them
+    shift 2
+fi
 
 while getopts ":r:" opt; do
   case $opt in
@@ -908,10 +1274,11 @@ while getopts ":r:" opt; do
         10gplus)
           REGION="10gplus"
           REGION_NAME="GLOBAL - 10G+"
-          ;;      
+          ;;
         *)
           echo "Invalid REGION: $OPTARG" >&2
           echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia, 10gplus"
+          echo "For routing tests use: -rt china or -rt asia"
           echo "Visit nws.sh for instructions."
           exit 1
           ;;
