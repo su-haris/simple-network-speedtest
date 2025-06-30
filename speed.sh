@@ -1186,7 +1186,7 @@ init_routing_locations() {
     elif [ "$region" = "eu" ]; then
         # United Kingdom (West)
         ROUTING_LOCATION_NAMES+=("UK - London: Clouvider")
-        ROUTING_LOCATION_IPS+=("185.42.223.63")
+        ROUTING_LOCATION_IPS+=("185.42.223.1")
         ROUTING_LOCATION_NAMES+=("UK - London: KuroIT")
         ROUTING_LOCATION_IPS+=("178.239.171.5")
         ROUTING_LOCATION_NAMES+=("UK - London: CDN77")
@@ -1201,8 +1201,8 @@ init_routing_locations() {
         ROUTING_LOCATION_IPS+=("194.127.172.33")
         ROUTING_LOCATION_NAMES+=("NL - Amsterdam: CDN77")
         ROUTING_LOCATION_IPS+=("185.102.218.1")
-        ROUTING_LOCATION_NAMES+=("NL - Amsterdam: Hybula")
-        ROUTING_LOCATION_IPS+=("2.58.57.56")
+        # ROUTING_LOCATION_NAMES+=("NL - Amsterdam: Hybula")
+        # ROUTING_LOCATION_IPS+=("2.58.57.56")
         ROUTING_LOCATION_NAMES+=("NL - Amsterdam: xTom")
         ROUTING_LOCATION_IPS+=("78.142.195.195")
         
