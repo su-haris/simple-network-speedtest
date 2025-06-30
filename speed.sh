@@ -1112,6 +1112,13 @@ init_routing_locations() {
         ROUTING_LOCATION_NAMES+=("IN - Chennai: Jio")
         ROUTING_LOCATION_IPS+=("49.44.93.133")
 
+        # Vietnam
+        ROUTING_LOCATION_NAMES+=("VN - Hanoi: GreenCloud")
+        ROUTING_LOCATION_IPS+=("103.199.17.252")
+        ROUTING_LOCATION_NAMES+=("VN - Ho Chi Minh: FPT Telecom")
+        ROUTING_LOCATION_IPS+=("103.186.65.98")
+
+        # Pakistan
         ROUTING_LOCATION_NAMES+=("PK - Islamabad: Virtury")
         ROUTING_LOCATION_IPS+=("103.151.111.249")
     elif [ "$region" = "na" ]; then
