@@ -1125,18 +1125,20 @@ init_routing_locations() {
         # United States - West Coast
         ROUTING_LOCATION_NAMES+=("US - Seattle: xTom")
         ROUTING_LOCATION_IPS+=("23.145.48.48")
+        ROUTING_LOCATION_NAMES+=("US - Liberty Lake: Crunchbits")
+        ROUTING_LOCATION_IPS+=("104.36.84.66")
         ROUTING_LOCATION_NAMES+=("US - San Jose: CDN77")
         ROUTING_LOCATION_IPS+=("156.146.53.53")
         ROUTING_LOCATION_NAMES+=("US - Hillsboro: OVH")
         ROUTING_LOCATION_IPS+=("51.81.154.196")
         ROUTING_LOCATION_NAMES+=("US - Fremont: Hurricane Electric")
         ROUTING_LOCATION_IPS+=("core1.fmt2.he.net")
-        ROUTING_LOCATION_NAMES+=("US - Liberty Lake: Crunchbits")
-        ROUTING_LOCATION_IPS+=("104.36.84.66")
         ROUTING_LOCATION_NAMES+=("US - Los Angeles: Multacom")
         ROUTING_LOCATION_IPS+=("204.13.154.3")
         ROUTING_LOCATION_NAMES+=("US - Los Angeles: ReliableSite")
         ROUTING_LOCATION_IPS+=("104.238.206.46")
+        ROUTING_LOCATION_NAMES+=("US - Los Angeles: WebNX")
+        ROUTING_LOCATION_IPS+=("64.185.232.162")
         
         # United States - Central
         ROUTING_LOCATION_NAMES+=("US - Chicago: Psychz Networks")
@@ -1181,6 +1183,90 @@ init_routing_locations() {
         ROUTING_LOCATION_IPS+=("51.222.154.207")
         ROUTING_LOCATION_NAMES+=("CA - Halifax: FreeRangeCloud")
         ROUTING_LOCATION_IPS+=("23.191.80.33")
+    elif [ "$region" = "eu" ]; then
+        # United Kingdom (West)
+        ROUTING_LOCATION_NAMES+=("UK - London: Clouvider")
+        ROUTING_LOCATION_IPS+=("185.42.223.63")
+        ROUTING_LOCATION_NAMES+=("UK - London: KuroIT")
+        ROUTING_LOCATION_IPS+=("178.239.171.5")
+        ROUTING_LOCATION_NAMES+=("UK - London: CDN77")
+        ROUTING_LOCATION_IPS+=("185.59.221.51")
+        ROUTING_LOCATION_NAMES+=("UK - Coventry: UKDedicated")
+        ROUTING_LOCATION_IPS+=("94.229.65.150")
+        ROUTING_LOCATION_NAMES+=("UK - Manchester: M247")
+        ROUTING_LOCATION_IPS+=("89.238.129.146")
+        
+        # Netherlands
+        ROUTING_LOCATION_NAMES+=("NL - Amsterdam: Clouvider")
+        ROUTING_LOCATION_IPS+=("194.127.172.33")
+        ROUTING_LOCATION_NAMES+=("NL - Amsterdam: CDN77")
+        ROUTING_LOCATION_IPS+=("185.102.218.1")
+        ROUTING_LOCATION_NAMES+=("NL - Amsterdam: Hybula")
+        ROUTING_LOCATION_IPS+=("2.58.57.56")
+        ROUTING_LOCATION_NAMES+=("NL - Amsterdam: xTom")
+        ROUTING_LOCATION_IPS+=("78.142.195.195")
+        
+        # Germany
+        ROUTING_LOCATION_NAMES+=("DE - Hamburg: CSN-Solutions")
+        ROUTING_LOCATION_IPS+=("91.108.80.101")
+        ROUTING_LOCATION_NAMES+=("DE - Frankfurt: CDN77")
+        ROUTING_LOCATION_IPS+=("185.102.219.93")
+        ROUTING_LOCATION_NAMES+=("DE - Frankfurt: Clouvider")
+        ROUTING_LOCATION_IPS+=("91.199.118.14")
+        ROUTING_LOCATION_NAMES+=("DE - Falkenstein: Hetzner")
+        ROUTING_LOCATION_IPS+=("fsn1-speed.hetzner.com")
+        ROUTING_LOCATION_NAMES+=("DE - Nuremberg: Hetzner")
+        ROUTING_LOCATION_IPS+=("nbg1-speed.hetzner.com")
+        
+        # France
+        ROUTING_LOCATION_NAMES+=("FR - Paris: M247")
+        ROUTING_LOCATION_IPS+=("185.94.189.162")
+        ROUTING_LOCATION_NAMES+=("FR - Marseille: CDN77")
+        ROUTING_LOCATION_IPS+=("138.199.14.66")
+        
+        # Austria
+        ROUTING_LOCATION_NAMES+=("AT - Langenzersdorf: Hohl IT")
+        ROUTING_LOCATION_IPS+=("86.106.182.189")
+        
+        # Italy
+        ROUTING_LOCATION_NAMES+=("IT - Arezzo: ArubaCloud")
+        ROUTING_LOCATION_IPS+=("188.213.160.1")
+        
+        # Norway
+        ROUTING_LOCATION_NAMES+=("NO - Sandefjord: GigaHost")
+        ROUTING_LOCATION_IPS+=("185.125.168.212")
+        
+        # Poland
+        ROUTING_LOCATION_NAMES+=("PL - Warsaw: CDN77")
+        ROUTING_LOCATION_IPS+=("185.246.208.67")
+        
+        # Finland (North)
+        ROUTING_LOCATION_NAMES+=("FI - Helsinki: Hetzner")
+        ROUTING_LOCATION_IPS+=("hel1-speed.hetzner.com")
+        
+        # Latvia
+        ROUTING_LOCATION_NAMES+=("LV - Riga: MLCloud")
+        ROUTING_LOCATION_IPS+=("194.26.27.1")
+        
+        # Romania (East)
+        ROUTING_LOCATION_NAMES+=("RO - Bucharest: CDN77")
+        ROUTING_LOCATION_IPS+=("185.102.217.170")
+        ROUTING_LOCATION_NAMES+=("RO - Bucharest: M247")
+        ROUTING_LOCATION_IPS+=("185.45.12.22")
+        
+        # Russia (East)
+        ROUTING_LOCATION_NAMES+=("RU - Moscow: Misaka")
+        ROUTING_LOCATION_IPS+=("45.142.246.177")
+        ROUTING_LOCATION_NAMES+=("RU - St Petersburg: Misaka")
+        ROUTING_LOCATION_IPS+=("45.131.70.138")
+        ROUTING_LOCATION_NAMES+=("RU - St Petersburg: MLCloud")
+        ROUTING_LOCATION_IPS+=("45.141.84.1")
+        ROUTING_LOCATION_NAMES+=("RU - Kazan: MLCloud")
+        ROUTING_LOCATION_IPS+=("176.98.187.1")
+        
+        # Bulgaria (Southeast)
+        ROUTING_LOCATION_NAMES+=("BG - Sofia: AlphaVPS")
+        ROUTING_LOCATION_IPS+=("79.124.7.8")
     else
         # Default/Global routing test locations
         ROUTING_LOCATION_NAMES+=("US - New York: Hurricane Electric")
@@ -1333,13 +1419,17 @@ if [ "$1" = "-rt" ]; then
                 ROUTING_TEST="na"
                 REGION_NAME="NORTH AMERICA"
                 ;;
+            eu)
+                ROUTING_TEST="eu"
+                REGION_NAME="EUROPE"
+                ;;
             global)
                 ROUTING_TEST="global"
                 REGION_NAME="GLOBAL"
                 ;;
             *)
                 echo "Invalid routing test type: $2" >&2
-                echo "Valid routing test types: china, asia, na, global"
+                echo "Valid routing test types: china, asia, na, eu, global"
                 echo "Usage: -rt [type] (defaults to global)"
                 exit 1
                 ;;
@@ -1412,7 +1502,7 @@ while getopts ":r:" opt; do
         *)
           echo "Invalid REGION: $OPTARG" >&2
           echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia, 10gplus"
-          echo "For routing tests use: -rt china, -rt asia, -rt na, or -rt global"
+          echo "For routing tests use: -rt china, -rt asia, -rt na, -rt eu, or -rt global"
           echo "Visit nws.sh for instructions."
           exit 1
           ;;
