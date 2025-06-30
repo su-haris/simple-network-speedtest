@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 #
+# nws.sh
 # Description: A Network Benchmark Script by <sh@suh.ovh>
-# Copyright (C) 2022 - 2024 <sh@suh.ovh>
+# Copyright (C) 2022 - 2025 <sh@suh.ovh>
 # URL: https://nws.sh/
 # https://github.com/su-haris/simple-network-speedtest
 #
@@ -115,8 +116,8 @@ speed() {
         return
     fi
     
-    if [ "$ROUTING_TEST" = "asia" ]; then
-        asia_ping_asn_test
+    if [ -n "$ROUTING_TEST" ]; then
+        routing_test "$ROUTING_TEST"
         return
     fi
     
@@ -1036,86 +1037,165 @@ china_routing_test() {
     done
 }
 
-# Asia Ping & ASN Test Functions
-declare -a ASN_LOCATION_NAMES
-declare -a ASN_LOCATION_IPS
+# Routing Test Functions (Generic)
+declare -a ROUTING_LOCATION_NAMES
+declare -a ROUTING_LOCATION_IPS
 
-# Initialize ASN test locations
-init_asn_locations() {
-    # Singapore
-    ASN_LOCATION_NAMES+=("SG - Singapore: CDN77")
-    ASN_LOCATION_IPS+=("89.187.162.1")
-    ASN_LOCATION_NAMES+=("SG - Singapore: LeaseWeb Asia")
-    ASN_LOCATION_IPS+=("103.254.153.18")
-    ASN_LOCATION_NAMES+=("SG - Singapore: Host Universal")
-    ASN_LOCATION_IPS+=("27.0.234.239")
-    ASN_LOCATION_NAMES+=("SG - Singapore: GSL")
-    ASN_LOCATION_IPS+=("103.167.150.90")
-    ASN_LOCATION_NAMES+=("SG - Singapore: HE")
-    ASN_LOCATION_IPS+=("core2.sin1.he.net")
-    ASN_LOCATION_NAMES+=("SG - Singapore: ZenLayer")
-    ASN_LOCATION_IPS+=("001.sin2.sg.k1s.zenlayer.win")
-    ASN_LOCATION_NAMES+=("SG - Singapore: TATA")
-    ASN_LOCATION_IPS+=("gin-asina-tcore1.as6453.net")
-    ASN_LOCATION_NAMES+=("SG - Singapore: Telstra")
-    ASN_LOCATION_IPS+=("202.84.219.173")
+# Initialize routing test locations based on region
+init_routing_locations() {
+    local region="$1"
+    
+    # Clear previous locations
+    ROUTING_LOCATION_NAMES=()
+    ROUTING_LOCATION_IPS=()
+    
+    if [ "$region" = "asia" ]; then
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: CDN77")
+        ROUTING_LOCATION_IPS+=("89.187.162.1")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: LeaseWeb Asia")
+        ROUTING_LOCATION_IPS+=("103.254.153.18")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: Host Universal")
+        ROUTING_LOCATION_IPS+=("27.0.234.239")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: GSL")
+        ROUTING_LOCATION_IPS+=("103.167.150.90")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: HE")
+        ROUTING_LOCATION_IPS+=("core2.sin1.he.net")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: ZenLayer")
+        ROUTING_LOCATION_IPS+=("001.sin2.sg.k1s.zenlayer.win")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: TATA")
+        ROUTING_LOCATION_IPS+=("gin-asina-tcore1.as6453.net")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: Telstra")
+        ROUTING_LOCATION_IPS+=("202.84.219.173")
 
-    # Japan
-    ASN_LOCATION_NAMES+=("JP - Tokyo: xTom")
-    ASN_LOCATION_IPS+=("103.201.131.131")
-    ASN_LOCATION_NAMES+=("JP - Tokyo: Shock Hosting")
-    ASN_LOCATION_IPS+=("43.230.161.31")
-    ASN_LOCATION_NAMES+=("JP - Tokyo: SoftBank")
-    ASN_LOCATION_IPS+=("103.214.168.128")
-    ASN_LOCATION_NAMES+=("JP - Tokyo: CDN77")
-    ASN_LOCATION_IPS+=("89.187.160.1")
-    ASN_LOCATION_NAMES+=("JP - Osaka: Vultr")
-    ASN_LOCATION_IPS+=("64.176.34.94")
-    ASN_LOCATION_NAMES+=("JP - Tokyo: HE")
-    ASN_LOCATION_IPS+=("core2.tyo1.he.net")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: xTom")
+        ROUTING_LOCATION_IPS+=("103.201.131.131")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: Shock Hosting")
+        ROUTING_LOCATION_IPS+=("43.230.161.31")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: SoftBank")
+        ROUTING_LOCATION_IPS+=("103.214.168.128")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: CDN77")
+        ROUTING_LOCATION_IPS+=("89.187.160.1")
+        ROUTING_LOCATION_NAMES+=("JP - Osaka: Vultr")
+        ROUTING_LOCATION_IPS+=("64.176.34.94")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: HE")
+        ROUTING_LOCATION_IPS+=("core2.tyo1.he.net")
 
-    # Hong Kong
-    ASN_LOCATION_NAMES+=("HK - Hong Kong: ZenLayer")
-    ASN_LOCATION_IPS+=("006.hkg3.hk.k1s.zenlayer.win")
-    ASN_LOCATION_NAMES+=("HK - Hong Kong: GCore")
-    ASN_LOCATION_IPS+=("5.188.230.129")
-    ASN_LOCATION_NAMES+=("HK - Hong Kong: LeaseWeb Asia")
-    ASN_LOCATION_IPS+=("43.249.36.49")
-    ASN_LOCATION_NAMES+=("HK - Hong Kong: HE")
-    ASN_LOCATION_IPS+=("core2.hkg2.he.net")
-    ASN_LOCATION_NAMES+=("HK - Hong Kong: CDN77")
-    ASN_LOCATION_IPS+=("84.17.57.129")
-    ASN_LOCATION_NAMES+=("HK - Hong Kong: Telstra")
-    ASN_LOCATION_IPS+=("202.84.173.22")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: ZenLayer")
+        ROUTING_LOCATION_IPS+=("006.hkg3.hk.k1s.zenlayer.win")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: GCore")
+        ROUTING_LOCATION_IPS+=("5.188.230.129")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: LeaseWeb Asia")
+        ROUTING_LOCATION_IPS+=("43.249.36.49")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: HE")
+        ROUTING_LOCATION_IPS+=("core2.hkg2.he.net")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: CDN77")
+        ROUTING_LOCATION_IPS+=("84.17.57.129")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: Telstra")
+        ROUTING_LOCATION_IPS+=("202.84.173.22")
 
-    # South Korea
-    ASN_LOCATION_NAMES+=("SK - Busan: Telstra")
-    ASN_LOCATION_IPS+=("202.84.149.162")
+        ROUTING_LOCATION_NAMES+=("SK - Busan: Telstra")
+        ROUTING_LOCATION_IPS+=("202.84.149.162")
 
-    # Indonesia
-    ASN_LOCATION_NAMES+=("ID - Jakarta: WarnaHost")
-    ASN_LOCATION_IPS+=("103.157.146.2")
+        ROUTING_LOCATION_NAMES+=("ID - Jakarta: WarnaHost")
+        ROUTING_LOCATION_IPS+=("103.157.146.2")
 
-    # India
-    ASN_LOCATION_NAMES+=("IN - Mumbai: Vultr")
-    ASN_LOCATION_IPS+=("65.20.66.100")
-    ASN_LOCATION_NAMES+=("IN - Mumbai: Jio")
-    ASN_LOCATION_IPS+=("49.44.93.128")
-    ASN_LOCATION_NAMES+=("IN - Kochi: Airtel")
-    ASN_LOCATION_IPS+=("125.21.255.190")
-    ASN_LOCATION_NAMES+=("IN - Chennai: Linode")
-    ASN_LOCATION_IPS+=("speedtest-1.maa1.in.prod.linode.com")
-    ASN_LOCATION_NAMES+=("IN - Chennai: ZenLayer")
-    ASN_LOCATION_IPS+=("001.maa2.in.k1s.zenlayer.win")
-    ASN_LOCATION_NAMES+=("IN - Chennai: Jio")
-    ASN_LOCATION_IPS+=("49.44.93.133")
+        ROUTING_LOCATION_NAMES+=("IN - Mumbai: Vultr")
+        ROUTING_LOCATION_IPS+=("65.20.66.100")
+        ROUTING_LOCATION_NAMES+=("IN - Mumbai: Jio")
+        ROUTING_LOCATION_IPS+=("49.44.93.128")
+        ROUTING_LOCATION_NAMES+=("IN - Kochi: Airtel")
+        ROUTING_LOCATION_IPS+=("125.21.255.190")
+        ROUTING_LOCATION_NAMES+=("IN - Chennai: Linode")
+        ROUTING_LOCATION_IPS+=("speedtest-1.maa1.in.prod.linode.com")
+        ROUTING_LOCATION_NAMES+=("IN - Chennai: ZenLayer")
+        ROUTING_LOCATION_IPS+=("001.maa2.in.k1s.zenlayer.win")
+        ROUTING_LOCATION_NAMES+=("IN - Chennai: Jio")
+        ROUTING_LOCATION_IPS+=("49.44.93.133")
 
-    # Pakistan
-    ASN_LOCATION_NAMES+=("PK - Islamabad: Virtury")
-    ASN_LOCATION_IPS+=("103.151.111.249")
+        ROUTING_LOCATION_NAMES+=("PK - Islamabad: Virtury")
+        ROUTING_LOCATION_IPS+=("103.151.111.249")
+    elif [ "$region" = "na" ]; then
+        # United States - West Coast
+        ROUTING_LOCATION_NAMES+=("US - Seattle: xTom")
+        ROUTING_LOCATION_IPS+=("23.145.48.48")
+        ROUTING_LOCATION_NAMES+=("US - San Jose: CDN77")
+        ROUTING_LOCATION_IPS+=("156.146.53.53")
+        ROUTING_LOCATION_NAMES+=("US - Hillsboro: OVH")
+        ROUTING_LOCATION_IPS+=("51.81.154.196")
+        ROUTING_LOCATION_NAMES+=("US - Fremont: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.fmt2.he.net")
+        ROUTING_LOCATION_NAMES+=("US - Liberty Lake: Crunchbits")
+        ROUTING_LOCATION_IPS+=("104.36.84.66")
+        ROUTING_LOCATION_NAMES+=("US - Los Angeles: Multacom")
+        ROUTING_LOCATION_IPS+=("204.13.154.3")
+        ROUTING_LOCATION_NAMES+=("US - Los Angeles: ReliableSite")
+        ROUTING_LOCATION_IPS+=("104.238.206.46")
+        
+        # United States - Central
+        ROUTING_LOCATION_NAMES+=("US - Chicago: Psychz Networks")
+        ROUTING_LOCATION_IPS+=("108.181.140.235")
+        ROUTING_LOCATION_NAMES+=("US - Chicago: VirMach")
+        ROUTING_LOCATION_IPS+=("89.33.192.5")
+        ROUTING_LOCATION_NAMES+=("US - Kansas City: FreeRangeCloud")
+        ROUTING_LOCATION_IPS+=("23.152.226.2")
+        ROUTING_LOCATION_NAMES+=("US - Kansas: IncogNET")
+        ROUTING_LOCATION_IPS+=("23.137.254.200")
+        ROUTING_LOCATION_NAMES+=("US - Dallas: GSL")
+        ROUTING_LOCATION_IPS+=("216.146.25.35")
+        ROUTING_LOCATION_NAMES+=("US - Salt Lake City: FiberState")
+        ROUTING_LOCATION_IPS+=("38.92.25.252")
+        
+        # United States - East Coast
+        ROUTING_LOCATION_NAMES+=("US - Ashburn: ColoCrossing")
+        ROUTING_LOCATION_IPS+=("192.3.254.158")
+        ROUTING_LOCATION_NAMES+=("US - Buffalo: ColoCrossing")
+        ROUTING_LOCATION_IPS+=("192.3.180.103")
+        ROUTING_LOCATION_NAMES+=("US - Durham: Cogent")
+        ROUTING_LOCATION_IPS+=("38.45.64.1")
+        ROUTING_LOCATION_NAMES+=("US - New York: ReliableSite")
+        ROUTING_LOCATION_IPS+=("104.243.42.233")
+        ROUTING_LOCATION_NAMES+=("US - Secaucus: Royale Hosting")
+        ROUTING_LOCATION_IPS+=("45.137.206.1")
+        ROUTING_LOCATION_NAMES+=("US - Atlanta: Flexential")
+        ROUTING_LOCATION_IPS+=("82.153.68.71")
+        ROUTING_LOCATION_NAMES+=("US - Miami: ReliableSite")
+        ROUTING_LOCATION_IPS+=("104.238.204.68")
+        
+        # Canada
+        ROUTING_LOCATION_NAMES+=("CA - Vancouver: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("104.218.61.164")
+        ROUTING_LOCATION_NAMES+=("CA - Vancouver: FreeRangeCloud")
+        ROUTING_LOCATION_IPS+=("23.154.81.1")
+        ROUTING_LOCATION_NAMES+=("CA - Calgary: FreeRangeCloud")
+        ROUTING_LOCATION_IPS+=("23.133.64.25")
+        ROUTING_LOCATION_NAMES+=("CA - Toronto: Amanah")
+        ROUTING_LOCATION_IPS+=("172.93.167.178")
+        ROUTING_LOCATION_NAMES+=("CA - Montreal: OVH")
+        ROUTING_LOCATION_IPS+=("51.222.154.207")
+        ROUTING_LOCATION_NAMES+=("CA - Halifax: FreeRangeCloud")
+        ROUTING_LOCATION_IPS+=("23.191.80.33")
+    else
+        # Default/Global routing test locations
+        ROUTING_LOCATION_NAMES+=("US - New York: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.nyc1.he.net")
+        ROUTING_LOCATION_NAMES+=("US - Los Angeles: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.lax1.he.net")
+        ROUTING_LOCATION_NAMES+=("UK - London: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.lon1.he.net")
+        ROUTING_LOCATION_NAMES+=("DE - Frankfurt: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.fra1.he.net")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core2.sin1.he.net")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core2.tyo1.he.net")
+        ROUTING_LOCATION_NAMES+=("AU - Sydney: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.syd1.he.net")
+        ROUTING_LOCATION_NAMES+=("BR - Sao Paulo: Hurricane Electric")
+        ROUTING_LOCATION_IPS+=("core1.sao1.he.net")
+    fi
 }
 
-asn_ping_test() {
+routing_ping_test() {
     local ip=$1
     local ping_output
     local ping_result
@@ -1145,12 +1225,12 @@ asn_ping_test() {
     fi
 }
 
-asn_get_as_path() {
+routing_get_as_path() {
     local ip=$1
     local as_path
 
     if ! _exists "mtr"; then
-        echo "MTR not available"
+        echo "MTR not installed"
         return
     fi
 
@@ -1168,24 +1248,25 @@ asn_get_as_path() {
     echo "$as_path"
 }
 
-install_asn_test() {
+install_routing_test() {
     echo " Ping & Routing Test (Region: $REGION_NAME)"
     next
     printf "%-40s | %s\n" " Network" "Details"
     next
 }
 
-asia_ping_asn_test() {
-    init_asn_locations
-    install_asn_test
+routing_test() {
+    local region="$1"
+    init_routing_locations "$region"
+    install_routing_test
 
-    for i in "${!ASN_LOCATION_NAMES[@]}"; do
-        local location="${ASN_LOCATION_NAMES[$i]}"
-        local ip="${ASN_LOCATION_IPS[$i]}"
+    for i in "${!ROUTING_LOCATION_NAMES[@]}"; do
+        local location="${ROUTING_LOCATION_NAMES[$i]}"
+        local ip="${ROUTING_LOCATION_IPS[$i]}"
         
         # Get results
-        local ping_result=$(asn_ping_test "$ip")
-        local as_path=$(asn_get_as_path "$ip")
+        local ping_result=$(routing_ping_test "$ip")
+        local as_path=$(routing_get_as_path "$ip")
         
         # Print results with consistent formatting
         printf " %-39s | %s\n" "$location" "$ping_result"
@@ -1229,25 +1310,40 @@ REGION_NAME="GLOBAL"
 ROUTING_TEST=""
 
 # Handle -rt flag specially (before getopts)
-if [ "$1" = "-rt" ] && [ -n "$2" ]; then
-    case "$2" in
-        china)
-            ROUTING_TEST="china"
-            REGION_NAME="CHINA"
-            ;;
-        asia)
-            ROUTING_TEST="asia"
-            REGION_NAME="ASIA"
-            ;;
-        *)
-            echo "Invalid routing test type: $2" >&2
-            echo "Valid routing test types: china, asia"
-            echo "Usage: -rt <type>"
-            exit 1
-            ;;
-    esac
-    # Clear the arguments so getopts doesn't process them
-    shift 2
+if [ "$1" = "-rt" ]; then
+    if [ -n "$2" ] && [[ "$2" != -* ]]; then
+        # -rt with argument
+        case "$2" in
+            china)
+                ROUTING_TEST="china"
+                REGION_NAME="CHINA | 中華人民共和國"
+                ;;
+            asia)
+                ROUTING_TEST="asia"
+                REGION_NAME="ASIA"
+                ;;
+            na)
+                ROUTING_TEST="na"
+                REGION_NAME="NORTH AMERICA"
+                ;;
+            global)
+                ROUTING_TEST="global"
+                REGION_NAME="GLOBAL"
+                ;;
+            *)
+                echo "Invalid routing test type: $2" >&2
+                echo "Valid routing test types: china, asia, na, global"
+                echo "Usage: -rt [type] (defaults to global)"
+                exit 1
+                ;;
+        esac
+        shift 2
+    else
+        # -rt without argument (default to global)
+        ROUTING_TEST="global"
+        REGION_NAME="GLOBAL ROUTING TEST"
+        shift 1
+    fi
 fi
 
 while getopts ":r:" opt; do
@@ -1309,7 +1405,7 @@ while getopts ":r:" opt; do
         *)
           echo "Invalid REGION: $OPTARG" >&2
           echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia, 10gplus"
-          echo "For routing tests use: -rt china or -rt asia"
+          echo "For routing tests use: -rt china, -rt asia, -rt na, or -rt global"
           echo "Visit nws.sh for instructions."
           exit 1
           ;;
