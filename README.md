@@ -20,7 +20,9 @@ Your Reliable Script for Comprehensive Network Performance Testing.
       - Iran
       - Indonesia
       - Russia
+      - 10G+ Global Test
       - And more coming soon!
+   - Ping & Routing Test: Test network routing and latency to various destinations worldwide with detailed path analysis, including specialized China routing tests with ISP line type detection.
    - Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.
    - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
 
@@ -52,6 +54,30 @@ wget -qO- nws.sh | bash -s -- -r region_name
 ### Example:
 ```
 wget -qO- nws.sh | bash -s -- -r india
+```
+
+### Ping & Routing Test
+Test network routing and latency to various global destinations with detailed path analysis.
+```
+curl -sL nws.sh | bash -s -- -rt [region]
+```
+```
+wget -qO- nws.sh | bash -s -- -rt [region]
+```
+
+Available routing test regions:
+- `china` - China-specific routing with detailed ISP path analysis
+- `asia` - Asian routing test points (Singapore, Japan, Hong Kong, India, Vietnam, etc.)
+- `na` - North American routing test points (US, Canada)
+- `eu` - European routing test points (UK, Germany, France, Netherlands, etc.)
+- `au` - Australia & New Zealand routing test points
+- `global` - Worldwide routing test (default if no region specified)
+
+### Examples:
+```
+wget -qO- nws.sh | bash -s -- -rt eu
+wget -qO- nws.sh | bash -s -- -rt asia
+wget -qO- nws.sh | bash -s -- -rt china
 ```
 
 ## Sample Output (Global)
@@ -237,6 +263,130 @@ wget -qO- nws.sh | bash -s -- -r india
  Total Script Runs  : 81298
 ---------------------------------------------------------------------------
  Result             : https://result.nws.sh/r/1726592547_C6E62V_NA.txt
+---------------------------------------------------------------------------
+```
+
+## Sample Output (Ping & Routing)
+```
+---------------------------------- nws.sh ---------------------------------
+      A simple script to bench network performance using speedtest-cli
+---------------------------------------------------------------------------
+ Version            : v2025.07.08
+ Global Speedtest   : wget -qO- nws.sh | bash
+ Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+ Ping & Routing     : wget -qO- nws.sh | bash -s -- -rt <region>
+---------------------------------------------------------------------------
+ Basic System Info
+---------------------------------------------------------------------------
+ CPU Model          : AMD Ryzen 9 3900X 12-Core Processor
+ CPU Cores          : 1 @ 3799.998 MHz
+ CPU Cache          : 512 KB
+ AES-NI             : ✔ Enabled
+ VM-x/AMD-V         : ✔ Enabled
+ Total Disk         : 19.1 GB (5.1 GB Used)
+ Total RAM          : 712.5 MB (317.8 MB Used)
+ Total Swap         : 512.0 MB (62.9 MB Used)
+ System uptime      : 133 days, 0 hour 10 min
+ Load average       : 0.00, 0.00, 0.00
+ OS                 : Debian GNU/Linux 11
+ Arch               : x86_64 (64 Bit)
+ Kernel             : 5.10.0-33-amd64
+ Virtualization     : KVM
+ TCP Control        : cubic
+---------------------------------------------------------------------------
+ Basic Network Info
+---------------------------------------------------------------------------
+ Primary Network    : IPv4
+ IPv6 Access        : ❌ Offline
+ IPv4 Access        : ✔ Online
+ ISP                : xTom GmbH
+ ASN                : AS3214 xTom GmbH
+ Host               : Virtual Machine Solutions LLC
+ Location           : Amsterdam, North Holland-NH, Netherlands
+---------------------------------------------------------------------------
+ Ping & Routing Test (Region: GLOBAL)
+---------------------------------------------------------------------------
+ Network                                 | Details
+---------------------------------------------------------------------------
+ JP - Tokyo: SoftBank                    | 235ms [No Loss]
+ 103.214.168.128                         | AS3214 AS1299 AS149042
+---------------------------------------------------------------------------
+ JP - Tokyo: HE                          | 216ms [No Loss]
+ core2.tyo1.he.net                       | AS3214 AS6939
+---------------------------------------------------------------------------
+ HK - Hong Kong: GCore                   | 192ms [No Loss]
+ 5.188.230.129                           | AS3214 AS1299 AS199524 AS202422
+---------------------------------------------------------------------------
+ HK - Hong Kong: LeaseWeb Asia           | 239ms [No Loss]
+ 43.249.36.49                            | AS3214 AS6830 AS33915 AS2914 AS133752
+---------------------------------------------------------------------------
+ VN - Ho Chi Minh: FPT Telecom           | 292ms [No Loss]
+ 103.186.65.98                           | AS3214 AS6461 AS7473 AS18403
+---------------------------------------------------------------------------
+ SG - Singapore: CDN77                   | 241ms [No Loss]
+ 89.187.162.1                            | AS3214 AS1299 AS174 AS60068
+---------------------------------------------------------------------------
+ SG - Singapore: TATA                    | 242ms [No Loss]
+ gin-asina-tcore1.as6453.net             | AS3214 AS1299 AS6453
+---------------------------------------------------------------------------
+ IN - Chennai: Linode                    | 161ms [No Loss]
+ speedtest-1.maa1.in.prod.linode.com     | AS3214 AS9498 AS20940 AS63949
+---------------------------------------------------------------------------
+ IN - Mumbai: Jio                        | 157ms [No Loss]
+ 49.44.93.128                            | AS3214 AS55836
+---------------------------------------------------------------------------
+ IR - Tehran: ArvanCloud                 | 89ms [No Loss]
+ 37.32.0.1                               | AS3214 AS1299 AS6762 AS29049 AS202468
+---------------------------------------------------------------------------
+ IR - Isfahan: Webdade                   | 110ms [No Loss]
+ 194.5.50.94                             | AS3214 AS6830 AS3257 AS49556
+---------------------------------------------------------------------------
+ RU - Moscow: Misaka                     | 49ms [No Loss]
+ 45.142.246.177                          | AS3214 AS1299 AS9002 AS969 AS57578
+---------------------------------------------------------------------------
+ RO - Bucharest: M247                    | 41ms [No Loss]
+ 185.45.12.22                            | AS3214 AS9009
+---------------------------------------------------------------------------
+ DE - Falkenstein: Hetzner               | 11ms [No Loss]
+ fsn1-speed.hetzner.com                  | AS3214 AS24940
+---------------------------------------------------------------------------
+ FR - Paris: M247                        | 16ms [No Loss]
+ 185.94.189.162                          | AS3214 AS9009
+---------------------------------------------------------------------------
+ NL - Amsterdam: Clouvider               | 1ms [No Loss]
+ 194.127.172.33                          | AS3214 AS62240
+---------------------------------------------------------------------------
+ UK - London: CDN77                      | 8ms [No Loss]
+ 185.59.221.51                           | AS3214 AS1299 AS60068
+---------------------------------------------------------------------------
+ CA - Montreal: OVH                      | 83ms [No Loss]
+ 51.222.154.207                          | AS3214 AS16276
+---------------------------------------------------------------------------
+ US - Buffalo: ColoCrossing              | 96ms [No Loss]
+ 192.3.180.103                           | AS3214 AS1299 AS36352
+---------------------------------------------------------------------------
+ US - New York: ReliableSite             | 88ms [No Loss]
+ 104.243.42.233                          | AS3214 AS1299 AS6453 AS23470
+---------------------------------------------------------------------------
+ US - Miami: ReliableSite                | 110ms [No Loss]
+ 104.238.204.68                          | AS3214 AS1299 AS6453 AS30058 AS23470
+---------------------------------------------------------------------------
+ US - Chicago: Psychz Networks           | 91ms [No Loss]
+ 108.181.140.235                         | AS3214 AS1299 AS3257 AS40676
+---------------------------------------------------------------------------
+ US - Dallas: GSL                        | 108ms [No Loss]
+ 216.146.25.35                           | AS3214 AS7578 AS63018
+---------------------------------------------------------------------------
+ US - Seattle: xTom                      | 135ms [No Loss]
+ 23.145.48.48                            | AS3214 AS1299 AS23033 AS50131
+---------------------------------------------------------------------------
+ US - Los Angeles: WebNX                 | 144ms [No Loss]
+ 64.185.232.162                          | AS3214 AS7578 AS18450
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+ Duration           : 6 min 11 sec
+ System Time        : 08/07/2025 - 20:28:30 IST
+ Total Script Runs  : 117645
 ---------------------------------------------------------------------------
 ```
 
