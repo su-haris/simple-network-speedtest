@@ -1323,6 +1323,12 @@ init_routing_locations() {
         ROUTING_LOCATION_NAMES+=("IN - Mumbai: Jio")
         ROUTING_LOCATION_IPS+=("49.44.93.128")
         
+        # Asia - Iran (Middle East)
+        ROUTING_LOCATION_NAMES+=("IR - Tehran: ArvanCloud")
+        ROUTING_LOCATION_IPS+=("37.32.0.1")
+        ROUTING_LOCATION_NAMES+=("IR - Isfahan: Webdade")
+        ROUTING_LOCATION_IPS+=("194.5.50.94")
+        
         # Europe - Russia (Eastern Europe)
         ROUTING_LOCATION_NAMES+=("RU - Moscow: Misaka")
         ROUTING_LOCATION_IPS+=("45.142.246.177")
