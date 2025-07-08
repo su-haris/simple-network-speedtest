@@ -455,12 +455,12 @@ speed() {
         echo -e
         speed_test '48463' 'Tokyo, JP'
     else
-        speed_test '29372' 'Kochi, IN'
+        # speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
         speed_test '67859' 'Chennai, IN' 
         # speed_test '47668' 'Mumbai, IN'
         speed_test '61281' 'Mumbai, IN'
-        speed_test '29658' 'Delhi, IN'
+        # speed_test '29658' 'Delhi, IN'
         echo -e
         speed_test '1782' 'Seattle, US'
         speed_test '34840' 'Los Angeles, US'
@@ -484,20 +484,23 @@ speed() {
         speed_test '17336'  'Dubai, AE'
         # speed_test '34240' 'Fujairah, AE'
         speed_test '31851' 'Istanbul, TR'
-        speed_test '18512' 'Tehran, IR'
-        speed_test '24409' 'Cairo, EG'
+        speed_test '4317' 'Tehran, IR'
+        speed_test '16744' 'Cairo, EG'
         echo -e 
         speed_test '50686' 'Tokyo, JP'
+        speed_test '4575' 'Chengdu, CM-CN'
         # speed_test '48463' 'Tokyo, JP'
-        speed_test '24447' 'Shanghai, CU-CN'
+        # speed_test '24447' 'Shanghai, CU-CN'
         # speed_test '45170' 'Wu Xi, CU-CN'
-        #speed_test '37235' 'Shenyang, CU-CN'
+        # speed_test '37235' 'Shenyang, CU-CN'
         # speed_test '26352' 'Nanjing, CT-CN'
-        speed_test '5396' 'Suzhou, CT-CN'
+        # speed_test '5396' 'Suzhou, CT-CN'
         # speed_test '1536'  'Hong Kong, CN'
         speed_test '44745'  'Hong Kong, CN'
         speed_test '367' 'Singapore, SG'
         speed_test '63138' 'Jakarta, ID'
+        echo -e
+        speed_test '15132' 'Sydney, AU'
     fi 
     
 
@@ -549,7 +552,7 @@ ip_info() {
     local ipv4_check=$((ping -4 -c 1 -W 4 ipv4.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -4 icanhazip.com 2> /dev/null)
     local ipv6_check=$((ping -6 -c 1 -W 4 ipv6.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -6 icanhazip.com 2> /dev/null)
 
-    local net_ip="$(wget -T 5 -qO- ipconfig.io)"
+    local net_ip="$(wget -T 5 -qO- icanhazip.com)"
 
     # IP-API Details - IPv6/IPv4
     local response=$(wget -qO- -T 5 http://ip-api.com/json/$net_ip)
