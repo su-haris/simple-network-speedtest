@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # Description: A Network Benchmark Script by <sh@suh.ovh>
-# Copyright (C) 2022 - 2024 <sh@suh.ovh>
+# Copyright (C) 2022 - 2025 <sh@suh.ovh>
 # URL: https://nws.sh/
 # https://github.com/su-haris/simple-network-speedtest
 #
@@ -538,7 +538,7 @@ ip_info() {
     local ipv4_check=$((ping -4 -c 1 -W 4 ipv4.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -4 icanhazip.com 2> /dev/null)
     local ipv6_check=$((ping -6 -c 1 -W 4 ipv6.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -6 icanhazip.com 2> /dev/null)
 
-    local net_ip="$(wget -T 5 -qO- ipconfig.io)"
+    local net_ip="$(wget -T 5 -qO- icanhazip.com)"
 
     # IP-API Details - IPv6/IPv4
     local response=$(wget -qO- -T 5 http://ip-api.com/json/$net_ip)
@@ -668,7 +668,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.05.01)"
+    echo " Version            : $(_green v2025.06.08)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
 }
