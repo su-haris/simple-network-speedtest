@@ -679,7 +679,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.06.22)"
+    echo " Version            : $(_green v2025.07.08)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
@@ -1055,8 +1055,8 @@ init_routing_locations() {
         ROUTING_LOCATION_NAMES+=("SG - Singapore: LeaseWeb Asia")
         ROUTING_LOCATION_IPS+=("103.254.153.18")
         ROUTING_LOCATION_NAMES+=("SG - Singapore: Host Universal")
-        ROUTING_LOCATION_IPS+=("27.0.234.239")
-        ROUTING_LOCATION_NAMES+=("SG - Singapore: GSL")
+        ROUTING_LOCATION_IPS+=("207.2.122.3")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: HostHatch")
         ROUTING_LOCATION_IPS+=("103.167.150.90")
         ROUTING_LOCATION_NAMES+=("SG - Singapore: HE")
         ROUTING_LOCATION_IPS+=("core2.sin1.he.net")
@@ -1267,24 +1267,82 @@ init_routing_locations() {
         # Bulgaria (Southeast)
         ROUTING_LOCATION_NAMES+=("BG - Sofia: AlphaVPS")
         ROUTING_LOCATION_IPS+=("79.124.7.8")
-    else
-        # Default/Global routing test locations
-        ROUTING_LOCATION_NAMES+=("US - New York: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core1.nyc1.he.net")
-        ROUTING_LOCATION_NAMES+=("US - Los Angeles: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core1.lax1.he.net")
-        ROUTING_LOCATION_NAMES+=("UK - London: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core1.lon1.he.net")
-        ROUTING_LOCATION_NAMES+=("DE - Frankfurt: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core1.fra1.he.net")
-        ROUTING_LOCATION_NAMES+=("SG - Singapore: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core2.sin1.he.net")
-        ROUTING_LOCATION_NAMES+=("JP - Tokyo: Hurricane Electric")
+    else        
+        # Asia - Japan (Far East)
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: SoftBank")
+        ROUTING_LOCATION_IPS+=("103.214.168.128")
+        ROUTING_LOCATION_NAMES+=("JP - Tokyo: HE")
         ROUTING_LOCATION_IPS+=("core2.tyo1.he.net")
-        ROUTING_LOCATION_NAMES+=("AU - Sydney: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core1.syd1.he.net")
-        ROUTING_LOCATION_NAMES+=("BR - Sao Paulo: Hurricane Electric")
-        ROUTING_LOCATION_IPS+=("core1.sao1.he.net")
+        
+        # Asia - Hong Kong
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: GCore")
+        ROUTING_LOCATION_IPS+=("5.188.230.129")
+        ROUTING_LOCATION_NAMES+=("HK - Hong Kong: LeaseWeb Asia")
+        ROUTING_LOCATION_IPS+=("43.249.36.49")
+        
+        # Asia - Vietnam
+        ROUTING_LOCATION_NAMES+=("VN - Ho Chi Minh: FPT Telecom")
+        ROUTING_LOCATION_IPS+=("103.186.65.98")
+        
+        # Asia - Singapore
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: CDN77")
+        ROUTING_LOCATION_IPS+=("89.187.162.1")
+        ROUTING_LOCATION_NAMES+=("SG - Singapore: TATA")
+        ROUTING_LOCATION_IPS+=("gin-asina-tcore1.as6453.net")
+        
+        # Asia - India (West Asia)
+        ROUTING_LOCATION_NAMES+=("IN - Chennai: Linode")
+        ROUTING_LOCATION_IPS+=("speedtest-1.maa1.in.prod.linode.com")
+        ROUTING_LOCATION_NAMES+=("IN - Mumbai: Jio")
+        ROUTING_LOCATION_IPS+=("49.44.93.128")
+        
+        # Europe - Russia (Eastern Europe)
+        ROUTING_LOCATION_NAMES+=("RU - Moscow: Misaka")
+        ROUTING_LOCATION_IPS+=("45.142.246.177")
+        
+        # Europe - Romania
+        ROUTING_LOCATION_NAMES+=("RO - Bucharest: M247")
+        ROUTING_LOCATION_IPS+=("185.45.12.22")
+        
+        # Europe - Germany
+        ROUTING_LOCATION_NAMES+=("DE - Falkenstein: Hetzner")
+        ROUTING_LOCATION_IPS+=("fsn1-speed.hetzner.com")
+        
+        # Europe - France
+        ROUTING_LOCATION_NAMES+=("FR - Paris: M247")
+        ROUTING_LOCATION_IPS+=("185.94.189.162")
+        
+        # Europe - Netherlands
+        ROUTING_LOCATION_NAMES+=("NL - Amsterdam: Clouvider")
+        ROUTING_LOCATION_IPS+=("194.127.172.33")
+        
+        # Europe - UK (Western Europe)
+        ROUTING_LOCATION_NAMES+=("UK - London: CDN77")
+        ROUTING_LOCATION_IPS+=("185.59.221.51")
+        
+        # North America - Canada (Eastern North America)
+        ROUTING_LOCATION_NAMES+=("CA - Montreal: OVH")
+        ROUTING_LOCATION_IPS+=("51.222.154.207")
+        
+        # North America - US East
+        ROUTING_LOCATION_NAMES+=("US - Buffalo: ColoCrossing")
+        ROUTING_LOCATION_IPS+=("192.3.180.103")
+        ROUTING_LOCATION_NAMES+=("US - New York: ReliableSite")
+        ROUTING_LOCATION_IPS+=("104.243.42.233")
+        ROUTING_LOCATION_NAMES+=("US - Miami: ReliableSite")
+        ROUTING_LOCATION_IPS+=("104.238.204.68")
+        
+        # North America - US Central
+        ROUTING_LOCATION_NAMES+=("US - Chicago: Psychz Networks")
+        ROUTING_LOCATION_IPS+=("108.181.140.235")
+        ROUTING_LOCATION_NAMES+=("US - Dallas: GSL")
+        ROUTING_LOCATION_IPS+=("216.146.25.35")
+        
+        # North America - US West
+        ROUTING_LOCATION_NAMES+=("US - Seattle: xTom")
+        ROUTING_LOCATION_IPS+=("23.145.48.48")
+        ROUTING_LOCATION_NAMES+=("US - Los Angeles: WebNX")
+        ROUTING_LOCATION_IPS+=("64.185.232.162")
     fi
 }
 
@@ -1431,6 +1489,7 @@ if [ "$1" = "-rt" ]; then
                 echo "Invalid routing test type: $2" >&2
                 echo "Valid routing test types: china, asia, na, eu, global"
                 echo "Usage: -rt [type] (defaults to global)"
+                echo "Visit nws.sh for instructions."
                 exit 1
                 ;;
         esac
