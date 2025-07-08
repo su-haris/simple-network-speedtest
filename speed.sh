@@ -1491,7 +1491,7 @@ run_speed_sh() {
 
 REGION="global"
 REGION_NAME="GLOBAL"
-ROUTING_TEST="GLOBAL"
+ROUTING_TEST=""
 
 # Handle -rt flag specially (before getopts)
 if [ "$1" = "-rt" ]; then
