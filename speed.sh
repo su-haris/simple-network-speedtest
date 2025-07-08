@@ -1270,6 +1270,30 @@ init_routing_locations() {
         # Bulgaria (Southeast)
         ROUTING_LOCATION_NAMES+=("BG - Sofia: AlphaVPS")
         ROUTING_LOCATION_IPS+=("79.124.7.8")
+    elif [ "$region" = "au" ]; then
+        # Australia - Sydney
+        ROUTING_LOCATION_NAMES+=("AU - Sydney: CDN77")
+        ROUTING_LOCATION_IPS+=("143.244.63.144")
+        ROUTING_LOCATION_NAMES+=("AU - Sydney: xTom")
+        ROUTING_LOCATION_IPS+=("syd-v4.lg.v.ps")
+        
+        # Australia - Perth (West Coast)
+        ROUTING_LOCATION_NAMES+=("AU - Perth: Telstra")
+        ROUTING_LOCATION_IPS+=("202.84.221.242")
+        
+        # Australia - Brisbane (Northeast)
+        ROUTING_LOCATION_NAMES+=("AU - Brisbane: ConXt")
+        ROUTING_LOCATION_IPS+=("202.174.110.136")
+        
+        # Australia - Melbourne (Southeast)
+        ROUTING_LOCATION_NAMES+=("AU - Melbourne: BinaryLane")
+        ROUTING_LOCATION_IPS+=("103.236.162.1")
+        ROUTING_LOCATION_NAMES+=("AU - Melbourne: Aussie Broadband")
+        ROUTING_LOCATION_IPS+=("121.200.10.3")
+        
+        # New Zealand - Auckland
+        ROUTING_LOCATION_NAMES+=("NZ - Auckland: Telstra")
+        ROUTING_LOCATION_IPS+=("202.84.227.54")
     else        
         # Asia - Japan (Far East)
         ROUTING_LOCATION_NAMES+=("JP - Tokyo: SoftBank")
@@ -1461,7 +1485,7 @@ run_speed_sh() {
 
 REGION="global"
 REGION_NAME="GLOBAL"
-ROUTING_TEST=""
+ROUTING_TEST="GLOBAL"
 
 # Handle -rt flag specially (before getopts)
 if [ "$1" = "-rt" ]; then
@@ -1484,13 +1508,17 @@ if [ "$1" = "-rt" ]; then
                 ROUTING_TEST="eu"
                 REGION_NAME="EUROPE"
                 ;;
+            au)
+                ROUTING_TEST="au"
+                REGION_NAME="AUSTRALIA & NZ"
+                ;;
             global)
                 ROUTING_TEST="global"
                 REGION_NAME="GLOBAL"
                 ;;
             *)
                 echo "Invalid routing test type: $2" >&2
-                echo "Valid routing test types: china, asia, na, eu, global"
+                echo "Valid routing test types: china, asia, na, eu, au, global"
                 echo "Usage: -rt [type] (defaults to global)"
                 echo "Visit nws.sh for instructions."
                 exit 1
@@ -1500,7 +1528,7 @@ if [ "$1" = "-rt" ]; then
     else
         # -rt without argument (default to global)
         ROUTING_TEST="global"
-        REGION_NAME="GLOBAL ROUTING TEST"
+        REGION_NAME="GLOBAL"
         shift 1
     fi
 fi
@@ -1564,7 +1592,7 @@ while getopts ":r:" opt; do
         *)
           echo "Invalid REGION: $OPTARG" >&2
           echo "Valid Regions: na, sa, eu, au, asia, africa, middle-east, india, china, iran, russia, 10gplus"
-          echo "For routing tests use: -rt china, -rt asia, -rt na, -rt eu, or -rt global"
+          echo "For routing tests use: -rt china, -rt asia, -rt na, -rt eu, -rt au, or -rt global"
           echo "Visit nws.sh for instructions."
           exit 1
           ;;
