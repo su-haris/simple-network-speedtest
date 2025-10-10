@@ -457,7 +457,8 @@ speed() {
     else
         # speed_test '29372' 'Kochi, IN'
         speed_test '52216' 'Bangalore, IN'
-        speed_test '67859' 'Chennai, IN' 
+        speed_test '9591' 'Chennai, IN'
+        # speed_test '67859' 'Chennai, IN' 
         # speed_test '47668' 'Mumbai, IN'
         speed_test '61281' 'Mumbai, IN'
         # speed_test '29658' 'Delhi, IN'
@@ -465,19 +466,19 @@ speed() {
         speed_test '1782' 'Seattle, US'
         speed_test '34840' 'Los Angeles, US'
         speed_test '22288' 'Dallas, US'
-        speed_test '69408' 'Miami, US'
+        speed_test '14237' 'Miami, US'
         speed_test '46120' 'New York, US'
         speed_test '46143' 'Toronto, CA'
         speed_test '54754' 'Mexico City, MX'
         echo -e 
         speed_test '37536' 'London, UK'
         speed_test '23094' 'Amsterdam, NL'
-        speed_test '28308' 'Paris, FR'
+        speed_test '61933' 'Paris, FR'
         speed_test '35692' 'Frankfurt, DE'
         speed_test '37249' 'Warsaw, PL'
         speed_test '18902' 'Bucharest, RO'
         # speed_test '22050' 'Moscow, RU'
-        speed_test '44487' 'Moscow, RU'
+        speed_test '44806' 'Moscow, RU'
         echo -e 
         speed_test '14580' 'Jeddah, SA'
         # speed_test '4845'  'Dubai, AE'
@@ -682,7 +683,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.08.30)"
+    echo " Version            : $(_green v2025.10.10)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
