@@ -553,7 +553,7 @@ ip_info() {
     local ipv4_check=$((ping -4 -c 1 -W 4 ipv4.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -4 icanhazip.com 2> /dev/null)
     local ipv6_check=$((ping -6 -c 1 -W 4 ipv6.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -6 icanhazip.com 2> /dev/null)
 
-    local net_ip="$(wget -T 5 -qO- icanhazip.com)"
+    local net_ip="$(wget -T 5 -qO- http://icanhazip.com)"
 
     # IP-API Details - IPv6/IPv4
     local response=$(wget -qO- -T 5 http://ip-api.com/json/$net_ip)
@@ -581,7 +581,7 @@ ip_info() {
 
     # IPINFO.IO Details - IPv4 only
 
-    local response_ipv4=$(wget -qO- -T 5 ipinfo.io)
+    local response_ipv4=$(wget -qO- -T 5 http://ipinfo.io)
 
     local ipv4_city=$(echo "$response_ipv4" | grep -Po '"city": *\K"[^"]*"')
     local ipv4_city=${ipv4_city//\"}
@@ -683,7 +683,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.10.10)"
+    echo " Version            : $(_green v2025.10.26)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
