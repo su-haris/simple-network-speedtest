@@ -1,132 +1,602 @@
-﻿
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>nws.sh | Speedtest Benchmark Script</title>
-  <link rel="stylesheet" href="https://stackedit.io/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    .stackedit__html {
-      max-width: 870px;
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-tertiary: #1a2332;
+      --neon-blue: #00d4ff;
+      --neon-blue-dim: #0091b3;
+      --neon-cyan: #00ffff;
+      --neon-purple: #b24bff;
+      --text-primary: #e2e8f0;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-color: #1e3a5f;
+      --code-bg: #0d1520;
+      --success: #10b981;
+      --error: #ef4444;
+      --glow-blue: 0 0 20px rgba(0, 212, 255, 0.3);
+      --glow-strong: 0 0 30px rgba(0, 212, 255, 0.5);
     }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Roboto Mono', monospace;
-      color: black;
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.7;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
     }
-    /* Dark Mode Styles */
-    body.dark-mode {
-      background-color: #121212;
-      color: #ffffff;
-    }
-    /* Theme Toggle Button */
-    .theme-toggle {
+
+    /* Scanline effect overlay */
+    body::before {
+      content: '';
       position: fixed;
-      top: 1rem;
-      right: 1rem;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      outline: none;
-      z-index: 999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
     }
-    .theme-toggle:hover {
-      opacity: 0.8;
+
+    /* Grid background */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Main container */
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2rem 4rem;
+      position: relative;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--neon-blue);
+      text-shadow: var(--glow-strong);
+      letter-spacing: -2px;
+      margin-bottom: 0.5rem;
+      animation: flicker 4s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { opacity: 1; }
+      92% { opacity: 1; }
+      93% { opacity: 0.8; }
+      94% { opacity: 1; }
+      96% { opacity: 0.9; }
+      97% { opacity: 1; }
+    }
+
+    .tagline {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      font-weight: 400;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* Sections */
+    section {
+      margin-bottom: 3rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--neon-blue);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    h2::before {
+      content: '>';
+      color: var(--neon-cyan);
+      font-weight: 400;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin: 2rem 0 1rem;
+    }
+
+    h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin: 1.5rem 0 0.75rem;
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    /* Lists */
+    ul {
+      list-style: none;
+      margin: 1rem 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    li::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--neon-blue);
+    }
+
+    ul ul {
+      margin-top: 0.5rem;
+      margin-left: 0.5rem;
+    }
+
+    ul ul li::before {
+      content: '◦';
+      color: var(--neon-blue-dim);
+    }
+
+    /* Links */
+    a {
+      color: var(--neon-blue);
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    a:hover {
+      color: var(--neon-cyan);
+      border-bottom-color: var(--neon-cyan);
+      text-shadow: var(--glow-blue);
+    }
+
+    /* Code blocks */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      position: relative;
+    }
+
+    pre::before {
+      content: 'terminal';
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.65rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 0 8px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: var(--neon-cyan);
+    }
+
+    pre code {
+      color: var(--text-primary);
+      display: block;
+      line-height: 1.6;
+    }
+
+    /* Inline code */
+    p code, li code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--neon-blue);
+    }
+
+    /* Sample output - special styling */
+    .sample-output pre {
+      background: linear-gradient(135deg, var(--code-bg) 0%, #0f1a2a 100%);
+      border-color: var(--neon-blue-dim);
+      box-shadow: inset 0 0 50px rgba(0, 212, 255, 0.03);
+    }
+
+    .sample-output pre::before {
+      content: 'output';
+      background: var(--neon-blue-dim);
+      color: var(--bg-primary);
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+      font-size: 0.85rem;
+    }
+
+    thead {
+      background: var(--bg-tertiary);
+    }
+
+    th {
+      color: var(--neon-blue);
+      font-weight: 600;
+      text-align: left;
+      padding: 1rem;
+      border-bottom: 2px solid var(--border-color);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+    }
+
+    td {
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-secondary);
+    }
+
+    tr:hover td {
+      background: var(--bg-tertiary);
+    }
+
+    /* Sponsors card */
+    .sponsors {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin: 2rem 0;
+    }
+
+    .sponsors p {
+      margin-bottom: 0.5rem;
+    }
+
+    .sponsors ul {
+      margin: 0;
+    }
+
+    /* Donations */
+    .donations {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 2rem;
+    }
+
+    .donations h2 {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 1rem;
+    }
+
+    .wallet {
+      margin: 1.5rem 0;
+    }
+
+    .wallet-label {
+      color: var(--neon-purple);
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .wallet-address {
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .wallet-address:hover {
+      border-color: var(--neon-blue);
+      color: var(--text-secondary);
+    }
+
+    /* Quick start box */
+    .quick-start {
+      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1) 0%, rgba(178, 75, 255, 0.05) 100%);
+      border: 1px solid var(--neon-blue-dim);
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .quick-start h3 {
+      color: var(--neon-blue);
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+
+    .quick-start pre {
+      margin: 0.75rem 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 3rem 0 1rem;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-color);
+      margin-top: 4rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .header {
+        padding: 2.5rem 0 2rem;
+        text-align: center;
+      }
+
+      .logo {
+        font-size: 2.5rem;
+      }
+
+      .tagline {
+        padding: 0 0.5rem;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+      }
+
+      h3 {
+        font-size: 1rem;
+      }
+
+      p, li {
+        font-size: 0.85rem;
+      }
+
+      pre {
+        padding: 1rem;
+        font-size: 0.7rem;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 6px;
+      }
+
+      .quick-start {
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+      }
+
+      .sponsors, .donations {
+        padding: 1.25rem;
+      }
+
+      table {
+        display: block;
+        overflow-x: auto;
+        font-size: 0.75rem;
+      }
+    }
+
+    /* Selection */
+    ::selection {
+      background: var(--neon-blue);
+      color: var(--bg-primary);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--neon-blue-dim);
+    }
+
+    /* Smooth fade-in animation */
+    section {
+      animation: fadeInUp 0.6s ease-out backwards;
+    }
+
+    section:nth-child(1) { animation-delay: 0.1s; }
+    section:nth-child(2) { animation-delay: 0.2s; }
+    section:nth-child(3) { animation-delay: 0.3s; }
+    section:nth-child(4) { animation-delay: 0.4s; }
+    section:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 
-<body class="stackedit">
-  <!-- Dark Mode Toggle Button -->
-  <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">
-    <span id="theme-icon">🌙</span>
-  </button>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="logo">nws.sh</h1>
+      <p class="tagline">Your Reliable Script for Comprehensive Network Performance Testing</p>
+    </header>
 
-  <div class="stackedit__html"><h1 id="network-speed.xyz">nws.sh</h1>
-<!-- <p><a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fnetwork-speed.xyz&amp;count_bg=%2379C83D&amp;title_bg=%23555555&amp;icon=&amp;icon_color=%23E7E7E7&amp;title=Visitors&amp;edge_flat=false" alt="Hits"></a></p> -->
-<p>Your Reliable Script for Comprehensive Network Performance Testing.</p>
-<h2 id="features">Features</h2>
-<ul>
-<li>System Overview: Quick snapshot of your device's core hardware components like CPU, RAM, Disk and more.</li>
-<li>Network Overview: Detailed information including your protocol type (IPv4/v6), ISP, geographical location and other network-based data.</li>
-<li>Comprehensive Speedtest: Perform an all-encompassing speedtest using the renowned Ookla speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.</li>
-<li>Ping &amp; Routing Test: Test network routing and latency to various destinations worldwide with detailed path analysis, including specialized China routing tests with ISP line type detection.</li>
-<li>Regional Speedtest: Get a regional perspective towards your network performance with tests targeted towards specific parts of the world, currently including:
-<ul>
-<li>North America</li>
-<li>South America</li>
-<li>Europe</li>
-<li>Asia</li>
-<li>Africa</li>
-<li>Australia</li>
-<li>GCC Middle East</li>
-<li>India</li>
-<li>China</li>
-<li>Iran</li>
-<li>Indonesia</li>
-<li>Russia</li>
-<li>(NEW) Global 10G+</li>
-<li>More coming soon!</li>
-</ul>
-</li>
-<li>Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.</li>
-<li>Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.</li>
-</ul>
-<p>
-  I would like to express my heartfelt thanks to our awesome sponsors for their invaluable support:
-  <ul>
-    <li><a href="https://zip.xbit.win/go/crunchbits">Crunchbits</a> for generously sponsoring the hosting infrastructure.</li>
-    <li><a href="https://zip.xbit.win/go/incognet">IncogNET</a> for kindly sponsoring the domain name.</li>
-    <li><a href="https://zip.xbit.win/go/beanman">beanman109</a> for implementing dark mode on the website.</li>
-    <li><a href="https://zip.xbit.win/go/Decicus">Decicus</a> for sponsoring a Test 25G Server.</li>
-  </ul>
-  
-Thanks to Teddysun <a href="/cdn-cgi/l/email-protection#dbb29bafbebfbfa2a8aeb5f5b8b4b6"><span class="__cf_email__" data-cfemail="f69fb6829392928f858398d895999b">[email&#160;protected]</span></a> for the base <a href="http://bench.sh">bench.sh</a> script</p>
-<h2 id="usage">Usage</h2>
-<h3 id="global-speedtest-default">Global Speedtest (default)</h3>
-<pre><code>curl -sL nws.sh | bash
-</code></pre>
-<pre><code>wget -qO- nws.sh | bash
-</code></pre>
-<h3 id="regional-speedtest">Regional Speedtest</h3>
-<p>region_name = na, sa, eu, asia, africa, au, middle-east, india, china, iran, indonesia, russia, 10gplus</p>
-<pre><code>curl -sL nws.sh | bash -s -- -r region_name
-</code></pre>
-<pre><code>wget -qO- nws.sh | bash -s -- -r region_name
-</code></pre>
-<h3 id="example">Example:</h3>
-<pre><code>wget -qO- nws.sh | bash -s -- -r india
-</code></pre>
-<h3 id="ping--routing-test">Ping &amp; Routing Test</h3>
-<p>Test network routing and latency to various global destinations with detailed path analysis.</p>
-<pre><code>curl -sL nws.sh | bash -s -- -rt [region]
-</code></pre>
-<pre><code>wget -qO- nws.sh | bash -s -- -rt [region]
-</code></pre>
-<p>Available routing test regions:</p>
-<ul>
-<li><code>china</code> - China-specific routing with detailed ISP path analysis</li>
-<li><code>asia</code> - Asian routing test points (Singapore, Japan, Hong Kong, India, Vietnam, etc.)</li>
-<li><code>na</code> - North American routing test points (US, Canada)</li>
-<li><code>eu</code> - European routing test points (UK, Germany, France, Netherlands, etc.)</li>
-<li><code>au</code> - Australia &amp; New Zealand routing test points</li>
-<li><code>global</code> - Worldwide routing test (default if no region specified)</li>
-</ul>
-<h3 id="examples">Examples:</h3>
-<pre><code>wget -qO- nws.sh | bash -s -- -rt eu
-wget -qO- nws.sh | bash -s -- -rt asia
-wget -qO- nws.sh | bash -s -- -rt china
-</code></pre>
-<h2 id="sample-output-global">Sample Output (Global)</h2>
-<pre><code>---------------------------------- nws.sh ---------------------------------
+    <!-- Features -->
+    <section>
+      <h2>Features</h2>
+      <ul>
+        <li><strong>System Overview:</strong> Quick snapshot of your device's core hardware components like CPU, RAM, Disk and more.</li>
+        <li><strong>Network Overview:</strong> Detailed information including your protocol type (IPv4/v6), ISP, geographical location and other network-based data.</li>
+        <li><strong>Comprehensive Speedtest:</strong> Perform an all-encompassing speedtest using the renowned Ookla speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.</li>
+        <li><strong>Ping &amp; Routing Test:</strong> Test network routing and latency to various destinations worldwide with detailed path analysis, including specialized China routing tests with ISP line type detection.</li>
+        <li><strong>Regional Speedtest:</strong> Get a regional perspective towards your network performance with tests targeted towards specific parts of the world:
+          <ul>
+            <li>North America</li>
+            <li>South America</li>
+            <li>Europe</li>
+            <li>Asia</li>
+            <li>Africa</li>
+            <li>Australia</li>
+            <li>GCC Middle East</li>
+            <li>India</li>
+            <li>China</li>
+            <li>Iran</li>
+            <li>Indonesia</li>
+            <li>Russia</li>
+            <li><span style="color: var(--neon-purple);">(NEW)</span> Global 10G+</li>
+            <li>More coming soon!</li>
+          </ul>
+        </li>
+        <li><strong>Statistical Insights:</strong> At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.</li>
+        <li><strong>Shareability:</strong> Want to share your results? No worries, each test provides you with a handy shareable link.</li>
+      </ul>
+    </section>
+
+    <!-- Sponsors -->
+    <div class="sponsors">
+      <p>Heartfelt thanks to our awesome sponsors for their invaluable support:</p>
+      <ul>
+        <li><a href="https://zip.xbit.win/go/crunchbits">Crunchbits</a> — generously sponsoring the hosting infrastructure</li>
+        <li><a href="https://zip.xbit.win/go/incognet">IncogNET</a> — kindly sponsoring the domain name</li>
+        <li><a href="https://zip.xbit.win/go/Decicus">Decicus</a> — sponsoring a Test 25G Server</li>
+      </ul>
+      <p style="margin-top: 1rem; margin-bottom: 0;">Thanks to Teddysun for the base <a href="http://bench.sh">bench.sh</a> script</p>
+    </div>
+
+    <!-- Usage -->
+    <section>
+      <h2>Usage</h2>
+      
+      <div class="quick-start">
+        <h3>Global Speedtest (default)</h3>
+        <pre><code>curl -sL nws.sh | bash</code></pre>
+        <pre><code>wget -qO- nws.sh | bash</code></pre>
+      </div>
+
+      <h3>Regional Speedtest</h3>
+      <p>region_name = <code>na</code>, <code>sa</code>, <code>eu</code>, <code>asia</code>, <code>africa</code>, <code>au</code>, <code>middle-east</code>, <code>india</code>, <code>china</code>, <code>iran</code>, <code>indonesia</code>, <code>russia</code>, <code>10gplus</code></p>
+      <pre><code>curl -sL nws.sh | bash -s -- -r region_name</code></pre>
+      <pre><code>wget -qO- nws.sh | bash -s -- -r region_name</code></pre>
+
+      <h4>Example:</h4>
+      <pre><code>wget -qO- nws.sh | bash -s -- -r india</code></pre>
+
+      <h3>Ping &amp; Routing Test</h3>
+      <p>Test network routing and latency to various global destinations with detailed path analysis.</p>
+      <p>region_name = <code>china</code>, <code>asia</code>, <code>na</code>, <code>eu</code>, <code>au</code>, <code>global</code></p>
+      <pre><code>curl -sL nws.sh | bash -s -- -rt region_name</code></pre>
+      <pre><code>wget -qO- nws.sh | bash -s -- -rt region_name</code></pre>
+
+      <h4>Examples:</h4>
+      <pre><code>curl -sL nws.sh | bash -s -- -rt eu
+curl -sL nws.sh | bash -s -- -rt asia
+curl -sL nws.sh | bash -s -- -rt china</code></pre>
+    </section>
+
+    <!-- Sample Output Global -->
+    <section class="sample-output">
+      <h2>Sample Output (Global)</h2>
+      <pre><code>---------------------------------- nws.sh ---------------------------------
   A simple script to bench network performance using speedtest-cli
 ---------------------------------------------------------------------------
 Version            : v2024.09.18
 Global Speedtest   : wget -qO- nws.sh | bash
-Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+Region Speedtest   : wget -qO- nws.sh | bash -s -- -r &lt;region&gt;
 ---------------------------------------------------------------------------
 Basic System Info
 ---------------------------------------------------------------------------
@@ -184,7 +654,7 @@ Amsterdam, NL    166.55 ms   0.0%    5517.39 Mbps   1075.73 Mbps   31173 Service
 Paris, FR        231.02 ms   N/A     4099.58 Mbps   823.54 Mbps    Axione - Paris
 Frankfurt, DE    175.67 ms   0.0%    1675.52 Mbps   560.19 Mbps    Clouvider Ltd - Frankfurt am Main
 Warsaw, PL       169.94 ms   0.0%    4316.61 Mbps   1410.42 Mbps   Play - Warszawa
-Bucharest, RO    173.98 ms   0.0%    4252.47 Mbps   388.07 Mbps    Vodafone Romania Fixed – Bucharest - Bucharest
+Bucharest, RO    173.98 ms   0.0%    4252.47 Mbps   388.07 Mbps    Vodafone Romania Fixed – Bucharest
 Moscow, RU       328.29 ms   0.0%    3919.06 Mbps   672.10 Mbps    RETN - Moscow
 
 Jeddah, SA       194.02 ms   0.0%    4308.41 Mbps   1193.33 Mbps   Saudi Telecom Company
@@ -212,15 +682,18 @@ System Time        : 18/09/2024 - 00:03:48 WIB
 Total Script Runs  : 81295
 ---------------------------------------------------------------------------
 Result             : https://result.nws.sh/r/1726592066_XGBFET_GLOBAL.txt
----------------------------------------------------------------------------
-</code></pre>
-<h2 id="sample-output-regional">Sample Output (Regional)</h2>
-<pre><code>---------------------------------- nws.sh ---------------------------------
+---------------------------------------------------------------------------</code></pre>
+    </section>
+
+    <!-- Sample Output Regional -->
+    <section class="sample-output">
+      <h2>Sample Output (Regional)</h2>
+      <pre><code>---------------------------------- nws.sh ---------------------------------
   A simple script to bench network performance using speedtest-cli
 ---------------------------------------------------------------------------
 Version            : v2024.09.18
 Global Speedtest   : wget -qO- nws.sh | bash
-Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+Region Speedtest   : wget -qO- nws.sh | bash -s -- -r &lt;region&gt;
 ---------------------------------------------------------------------------
 Basic System Info
 ---------------------------------------------------------------------------
@@ -302,11 +775,13 @@ System Time        : 18/09/2024 - 10:30:49 IST
 Total Script Runs  : 81340
 ---------------------------------------------------------------------------
 Result             : https://result.nws.sh/r/1726635083_P6NU18_NA.txt
----------------------------------------------------------------------------
-</code></pre>
+---------------------------------------------------------------------------</code></pre>
+    </section>
 
-<h2 id="sample-output-ping--routing">Sample Output (Ping &amp; Routing)</h2>
-<pre><code>---------------------------------- nws.sh ---------------------------------
+    <!-- Sample Output Ping & Routing -->
+    <section class="sample-output">
+      <h2>Sample Output (Ping &amp; Routing)</h2>
+      <pre><code>---------------------------------- nws.sh ---------------------------------
       A simple script to bench network performance using speedtest-cli
 ---------------------------------------------------------------------------
  Version            : v2025.07.08
@@ -425,205 +900,155 @@ Result             : https://result.nws.sh/r/1726635083_P6NU18_NA.txt
  Duration           : 6 min 11 sec
  System Time        : 08/07/2025 - 20:28:30 IST
  Total Script Runs  : 117645
----------------------------------------------------------------------------
-</code></pre>
+---------------------------------------------------------------------------</code></pre>
+    </section>
 
-<h2 id="sample-output-all-regions">Sample Output (All Regions)</h2>
-<p>NA : <a href="https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt">https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt</a><br>
-SA : <a href="https://result.nws.sh/r/1726636253_DOOLEN_SA.txt">https://result.nws.sh/r/1726636253_DOOLEN_SA.txt</a><br>
-EU : <a href="https://result.nws.sh/r/1726636063_M5C2V5_EU.txt">https://result.nws.sh/r/1726636063_M5C2V5_EU.txt</a><br>
-Asia : <a href="https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt">https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt</a><br>
-Africa : <a href="https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt">https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt</a><br>
-AU : <a href="https://result.nws.sh/r/1726635412_6451TY_AU.txt">https://result.nws.sh/r/1726635412_6451TY_AU.txt</a><br>
-Middle East : <a href="https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt">https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt</a><br>
-India : <a href="https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt">https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt</a><br>
-China : <a href="https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt">https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt</a><br>
-Iran : <a href="https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt">https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt</a><br>
-Indonesia : <a href="https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt">https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt<br></a>
-Russia : <a href="https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt">https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt</a><br></p>
+    <!-- Sample Output All Regions -->
+    <section>
+      <h2>Sample Output (All Regions)</h2>
+      <ul>
+        <li><strong>NA:</strong> <a href="https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt">result.nws.sh/r/1726636198_ZB7UZ4_NA.txt</a></li>
+        <li><strong>SA:</strong> <a href="https://result.nws.sh/r/1726636253_DOOLEN_SA.txt">result.nws.sh/r/1726636253_DOOLEN_SA.txt</a></li>
+        <li><strong>EU:</strong> <a href="https://result.nws.sh/r/1726636063_M5C2V5_EU.txt">result.nws.sh/r/1726636063_M5C2V5_EU.txt</a></li>
+        <li><strong>Asia:</strong> <a href="https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt">result.nws.sh/r/1726636719_94JGP0_ASIA.txt</a></li>
+        <li><strong>Africa:</strong> <a href="https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt">result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt</a></li>
+        <li><strong>AU:</strong> <a href="https://result.nws.sh/r/1726635412_6451TY_AU.txt">result.nws.sh/r/1726635412_6451TY_AU.txt</a></li>
+        <li><strong>Middle East:</strong> <a href="https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt">result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt</a></li>
+        <li><strong>India:</strong> <a href="https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt">result.nws.sh/r/1726636009_9Q49NL_INDIA.txt</a></li>
+        <li><strong>China:</strong> <a href="https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt">result.nws.sh/r/1694528635_EI46XX_CHINA.txt</a></li>
+        <li><strong>Iran:</strong> <a href="https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt">result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt</a></li>
+        <li><strong>Indonesia:</strong> <a href="https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt">result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt</a></li>
+        <li><strong>Russia:</strong> <a href="https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt">result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt</a></li>
+      </ul>
+    </section>
 
-<h2 id="bandwidth-usage">Bandwidth Usage</h2>
-<p>The script usually takes around 10-15 minutes to complete execution for global speedtest.<br>
-Data usage is hard to estimate since it is completely dependant on the connection and location.</p>
-<p>However, below is a very rough estimate - based on a few tests on different networks.</p>
+    <!-- Bandwidth Usage -->
+    <section>
+      <h2>Bandwidth Usage</h2>
+      <p>The script usually takes around 10-15 minutes to complete execution for global speedtest. Data usage is hard to estimate since it is completely dependant on the connection and location.</p>
+      <p>However, below is a very rough estimate based on a few tests on different networks:</p>
+      
+      <table>
+        <thead>
+          <tr>
+            <th>Port Speed (DL/UL)</th>
+            <th>Data Used</th>
+            <th>Country</th>
+            <th>Test Region</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>10Gbps Symmetric</td>
+            <td>~130GB</td>
+            <td>SG</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>5Gbps Symmetric</td>
+            <td>~60GB</td>
+            <td>KR</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>1Gbps Symmetric</td>
+            <td>~40GB</td>
+            <td>US</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>750Mbps Symmetric</td>
+            <td>~35GB</td>
+            <td>DE</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>500Mbps Symmetric</td>
+            <td>~25GB</td>
+            <td>IN</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>100Mbps Symmetric</td>
+            <td>~6GB</td>
+            <td>US</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>2Gbps/250Mbps</td>
+            <td>~50GB</td>
+            <td>DE</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>1Gbps/250Mbps</td>
+            <td>~35GB</td>
+            <td>CA</td>
+            <td>GLOBAL</td>
+          </tr>
+          <tr>
+            <td>10Gbps Symmetric</td>
+            <td>~440GB</td>
+            <td>DE</td>
+            <td>EU</td>
+          </tr>
+          <tr>
+            <td>10Gbps Symmetric</td>
+            <td>~400GB</td>
+            <td>NL</td>
+            <td>EU</td>
+          </tr>
+          <tr>
+            <td>1Gbps Symmetric</td>
+            <td>~50GB</td>
+            <td>UK</td>
+            <td>EU</td>
+          </tr>
+          <tr>
+            <td>10Gbps Symmetric</td>
+            <td>~240GB</td>
+            <td>SG</td>
+            <td>ASIA</td>
+          </tr>
+          <tr>
+            <td>10Gbps Symmetric</td>
+            <td>~150GB</td>
+            <td>SG</td>
+            <td>INDIA</td>
+          </tr>
+          <tr>
+            <td>1Gbps Symmetric</td>
+            <td>~55GB</td>
+            <td>US</td>
+            <td>NA</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-<table>
-<thead>
-<tr>
-<th>Port Speed (DL/UL)</th>
-<th>Data Used</th>
-<th>Country</th>
-<th>Test Region</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10Gbps Symmetric</td>
-<td>~130GB</td>
-<td>SG</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>5Gbps Symmetric</td>
-<td>~60GB</td>
-<td>KR</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>1Gbps Symmetric</td>
-<td>~40GB</td>
-<td>US</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>750Mbps Symmetric</td>
-<td>~35GB</td>
-<td>DE</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>500Mbps Symmetric</td>
-<td>~25GB</td>
-<td>IN</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>100Mbps Symmetric</td>
-<td>~6GB</td>
-<td>US</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr>
-<td>2Gbps/250Mbps</td>
-<td>~50GB</td>
-<td>DE</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>1Gbps/250Mbps</td>
-<td>~35GB</td>
-<td>CA</td>
-<td>GLOBAL</td>
-</tr>
-<tr>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr>
-<td>10Gbps Symmetric</td>
-<td>~440GB</td>
-<td>DE</td>
-<td>EU</td>
-</tr>
-<tr>
-<td>10Gbps Symmetric</td>
-<td>~400GB</td>
-<td>NL</td>
-<td>EU</td>
-</tr>
-<tr>
-<td>1Gbps Symmetric</td>
-<td>~50GB</td>
-<td>UK</td>
-<td>EU</td>
-</tr>
-<tr>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr>
-<td>10Gbps Symmetric</td>
-<td>~240GB</td>
-<td>SG</td>
-<td>ASIA</td>
-</tr>
-<tr>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr>
-<td>10Gbps Symmetric</td>
-<td>~150GB</td>
-<td>SG</td>
-<td>INDIA</td>
-</tr>
-<tr>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-<td>–</td>
-</tr>
-<tr>
-<td>1Gbps Symmetric</td>
-<td>~55GB</td>
-<td>US</td>
-<td>NA</td>
-</tr>
-</tbody>
-</table>
+    <!-- Donations -->
+    <div class="donations">
+      <h2>Donations</h2>
+      <p>If you'd like to show your support or appreciation for this project, consider making a donation. Your generosity is greatly appreciated!</p>
+      
+      <div class="wallet">
+        <div class="wallet-label">◆ XMR (Monero)</div>
+        <div class="wallet-address">42whZjNSwLSZ7vtYXwUTUZd8xmNWa8EzYhfCBDYMP5jkgn3orztgUjvaZ5CCZuWqmaPgTMBRFdVASjesq3g4KWfKEEqwgbZ</div>
+      </div>
+      
+      <div class="wallet">
+        <div class="wallet-label">◆ LTC (Litecoin)</div>
+        <div class="wallet-address">LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX</div>
+      </div>
+    </div>
 
-<h2 id="sample-output-all-regions">Donations</h2>
-<p>
-If you'd like to show your support or appreciation for this project, consider making a donation. Your generosity is greatly appreciated! <br><br>
-<b>XMR</b> <br>
-42whZjNSwLSZ7vtYXwUTUZd8xmNWa8EzYhfCBDYMP5jkgn3orztgUjvaZ5CCZuWqmaPgTMBRFdVASjesq3g4KWfKEEqwgbZ <br><br>
-<b>LTC</b> <br>
-LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX
-</p>
+    <!-- Footer -->
+    <footer class="footer">
+      <p>nws.sh — Network Speed Testing Made Simple</p>
+      <p><a href="https://github.com/su-haris/simple-network-speedtest">Source Code</a></p>
+    </footer>
+  </div>
 
-</div>
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-
-<!-- Dark Mode Toggle Script -->
-<script>
-  const body = document.body;
-  const themeToggle = document.getElementById("theme-toggle");
-  const themeIcon = document.getElementById("theme-icon");
-  const themeKey = "theme";
-
-  function triggerThemeChange()
-  {
-    // Toggle the dark-mode class on the body
-    body.classList.toggle("dark-mode");
-
-    // Swap the icon text based on current theme
-    if (body.classList.contains("dark-mode")) {
-      themeIcon.textContent = "☀️"; // Sun icon
-      localStorage.setItem(themeKey, "dark");
-    } else {
-      themeIcon.textContent = "🌙"; // Moon icon
-      localStorage.setItem(themeKey, "light");
-    }
-  }
-
-  const savedTheme = localStorage.getItem(themeKey);
-  if (savedTheme === "dark") {
-    // Default theme is light, so we toggle once to activate dark mode
-    triggerThemeChange();
-  }
-
-  // If set theme hasn't been changed by the user, check if the browser settings is set to prefer dark mode
-  // Will implicitly save dark mode to localStorage if the browser is set to dark mode, but I don't think that's a big problem.
-  if (!savedTheme) {
-    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      triggerThemeChange();
-    }
-  }
-
-  themeToggle.addEventListener("click", triggerThemeChange);
-</script>
-
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
 </body>
 </html>
