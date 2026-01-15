@@ -7,7 +7,9 @@
   <title>nws.sh | Speedtest Benchmark Script</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script defer src="https://umami.goon.ovh/script.js" data-website-id="862c7cf6-d0cc-4b0a-a425-32392fa43c9f"></script>
   <style>
     :root {
       --bg-primary: #0a0e17;
@@ -56,13 +58,11 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0, 0, 0, 0.03) 2px,
-        rgba(0, 0, 0, 0.03) 4px
-      );
+      background: repeating-linear-gradient(0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 0, 0, 0.03) 2px,
+          rgba(0, 0, 0, 0.03) 4px);
       pointer-events: none;
       z-index: 9999;
     }
@@ -75,7 +75,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background-image: 
+      background-image:
         linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
       background-size: 50px 50px;
@@ -109,12 +109,31 @@
     }
 
     @keyframes flicker {
-      0%, 100% { opacity: 1; }
-      92% { opacity: 1; }
-      93% { opacity: 0.8; }
-      94% { opacity: 1; }
-      96% { opacity: 0.9; }
-      97% { opacity: 1; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      92% {
+        opacity: 1;
+      }
+
+      93% {
+        opacity: 0.8;
+      }
+
+      94% {
+        opacity: 1;
+      }
+
+      96% {
+        opacity: 0.9;
+      }
+
+      97% {
+        opacity: 1;
+      }
     }
 
     .tagline {
@@ -150,7 +169,9 @@
     }
 
     @keyframes blink {
-      50% { opacity: 0; }
+      50% {
+        opacity: 0;
+      }
     }
 
     h3 {
@@ -229,16 +250,20 @@
       position: relative;
     }
 
-    pre::before {
-      content: 'terminal';
-      position: absolute;
-      top: 0;
-      right: 0;
+    /* Terminal header bar */
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       background: var(--border-color);
+      margin: -1.25rem -1.5rem 1rem -1.5rem;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .code-label {
       color: var(--text-muted);
       font-size: 0.65rem;
-      padding: 0.25rem 0.75rem;
-      border-radius: 0 8px 0 8px;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
@@ -256,12 +281,46 @@
     }
 
     /* Inline code */
-    p code, li code {
+    p code,
+    li code {
       background: var(--bg-tertiary);
       padding: 0.15rem 0.5rem;
       border-radius: 4px;
       font-size: 0.85rem;
       color: var(--neon-blue);
+    }
+
+    /* Copy button */
+    .copy-btn {
+      background: none;
+      border: none;
+      padding: 0.2rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .copy-btn:hover {
+      color: var(--neon-cyan);
+    }
+
+    .copy-btn.copied {
+      color: var(--success);
+    }
+
+    .copy-btn svg {
+      width: 14px;
+      height: 14px;
+      display: block;
+    }
+
+    .copy-btn span {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
 
     /* Sample output - special styling */
@@ -271,9 +330,11 @@
       box-shadow: inset 0 0 50px rgba(0, 212, 255, 0.03);
     }
 
-    .sample-output pre::before {
-      content: 'output';
+    .sample-output .code-header {
       background: var(--neon-blue-dim);
+    }
+
+    .sample-output .code-label {
       color: var(--bg-primary);
     }
 
@@ -431,7 +492,8 @@
         font-size: 1rem;
       }
 
-      p, li {
+      p,
+      li {
         font-size: 0.85rem;
       }
 
@@ -448,7 +510,8 @@
         margin: 1.5rem 0;
       }
 
-      .sponsors, .donations {
+      .sponsors,
+      .donations {
         padding: 1.25rem;
       }
 
@@ -489,17 +552,32 @@
       animation: fadeInUp 0.6s ease-out backwards;
     }
 
-    section:nth-child(1) { animation-delay: 0.1s; }
-    section:nth-child(2) { animation-delay: 0.2s; }
-    section:nth-child(3) { animation-delay: 0.3s; }
-    section:nth-child(4) { animation-delay: 0.4s; }
-    section:nth-child(5) { animation-delay: 0.5s; }
+    section:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    section:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    section:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    section:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    section:nth-child(5) {
+      animation-delay: 0.5s;
+    }
 
     @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -520,11 +598,17 @@
     <section>
       <h2>Features</h2>
       <ul>
-        <li><strong>System Overview:</strong> Quick snapshot of your device's core hardware components like CPU, RAM, Disk and more.</li>
-        <li><strong>Network Overview:</strong> Detailed information including your protocol type (IPv4/v6), ISP, geographical location and other network-based data.</li>
-        <li><strong>Comprehensive Speedtest:</strong> Perform an all-encompassing speedtest using the renowned Ookla speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.</li>
-        <li><strong>Ping &amp; Routing Test:</strong> Test network routing and latency to various destinations worldwide with detailed path analysis, including specialized China routing tests with ISP line type detection.</li>
-        <li><strong>Regional Speedtest:</strong> Get a regional perspective towards your network performance with tests targeted towards specific parts of the world:
+        <li><strong>System Overview:</strong> Quick snapshot of your device's core hardware components like CPU, RAM,
+          Disk and more.</li>
+        <li><strong>Network Overview:</strong> Detailed information including your protocol type (IPv4/v6), ISP,
+          geographical location and other network-based data.</li>
+        <li><strong>Comprehensive Speedtest:</strong> Perform an all-encompassing speedtest using the renowned Ookla
+          speedtest.net service to servers around the world, presenting metrics such as speed, latency and packet loss.
+        </li>
+        <li><strong>Ping &amp; Routing Test:</strong> Test network routing and latency to various destinations worldwide
+          with detailed path analysis, including specialized China routing tests with ISP line type detection.</li>
+        <li><strong>Regional Speedtest:</strong> Get a regional perspective towards your network performance with tests
+          targeted towards specific parts of the world:
           <ul>
             <li>North America</li>
             <li>South America</li>
@@ -542,8 +626,10 @@
             <li>More coming soon!</li>
           </ul>
         </li>
-        <li><strong>Statistical Insights:</strong> At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.</li>
-        <li><strong>Shareability:</strong> Want to share your results? No worries, each test provides you with a handy shareable link.</li>
+        <li><strong>Statistical Insights:</strong> At-a-glance summary of your network's performance metrics, including
+          speed, data usage, and test duration.</li>
+        <li><strong>Shareability:</strong> Want to share your results? No worries, each test provides you with a handy
+          shareable link.</li>
       </ul>
     </section>
 
@@ -551,17 +637,17 @@
     <div class="sponsors">
       <p>Heartfelt thanks to our awesome sponsors for their invaluable support:</p>
       <ul>
-        <li><a href="https://zip.xbit.win/go/crunchbits">Crunchbits</a> — generously sponsoring the hosting infrastructure</li>
         <li><a href="https://zip.xbit.win/go/incognet">IncogNET</a> — kindly sponsoring the domain name</li>
         <li><a href="https://zip.xbit.win/go/Decicus">Decicus</a> — sponsoring a Test 25G Server</li>
       </ul>
-      <p style="margin-top: 1rem; margin-bottom: 0;">Thanks to Teddysun for the base <a href="http://bench.sh">bench.sh</a> script</p>
+      <p style="margin-top: 1rem; margin-bottom: 0;">Thanks to Teddysun for the base <a
+          href="http://bench.sh">bench.sh</a> script</p>
     </div>
 
     <!-- Usage -->
     <section>
       <h2>Usage</h2>
-      
+
       <div class="quick-start">
         <h3>Global Speedtest (default)</h3>
         <pre><code>curl -sL nws.sh | bash</code></pre>
@@ -569,7 +655,10 @@
       </div>
 
       <h3>Regional Speedtest</h3>
-      <p>region_name = <code>na</code>, <code>sa</code>, <code>eu</code>, <code>asia</code>, <code>africa</code>, <code>au</code>, <code>middle-east</code>, <code>india</code>, <code>china</code>, <code>iran</code>, <code>indonesia</code>, <code>russia</code>, <code>10gplus</code></p>
+      <p>region_name = <code>na</code>, <code>sa</code>, <code>eu</code>, <code>asia</code>, <code>africa</code>,
+        <code>au</code>, <code>middle-east</code>, <code>india</code>, <code>china</code>, <code>iran</code>,
+        <code>indonesia</code>, <code>russia</code>, <code>10gplus</code>
+      </p>
       <pre><code>curl -sL nws.sh | bash -s -- -r region_name</code></pre>
       <pre><code>wget -qO- nws.sh | bash -s -- -r region_name</code></pre>
 
@@ -578,7 +667,9 @@
 
       <h3>Ping &amp; Routing Test</h3>
       <p>Test network routing and latency to various global destinations with detailed path analysis.</p>
-      <p>region_name = <code>china</code>, <code>asia</code>, <code>na</code>, <code>eu</code>, <code>au</code>, <code>global</code></p>
+      <p>region_name = <code>china</code>, <code>asia</code>, <code>na</code>, <code>eu</code>, <code>au</code>,
+        <code>global</code>
+      </p>
       <pre><code>curl -sL nws.sh | bash -s -- -rt region_name</code></pre>
       <pre><code>wget -qO- nws.sh | bash -s -- -rt region_name</code></pre>
 
@@ -907,27 +998,48 @@ Result             : https://result.nws.sh/r/1726635083_P6NU18_NA.txt
     <section>
       <h2>Sample Output (All Regions)</h2>
       <ul>
-        <li><strong>NA:</strong> <a href="https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt">result.nws.sh/r/1726636198_ZB7UZ4_NA.txt</a></li>
-        <li><strong>SA:</strong> <a href="https://result.nws.sh/r/1726636253_DOOLEN_SA.txt">result.nws.sh/r/1726636253_DOOLEN_SA.txt</a></li>
-        <li><strong>EU:</strong> <a href="https://result.nws.sh/r/1726636063_M5C2V5_EU.txt">result.nws.sh/r/1726636063_M5C2V5_EU.txt</a></li>
-        <li><strong>Asia:</strong> <a href="https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt">result.nws.sh/r/1726636719_94JGP0_ASIA.txt</a></li>
-        <li><strong>Africa:</strong> <a href="https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt">result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt</a></li>
-        <li><strong>AU:</strong> <a href="https://result.nws.sh/r/1726635412_6451TY_AU.txt">result.nws.sh/r/1726635412_6451TY_AU.txt</a></li>
-        <li><strong>Middle East:</strong> <a href="https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt">result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt</a></li>
-        <li><strong>India:</strong> <a href="https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt">result.nws.sh/r/1726636009_9Q49NL_INDIA.txt</a></li>
-        <li><strong>China:</strong> <a href="https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt">result.nws.sh/r/1694528635_EI46XX_CHINA.txt</a></li>
-        <li><strong>Iran:</strong> <a href="https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt">result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt</a></li>
-        <li><strong>Indonesia:</strong> <a href="https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt">result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt</a></li>
-        <li><strong>Russia:</strong> <a href="https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt">result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt</a></li>
+        <li><strong>NA:</strong> <a
+            href="https://result.nws.sh/r/1726636198_ZB7UZ4_NA.txt">result.nws.sh/r/1726636198_ZB7UZ4_NA.txt</a></li>
+        <li><strong>SA:</strong> <a
+            href="https://result.nws.sh/r/1726636253_DOOLEN_SA.txt">result.nws.sh/r/1726636253_DOOLEN_SA.txt</a></li>
+        <li><strong>EU:</strong> <a
+            href="https://result.nws.sh/r/1726636063_M5C2V5_EU.txt">result.nws.sh/r/1726636063_M5C2V5_EU.txt</a></li>
+        <li><strong>Asia:</strong> <a
+            href="https://result.nws.sh/r/1726636719_94JGP0_ASIA.txt">result.nws.sh/r/1726636719_94JGP0_ASIA.txt</a>
+        </li>
+        <li><strong>Africa:</strong> <a
+            href="https://result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt">result.nws.sh/r/1726635505_DDM2VB_AFRICA.txt</a>
+        </li>
+        <li><strong>AU:</strong> <a
+            href="https://result.nws.sh/r/1726635412_6451TY_AU.txt">result.nws.sh/r/1726635412_6451TY_AU.txt</a></li>
+        <li><strong>Middle East:</strong> <a
+            href="https://result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt">result.nws.sh/r/1726637205_6D2MTS_MIDDLE-EAST.txt</a>
+        </li>
+        <li><strong>India:</strong> <a
+            href="https://result.nws.sh/r/1726636009_9Q49NL_INDIA.txt">result.nws.sh/r/1726636009_9Q49NL_INDIA.txt</a>
+        </li>
+        <li><strong>China:</strong> <a
+            href="https://result.nws.sh/r/1694528635_EI46XX_CHINA.txt">result.nws.sh/r/1694528635_EI46XX_CHINA.txt</a>
+        </li>
+        <li><strong>Iran:</strong> <a
+            href="https://result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt">result.nws.sh/r/1726636450_GZ5PBE_IRAN.txt</a>
+        </li>
+        <li><strong>Indonesia:</strong> <a
+            href="https://result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt">result.nws.sh/r/1695397374_P9DYIL_INDONESIA.txt</a>
+        </li>
+        <li><strong>Russia:</strong> <a
+            href="https://result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt">result.nws.sh/r/1726589517_CS2RMK_RUSSIA.txt</a>
+        </li>
       </ul>
     </section>
 
     <!-- Bandwidth Usage -->
     <section>
       <h2>Bandwidth Usage</h2>
-      <p>The script usually takes around 10-15 minutes to complete execution for global speedtest. Data usage is hard to estimate since it is completely dependant on the connection and location.</p>
+      <p>The script usually takes around 10-15 minutes to complete execution for global speedtest. Data usage is hard to
+        estimate since it is completely dependant on the connection and location.</p>
       <p>However, below is a very rough estimate based on a few tests on different networks:</p>
-      
+
       <table>
         <thead>
           <tr>
@@ -1029,13 +1141,15 @@ Result             : https://result.nws.sh/r/1726635083_P6NU18_NA.txt
     <!-- Donations -->
     <div class="donations">
       <h2>Donations</h2>
-      <p>If you'd like to show your support or appreciation for this project, consider making a donation. Your generosity is greatly appreciated!</p>
-      
+      <p>If you'd like to show your support or appreciation for this project, consider making a donation. Your
+        generosity is greatly appreciated!</p>
+
       <div class="wallet">
         <div class="wallet-label">◆ XMR (Monero)</div>
-        <div class="wallet-address">42whZjNSwLSZ7vtYXwUTUZd8xmNWa8EzYhfCBDYMP5jkgn3orztgUjvaZ5CCZuWqmaPgTMBRFdVASjesq3g4KWfKEEqwgbZ</div>
+        <div class="wallet-address">
+          42whZjNSwLSZ7vtYXwUTUZd8xmNWa8EzYhfCBDYMP5jkgn3orztgUjvaZ5CCZuWqmaPgTMBRFdVASjesq3g4KWfKEEqwgbZ</div>
       </div>
-      
+
       <div class="wallet">
         <div class="wallet-label">◆ LTC (Litecoin)</div>
         <div class="wallet-address">LRisSqwatDjNDY5Cf7QNcKKjk89riq4VbX</div>
@@ -1050,5 +1164,71 @@ Result             : https://result.nws.sh/r/1726635083_P6NU18_NA.txt
   </div>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+  <script>
+    // Add header bar with label and copy button to code blocks
+    document.querySelectorAll('pre').forEach(pre => {
+      const isOutput = pre.closest('.sample-output');
+
+      // Create header
+      const header = document.createElement('div');
+      header.className = 'code-header';
+
+      // Create label
+      const label = document.createElement('span');
+      label.className = 'code-label';
+      label.textContent = isOutput ? 'output' : 'terminal';
+
+      // Create copy button (only for terminal blocks)
+      if (!isOutput) {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.title = 'Copy to clipboard';
+        btn.innerHTML = `
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+          <span>Copy</span>
+        `;
+
+        btn.addEventListener('click', async () => {
+          const code = pre.querySelector('code');
+          const text = code ? code.textContent : pre.textContent;
+
+          try {
+            await navigator.clipboard.writeText(text);
+            btn.classList.add('copied');
+            btn.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>Copied!</span>
+            `;
+
+            setTimeout(() => {
+              btn.classList.remove('copied');
+              btn.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                <span>Copy</span>
+              `;
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+          }
+        });
+
+        header.appendChild(label);
+        header.appendChild(btn);
+      } else {
+        header.appendChild(label);
+      }
+
+      // Insert header at the beginning of pre
+      pre.insertBefore(header, pre.firstChild);
+    });
+  </script>
 </body>
+
 </html>
