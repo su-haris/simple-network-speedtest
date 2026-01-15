@@ -27,7 +27,6 @@ Your Reliable Script for Comprehensive Network Performance Testing.
    - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
 
 I would like to express my heartfelt thanks to our awesome sponsors for their invaluable support:
-- [Crunchbits](https://zip.xbit.win/go/crunchbits) for generously sponsoring the hosting infrastructure.
 - [IncogNET](https://zip.xbit.win/go/incognet) for kindly sponsoring the domain name.
 
 Thanks to Teddysun <i@teddysun.com> for the base bench.sh script.
@@ -178,26 +177,27 @@ wget -qO- nws.sh | bash -s -- -rt china
 ## Sample Output (Regional)
 ```
 ---------------------------------- nws.sh ---------------------------------
-      A simple script to bench network performance using speedtest-cli
+      A simple script to bench network performance using speedtest-cli     
 ---------------------------------------------------------------------------
- Version            : v2024.09.18
+ Version            : v2025.11.07
  Global Speedtest   : wget -qO- nws.sh | bash
  Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+ Ping & Routing     : wget -qO- nws.sh | bash -s -- -rt <region>
 ---------------------------------------------------------------------------
  Basic System Info
 ---------------------------------------------------------------------------
- CPU Model          : Intel Xeon Processor (Skylake, IBRS)
- CPU Cores          : 1 @ 2095.066 MHz
- CPU Cache          : 16384 KB
+ CPU Model          : AMD EPYC 7702P 64-Core Processor
+ CPU Cores          : 1 @ 1996.250 MHz
+ CPU Cache          : 512 KB
  AES-NI             : ✔ Enabled
  VM-x/AMD-V         : ✔ Enabled
- Total Disk         : 39.9 GB (8.2 GB Used)
- Total RAM          : 1.4 GB (470.0 MB Used)
- System uptime      : 78 days, 3 hour 9 min
- Load average       : 0.00, 0.02, 0.00
- OS                 : Debian GNU/Linux 12
+ Total Disk         : 19.6 GB (2.6 GB Used)
+ Total RAM          : 3.8 GB (506.8 MB Used)
+ System uptime      : 68 days, 2 hour 31 min
+ Load average       : 0.03, 0.02, 0.00
+ OS                 : Debian GNU/Linux 13
  Arch               : x86_64 (64 Bit)
- Kernel             : 6.1.0-22-amd64
+ Kernel             : 6.12.48+deb13-amd64
  Virtualization     : KVM
  TCP Control        : cubic
 ---------------------------------------------------------------------------
@@ -206,63 +206,63 @@ wget -qO- nws.sh | bash -s -- -rt china
  Primary Network    : IPv6
  IPv6 Access        : ✔ Online
  IPv4 Access        : ✔ Online
- ISP                : Redoubt Networks
- ASN                : AS400304 Redoubt Networks
- Host               : Redoubt Networks
- Location           : Allentown, Pennsylvania-PA, United States
+ ISP                : HostBilby Inc
+ ASN                : AS401665 HostBilby Inc.
+ Host               : Zappie Host LLC
+ Location           : Toronto, Ontario-ON, Canada
 ---------------------------------------------------------------------------
  Speedtest.net (Region: NORTH AMERICA)
 ---------------------------------------------------------------------------
- Location         Latency     Loss    DL Speed       UP Speed       Server
+ Location         Latency     Loss    DL Speed       UP Speed       Server      
 
- ISP: Redoubt-net
+ ISP: HostBilby Inc. 
 
- Nearest          2.99 ms     0.0%    929.09 Mbps    1007.28 Mbps   WiLine Networks - Philadelphia, PA
+ Nearest          0.51 ms     0.0%    4253.70 Mbps   5271.91 Mbps   Primus - Toronto, ON 
 
- Vancouver, BC    70.62 ms    N/A     859.97 Mbps    1079.23 Mbps   TELUS - Vancouver, BC
- Calgary, AB      49.38 ms    N/A     658.01 Mbps    1002.12 Mbps   Shaw Communications - Calgary, AB
- Winnipeg, MB     43.20 ms    0.0%    866.58 Mbps    1006.04 Mbps   Voyageur Internet - Winnipeg, MB
- Toronto, ON      26.83 ms    0.0%    916.13 Mbps    944.60 Mbps    Bell Canada - Toronto, ON
- Montreal, QC     14.56 ms    0.0%    918.76 Mbps    1009.42 Mbps   Rogers Wireless - Montréal, QC
+ Vancouver, BC    48.49 ms    0.0%    4055.80 Mbps   1813.98 Mbps   TELUS - Vancouver, BC 
+ Calgary, AB      54.69 ms    N/A     3914.26 Mbps   1622.73 Mbps   Shaw Communications - Calgary, AB 
+ Winnipeg, MB     21.92 ms    0.0%    4372.90 Mbps   2573.29 Mbps   Voyageur Internet - Winnipeg, MB 
+ Toronto, ON      0.61 ms     0.0%    4216.01 Mbps   5355.42 Mbps   Bell Canada - Toronto, ON 
+ Montreal, QC     13.63 ms    0.0%    4358.92 Mbps   4204.46 Mbps   Rogers Wireless - Montréal, QC 
 
- New York, NY     4.55 ms     0.0%    893.90 Mbps    999.43 Mbps    Surfshark Ltd - New York, NY
- Ashburn, VA      6.31 ms     0.0%    938.19 Mbps    1000.51 Mbps   Rackdog - Ashburn, VA
- Charlotte, NC    24.40 ms    N/A     901.86 Mbps    922.23 Mbps    Windstream - Charlotte, NC
- Atlanta, GA      22.00 ms    0.0%    916.29 Mbps    1008.97 Mbps   i3D.net - Atlanta, GA
- Miami, FL        91.37 ms    0.0%    877.77 Mbps    810.58 Mbps    ReliableSite Hosting - Miami, FL
- Dallas, TX       36.29 ms    0.0%    806.34 Mbps    999.56 Mbps    i3D.net - Dallas, TX
- Houston, TX      40.34 ms    0.0%    785.91 Mbps    1008.93 Mbps   AT&T - Houston, TX
- Kansas, MO       46.15 ms    0.0%    723.24 Mbps    982.30 Mbps    Nocix - Kansas City, MO
- Minneapolis, MN  36.03 ms    0.0%    862.78 Mbps    1015.78 Mbps   US Internet - Minneapolis, MN
- Chicago, IL      19.94 ms    0.0%    914.02 Mbps    1014.59 Mbps   Enzu.com - Chicago, IL
- Cleveland, OH    19.78 ms    N/A     898.76 Mbps    1012.59 Mbps   Windstream - Cleveland, OH
- Albuquerque, NM  49.97 ms    N/A     887.31 Mbps    965.53 Mbps    Comcast - Albuquerque, NM
- Denver, CO       39.88 ms    0.0%    824.66 Mbps    1012.96 Mbps   T-Mobile Fiber | Intrepid - Denver, CO
- Portland, OR     72.37 ms    N/A     946.37 Mbps    1049.94 Mbps   CenturyLink - Portland, OR
- Las Vegas, NV    73.80 ms    N/A     813.99 Mbps    1058.74 Mbps   Dish Wireless - Las Vegas, NV
- Salt Lake, UT    56.21 ms    N/A     824.12 Mbps    1036.94 Mbps   Novva Data Centers - Salt Lake City, UT
- Phoenix, AZ      56.33 ms    0.0%    920.27 Mbps    1008.23 Mbps   Xiber LLC - Phoenix, AZ
- Los Angeles, CA  80.91 ms    0.0%    802.24 Mbps    1090.30 Mbps   ReliableSite Hosting - Los Angeles, CA
- San Jose, CA     65.45 ms    0.0%    826.58 Mbps    967.50 Mbps    Misaka Network, Inc. - San Jose, CA
- Spokane, WA      62.10 ms    0.0%    764.26 Mbps    197.84 Mbps    Crunchbits - Spokane, WA
- Seattle, WA      67.48 ms    0.4%    816.60 Mbps    1041.85 Mbps   Misaka Network, Inc. - Seattle, WA
+ New York, NY     11.38 ms    0.0%    4003.75 Mbps   3532.65 Mbps   Surfshark Ltd - New York, NY 
+ Ashburn, VA      24.12 ms    0.0%    4208.72 Mbps   2275.72 Mbps   Rackdog - Ashburn, VA 
+ Durham, NC       33.05 ms    0.0%    4216.61 Mbps   2254.75 Mbps   Spectrum - Durham, NC 
+ Atlanta, GA      24.06 ms    0.0%    3998.24 Mbps   3592.89 Mbps   Clouvider Ltd - Atlanta, GA 
+ Miami, FL        49.55 ms    0.0%    4206.59 Mbps   1228.01 Mbps   ReliableSite Hosting - Miami, FL 
+ Dallas, TX       31.59 ms    0.0%    4013.59 Mbps   2373.16 Mbps   Hivelocity - Dallas, TX 
+ Houston, TX      40.43 ms    N/A     4013.34 Mbps   2088.20 Mbps   Comcast - Houston, TX 
+ Kansas, MO       23.20 ms    0.0%    4053.86 Mbps   1900.36 Mbps   Nocix - Kansas City, MO 
+ Minneapolis, MN  18.46 ms    0.0%    4169.27 Mbps   2089.67 Mbps   US Internet - Minneapolis, MN 
+ Chicago, IL      14.38 ms    0.0%    4143.26 Mbps   851.41 Mbps    Hivelocity - Chicago, IL 
+ Cleveland, OH    21.61 ms    0.0%    3891.17 Mbps   3105.27 Mbps   Cleveland Broadband - Cleveland, OH 
+ Albuquerque, NM  39.77 ms    N/A     3894.86 Mbps   2072.88 Mbps   Comcast - Albuquerque, NM 
+ Denver, CO       36.15 ms    0.0%    4132.98 Mbps   2472.84 Mbps   T-Mobile Fiber | Intrepid - Denver, CO 
+ Portland, OR     70.52 ms    N/A     4119.06 Mbps   1520.46 Mbps   CenturyLink - Portland, OR 
+ Las Vegas, NV    82.12 ms    N/A     3308.57 Mbps   1093.68 Mbps   Boost Mobile - Las Vegas, NV 
+ Salt Lake, UT    42.88 ms    0.0%    3905.92 Mbps   1296.98 Mbps   Novva Data Centers - Salt Lake City, UT 
+ Phoenix, AZ      53.03 ms    0.0%    2396.27 Mbps   1554.83 Mbps   Xiber LLC - Phoenix, AZ 
+ Los Angeles, CA  56.36 ms    0.0%    4162.41 Mbps   416.00 Mbps    ReliableSite Hosting - Los Angeles, CA 
+ San Jose, CA     57.09 ms    0.0%    3727.91 Mbps   1796.35 Mbps   Misaka Network, Inc. - San Jose, CA 
+ Spokane, WA      65.40 ms    0.0%    4067.73 Mbps   1473.49 Mbps   Crunchbits - Spokane, WA 
+ Seattle, WA      49.52 ms    0.0%    4084.53 Mbps   1653.52 Mbps   Misaka Network, Inc. - Seattle, WA 
 
- Hermosillo, MX   94.76 ms    0.0%    893.83 Mbps    922.73 Mbps    Megacable - Hermosillo
- Guadalajara, MX  62.68 ms    0.0%    877.63 Mbps    426.78 Mbps    AT&T México - Guadalajara
- Mexico City, MX  105.54 ms   N/A     825.10 Mbps    727.80 Mbps    INFINITUM - Mexico City
+ Hermosillo, MX   67.11 ms    0.0%    3806.08 Mbps   1227.19 Mbps   Megacable - Hermosillo 
+ Guadalajara, MX  65.87 ms    N/A     1883.14 Mbps   299.78 Mbps    AT&T México - Guadalajara 
+ Mexico City, MX  78.69 ms    0.0%    4204.34 Mbps   753.58 Mbps    INFINITUM - Ciudad de México 
 ---------------------------------------------------------------------------
- Avg DL Speed       : 856.35 Mbps
- Avg UL Speed       : 944.37 Mbps
+ Avg DL Speed       : 3926.13 Mbps
+ Avg UL Speed       : 2125.53 Mbps
 
- Total DL Data      : 30.49 GB
- Total UL Data      : 40.58 GB
- Total Data         : 71.07 GB
+ Total DL Data      : 147.70 GB
+ Total UL Data      : 83.31 GB
+ Total Data         : 231.01 GB
 ---------------------------------------------------------------------------
- Duration           : 12 min 29 sec
- System Time        : 17/09/2024 - 22:37:04 IST
- Total Script Runs  : 81298
+ Duration           : 12 min 6 sec
+ System Time        : 15/01/2026 - 14:55:36 IST
+ Total Script Runs  : 516276
 ---------------------------------------------------------------------------
- Result             : https://result.nws.sh/r/1726592547_C6E62V_NA.txt
+ Result             : https://result.nws.sh/r/1768469137_3NLHUS_NA.txt
 ---------------------------------------------------------------------------
 ```
 
