@@ -2,7 +2,7 @@
 #
 # nws.sh
 # Description: A Network Benchmark Script by <sh@suh.ovh>
-# Copyright (C) 2022 - 2025 <sh@suh.ovh>
+# Copyright (C) 2022 - 2026 <sh@suh.ovh>
 # URL: https://nws.sh/
 # https://github.com/su-haris/simple-network-speedtest
 #
@@ -246,14 +246,14 @@ speed() {
         speed_test '1773' 'Albuquerque, NM'
         speed_test '56839' 'Denver, CO'
         speed_test '10162' 'Portland, OR'
-        speed_test '53984' 'Las Vegas, NV'
-        speed_test '54751' 'Salt Lake, UT'  
+        speed_test '64643' 'Las Vegas, NV'
+        speed_test '46758' 'Ogden, UT'  
         speed_test '27746' 'Phoenix, AZ' 
         speed_test '34840' 'Los Angeles, CA'
         #speed_test '48240' 'Santa Clara, CA'
         speed_test '49365' 'San Jose, CA'
         speed_test '58291' 'Spokane, WA'
-        speed_test '50679' 'Seattle, WA'
+        speed_test '6199' 'Seattle, WA'
         # speed_test '980' 'Anchorage, AK'
         echo -e
         speed_test '3499' 'Hermosillo, MX'
@@ -293,9 +293,9 @@ speed() {
         #speed_test '4302' 'Milan, IT'
         speed_test '7839' 'Milan, IT'
         speed_test '23969' 'Zurich, CH'
-        speed_test '23095' 'Frankfurt, DE'
+        speed_test '50771' 'Frankfurt, DE'
         speed_test '55665' 'Berlin, DE'
-        speed_test '50599' 'Vienna, AT'  
+        speed_test '12777' 'Vienna, AT'  
         speed_test '7842' 'Budapest, HU' 
         speed_test '23123' 'Krakow, PL'
         speed_test '4166'  'Warsaw, PL'
@@ -309,8 +309,8 @@ speed() {
         speed_test '34024' 'Stockholm, SE'
         speed_test '31861' 'Oslo, NO'
         # speed_test '3682' 'Moscow, RU'
-        speed_test '1907' 'Moscow, RU'
-        speed_test '6051' 'Petersburg, RU'
+        # speed_test '1907' 'Moscow, RU'
+        # speed_test '6051' 'Petersburg, RU'
         speed_test '31851' 'Istanbul, TR'
         # speed_test '11945' 'Tbilisi, GE'
     elif [ "$REGION" = "au" ]; then
@@ -472,13 +472,13 @@ speed() {
         speed_test '54754' 'Mexico City, MX'
         echo -e 
         speed_test '37536' 'London, UK'
-        speed_test '23094' 'Amsterdam, NL'
+        speed_test '72877' 'Amsterdam, NL'
         speed_test '61933' 'Paris, FR'
         speed_test '35692' 'Frankfurt, DE'
         speed_test '37249' 'Warsaw, PL'
         speed_test '11494' 'Bucharest, RO'
         # speed_test '22050' 'Moscow, RU'
-        speed_test '44806' 'Moscow, RU'
+        speed_test '46685' 'Moscow, RU'
         echo -e 
         speed_test '14580' 'Jeddah, SA'
         # speed_test '4845'  'Dubai, AE'
@@ -683,7 +683,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2025.11.07)"
+    echo " Version            : $(_green v2026.04.13)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
