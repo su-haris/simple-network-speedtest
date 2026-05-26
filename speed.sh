@@ -1478,16 +1478,16 @@ install_iperf() {
             local sysarch="$(arch)"
         fi
         if [ "${sysarch}" = "x86_64" ]; then
-            sys_bit="x86_64"
+            sys_bit="x64"
         fi
         if [ "${sysarch}" = "i386" ] || [ "${sysarch}" = "i686" ]; then
-            sys_bit="i386"
+            sys_bit="x86"
         fi
         if [ "${sysarch}" = "armv8" ] || [ "${sysarch}" = "armv8l" ] || [ "${sysarch}" = "aarch64" ] || [ "${sysarch}" = "arm64" ]; then
             sys_bit="aarch64"
         fi
         if [ "${sysarch}" = "armv7" ] || [ "${sysarch}" = "armv7l" ]; then
-            sys_bit="armhf"
+            sys_bit="arm"
         fi
         [ -z "${sys_bit}" ] && _red "Error: Unsupported system architecture (${sysarch}) for iperf3.\n" && return 1
 
@@ -1503,11 +1503,13 @@ install_iperf() {
         fi
 
         if [ $download_success -ne 1 ] && command -v curl > /dev/null 2>&1; then
-            curl_err=$(curl -skLo ./iperf3-cli/iperf3 "${iperf_url}" 2>&1)
+            # -f/--fail ensures curl fails with non-zero exit code on HTTP error (like 404)
+            curl_err=$(curl -skfLo ./iperf3-cli/iperf3 "${iperf_url}" 2>&1)
             [ $? -eq 0 ] && [ -s "./iperf3-cli/iperf3" ] && download_success=1
         fi
 
         if [ $download_success -ne 1 ]; then
+            rm -rf ./iperf3-cli
             _red "Error: Failed to download iperf3 binary.\n"
             [ -n "$wget_err" ] && echo "wget output: $wget_err"
             [ -n "$curl_err" ] && echo "curl output: $curl_err"
