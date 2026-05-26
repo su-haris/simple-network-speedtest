@@ -1544,7 +1544,7 @@ iperf_single_test() {
         local port=$(shuf -i "$ports" -n 1)
         iperf_run_send="$(timeout 15 "$iperf_cmd" $flags -c "$url" -p "$port" -P 8 2> /dev/null)"
         if [[ "$iperf_run_send" == *"receiver"* && "$iperf_run_send" != *"error"* ]]; then
-            local speed=$(echo "${iperf_run_send}" | grep receiver | tail -n 1 | awk '{ print $(NF-3) }')
+            local speed=$(echo "${iperf_run_send}" | grep SUM | grep receiver | awk '{ print $6 }')
             [[ -z $speed || "$speed" == "0.00" ]] && { i=$(( i + 1 )); sleep 2; } || i=11
         else
             [[ "$iperf_run_send" == *"unable to connect"* ]] && i=11 || { i=$(( i + 1 )); sleep 2; }
@@ -1559,7 +1559,7 @@ iperf_single_test() {
         local port=$(shuf -i "$ports" -n 1)
         iperf_run_recv="$(timeout 15 "$iperf_cmd" $flags -c "$url" -p "$port" -P 8 -R 2> /dev/null)"
         if [[ "$iperf_run_recv" == *"receiver"* && "$iperf_run_recv" != *"error"* ]]; then
-            local speed=$(echo "${iperf_run_recv}" | grep receiver | tail -n 1 | awk '{ print $(NF-3) }')
+            local speed=$(echo "${iperf_run_recv}" | grep SUM | grep receiver | awk '{ print $6 }')
             [[ -z $speed || "$speed" == "0.00" ]] && { j=$(( j + 1 )); sleep 2; } || j=11
         else
             [[ "$iperf_run_recv" == *"unable to connect"* ]] && j=11 || { j=$(( j + 1 )); sleep 2; }
@@ -1573,8 +1573,8 @@ iperf_single_test() {
     [[ -z "$IPERF_LATENCY" ]] && IPERF_LATENCY="--"
 
     # parse results
-    IPERF_SENDRESULT="$(echo "${iperf_run_send}" | grep receiver | tail -n 1)"
-    IPERF_RECVRESULT="$(echo "${iperf_run_recv}" | grep receiver | tail -n 1)"
+    IPERF_SENDRESULT="$(echo "${iperf_run_send}" | grep SUM | grep receiver)"
+    IPERF_RECVRESULT="$(echo "${iperf_run_recv}" | grep SUM | grep receiver)"
 }
 
 # print_iperf_statistics
@@ -1660,23 +1660,24 @@ iperf_speed() {
                 iperf_single_test "${IPERF_LOCS[i*FIELDS_PER_LOC]}" "${IPERF_LOCS[i*FIELDS_PER_LOC+1]}" "$host_name" "$iperf_flags"
 
                 # send = upload (host -> server), recv = download (server -> host via -R)
-                # iperf3 SUM receiver line format: [SUM] interval sec data_val data_unit speed_val speed_unit retransmits receiver
-                # NF=receiver, NF-1=retransmits, NF-2=speed_unit, NF-3=speed_val, NF-4=data_unit, NF-5=data_val
+                # iperf3 SUM receiver line: [SUM] interval sec data_val data_unit speed_val speed_unit receiver
+                # Fields:                    $1      $2     $3   $4       $5        $6        $7        $8
+                # Note: receiver line has NO retransmits column (unlike sender line)
                 local ul_val="" ul_unit="" ul_data_val="" ul_data_unit=""
                 local dl_val="" dl_unit="" dl_data_val="" dl_data_unit=""
 
                 if [[ -n "$IPERF_SENDRESULT" ]]; then
-                    ul_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-3) }')
-                    ul_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-2) }')
-                    ul_data_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-5) }')
-                    ul_data_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-4) }')
+                    ul_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $6 }')
+                    ul_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $7 }')
+                    ul_data_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $4 }')
+                    ul_data_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $5 }')
                 fi
 
                 if [[ -n "$IPERF_RECVRESULT" ]]; then
-                    dl_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-3) }')
-                    dl_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-2) }')
-                    dl_data_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-5) }')
-                    dl_data_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-4) }')
+                    dl_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $6 }')
+                    dl_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $7 }')
+                    dl_data_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $4 }')
+                    dl_data_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $5 }')
                 fi
 
                 local latency="${IPERF_LATENCY}"
