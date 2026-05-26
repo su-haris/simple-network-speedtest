@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # nws.sh
-# Description: A Network Benchmark Script by <sh@suh.ovh>
+# Description: A Network Benchmark Script by sh97 <sh@suh.ovh>
 # Copyright (C) 2022 - 2026 <sh@suh.ovh>
 # URL: https://nws.sh/
 # https://github.com/su-haris/simple-network-speedtest
@@ -683,7 +683,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2026.04.13)"
+    echo " Version            : $(_green v2026.05.26)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " iperf3 test        : $(_red "wget -qO- nws.sh | bash -s -- -iperf")"
@@ -1493,9 +1493,24 @@ install_iperf() {
 
         mkdir -p iperf3-cli
         local iperf_url="https://raw.githubusercontent.com/masonr/yet-another-bench-script/master/bin/iperf/iperf3_${sys_bit}"
-        wget --no-check-certificate -q -T10 -O ./iperf3-cli/iperf3 ${iperf_url}
-        if [ $? -ne 0 ]; then
+        local download_success=0
+        local wget_err=""
+        local curl_err=""
+
+        if command -v wget > /dev/null 2>&1; then
+            wget_err=$(wget --no-check-certificate -t 2 -T 15 -O ./iperf3-cli/iperf3 "${iperf_url}" 2>&1)
+            [ $? -eq 0 ] && [ -s "./iperf3-cli/iperf3" ] && download_success=1
+        fi
+
+        if [ $download_success -ne 1 ] && command -v curl > /dev/null 2>&1; then
+            curl_err=$(curl -skLo ./iperf3-cli/iperf3 "${iperf_url}" 2>&1)
+            [ $? -eq 0 ] && [ -s "./iperf3-cli/iperf3" ] && download_success=1
+        fi
+
+        if [ $download_success -ne 1 ]; then
             _red "Error: Failed to download iperf3 binary.\n"
+            [ -n "$wget_err" ] && echo "wget output: $wget_err"
+            [ -n "$curl_err" ] && echo "curl output: $curl_err"
             return 1
         fi
         chmod +x ./iperf3-cli/iperf3
@@ -1567,29 +1582,34 @@ iperf_single_test() {
 print_iperf_statistics() {
     echo " Avg DL Speed       : $IPERF_AVG_DL Mbps"
     echo " Avg UL Speed       : $IPERF_AVG_UL Mbps"
+    echo -e
+    echo " Total DL Data      : $IPERF_TOTAL_DL_GB GB"
+    echo " Total UL Data      : $IPERF_TOTAL_UL_GB GB"
+    echo " Total Data         : $IPERF_TOTAL_DATA_GB GB"
 }
 
 # iperf_speed
 # Purpose: Run iperf3 tests against global public servers for both IPv4 and IPv6
 iperf_speed() {
     # global iperf3 server locations
-    # format: "url" "port_range" "location_name" "host_name" "port_speed" "network_modes"
+    # format: "url" "port_range" "location_name" "host_name" "port_speed" "network_modes" "region_group"
     local IPERF_LOCS=(
-        "speedtest.nocix.net" "5201-5205" "Kansas City, US" "Nocix" "200G" "IPv4|IPv6"
-        "speedtest.lax12.us.leaseweb.net" "5201-5210" "Los Angeles, US" "Leaseweb" "10G" "IPv4|IPv6"
-        "spd-uswb.hostkey.com" "5201-5209" "New York, US" "Hostkey" "10G" "IPv4"
-        "iperf3-vie-at.alwyzon.net" "5201-5210" "Vienna, AT" "Alwyzon" "200G" "IPv4|IPv6"
-        "a210.speedtest.wobcom.de" "5201-5201" "Frankfurt, DE" "Wobcom" "50G" "IPv4|IPv6"
-        "iperf.online.net" "5200-5209" "Paris, FR" "Online.net" "100G" "IPv4"
-        "speedtest.lon1.uk.leaseweb.net" "5202-5210" "London, UK" "Leaseweb" "10G" "IPv4|IPv6"
-        "speedtest.ams1.novogara.net" "5200-5209" "Amsterdam, NL" "Novogara" "20G" "IPv4|IPv6"
-        "speed.cosmonova.net" "5201-5209" "Kyiv, UA" "Cosmonova" "40G" "IPv4"
-        "speedtest.syd12.au.leaseweb.net" "5201-5210" "Sydney, AU" "Leaseweb" "10G" "IPv4|IPv6"
-        "sgp.proof.ovh.net" "5201-5210" "Singapore, SG" "OVH" "1G" "IPv4|IPv6"
-        "bom.proof.ovh.net" "5201-5210" "Mumbai, IN" "OVH" "10G" "IPv4|IPv6"
+        "speedtest.nocix.net" "5201-5205" "Kansas City, US" "Nocix" "200G" "IPv4|IPv6" "US"
+        "speedtest.lax12.us.leaseweb.net" "5201-5210" "Los Angeles, US" "Leaseweb" "10G" "IPv4|IPv6" "US"
+        "66.35.22.79" "30000-30000" "Ashburn, US" "Fortinet" "10G" "IPv4" "US"
+        "speedtest.xmission.com" "5201-5209" "Salt Lake, US" "XMission" "10G" "IPv4|IPv6" "US"
+        "iperf3-vie-at.alwyzon.net" "5201-5210" "Vienna, AT" "Alwyzon" "200G" "IPv4|IPv6" "EU"
+        "a210.speedtest.wobcom.de" "5201-5201" "Frankfurt, DE" "Wobcom" "50G" "IPv4|IPv6" "EU"
+        "iperf.online.net" "5200-5209" "Paris, FR" "Online.net" "100G" "IPv4" "EU"
+        "speedtest.lon1.uk.leaseweb.net" "5202-5210" "London, UK" "Leaseweb" "10G" "IPv4|IPv6" "EU"
+        "speedtest.ams1.novogara.net" "5200-5209" "Amsterdam, NL" "Novogara" "20G" "IPv4|IPv6" "EU"
+        "speed.cosmonova.net" "5201-5209" "Kyiv, UA" "Cosmonova" "40G" "IPv4" "EU"
+        "speedtest.syd12.au.leaseweb.net" "5201-5210" "Sydney, AU" "Leaseweb" "10G" "IPv4|IPv6" "APAC"
+        "iperf-sin1.vsys.host" "5201-5201" "Singapore, SG" "VSYS-Host" "10G" "IPv4" "APAC"
+        "bom.proof.ovh.net" "5201-5210" "Mumbai, IN" "OVH" "10G" "IPv4|IPv6" "APAC"
     )
 
-    local FIELDS_PER_LOC=6
+    local FIELDS_PER_LOC=7
     local locs_num=${#IPERF_LOCS[@]}
     locs_num=$((locs_num / FIELDS_PER_LOC))
 
@@ -1609,6 +1629,8 @@ iperf_speed() {
     # global accumulators for averages
     IPERF_AVG_DL=0
     IPERF_AVG_UL=0
+    IPERF_TOTAL_DL=0
+    IPERF_TOTAL_UL=0
     local iperf_success=0
 
     # print header and column titles once
@@ -1621,49 +1643,74 @@ iperf_speed() {
 
         echo -e "\n Network Mode: $(_blue "$mode") \n"
 
+        local prev_region_group=""
         for (( i = 0; i < locs_num; i++ )); do
             if [[ "${IPERF_LOCS[i*FIELDS_PER_LOC+5]}" == *"$mode"* ]]; then
                 local loc_name="${IPERF_LOCS[i*FIELDS_PER_LOC+2]}"
                 local host_name="${IPERF_LOCS[i*FIELDS_PER_LOC+3]}"
                 local port_speed="${IPERF_LOCS[i*FIELDS_PER_LOC+4]}"
+                local region_group="${IPERF_LOCS[i*FIELDS_PER_LOC+6]}"
+
+                # Print blank line separator between region groups (like Ookla)
+                if [[ -n "$prev_region_group" && "$region_group" != "$prev_region_group" ]]; then
+                    echo -e
+                fi
+                prev_region_group="$region_group"
 
                 iperf_single_test "${IPERF_LOCS[i*FIELDS_PER_LOC]}" "${IPERF_LOCS[i*FIELDS_PER_LOC+1]}" "$host_name" "$iperf_flags"
 
                 # send = upload (host -> server), recv = download (server -> host via -R)
                 local ul_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $6 }')
                 local ul_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $7 }')
+                local ul_data_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $4 }')
+                local ul_data_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $5 }')
+                
                 local dl_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $6 }')
                 local dl_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $7 }')
+                local dl_data_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $4 }')
+                local dl_data_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $5 }')
                 local latency="${IPERF_LATENCY}"
 
-                # format speed display
-                local dl_display="FAILED"
-                local ul_display=""
-                if [[ -n "$dl_val" && "$dl_val" != "0.00" && -n "$ul_val" && "$ul_val" != "0.00" ]]; then
-                    # convert Gbits/sec to Mbps for consistency
-                    local dl_num="$dl_val"
-                    local ul_num="$ul_val"
-                    if [[ "$dl_unit" == "Gbits/sec" ]]; then
-                        dl_num=$(awk "BEGIN {printf \"%.2f\", $dl_val*1000; exit}")
-                        dl_display="$dl_num Mbps"
-                    else
-                        dl_display="$dl_val Mbps"
-                        dl_num=$(echo "$dl_val" | awk '{printf "%.2f", $1}')
-                    fi
-                    if [[ "$ul_unit" == "Gbits/sec" ]]; then
-                        ul_num=$(awk "BEGIN {printf \"%.2f\", $ul_val*1000; exit}")
-                        ul_display="$ul_num Mbps"
-                    else
-                        ul_display="$ul_val Mbps"
-                        ul_num=$(echo "$ul_val" | awk '{printf "%.2f", $1}')
-                    fi
+                # format speed display and ensure .00 decimal consistency
+                local dl_display="busy"
+                local ul_display="busy"
 
+                if [[ -n "$dl_val" && "$dl_val" != "0.00" ]]; then
+                    local dl_num="$dl_val"
+                    if [[ "$dl_unit" == "Gbits/sec" ]]; then
+                        dl_num=$(awk -v v="$dl_val" 'BEGIN {printf "%.2f", v*1000}')
+                    else
+                        dl_num=$(awk -v v="$dl_val" 'BEGIN {printf "%.2f", v}')
+                    fi
+                    dl_display="${dl_num} Mbps"
+                    
+                    if [[ "$dl_data_unit" == "GBytes" ]]; then
+                        IPERF_TOTAL_DL=$(awk -v tot="$IPERF_TOTAL_DL" -v v="$dl_data_val" 'BEGIN {print tot+v}')
+                    elif [[ "$dl_data_unit" == "MBytes" ]]; then
+                        IPERF_TOTAL_DL=$(awk -v tot="$IPERF_TOTAL_DL" -v v="$dl_data_val" 'BEGIN {print tot+(v/1024)}')
+                    fi
+                fi
+
+                if [[ -n "$ul_val" && "$ul_val" != "0.00" ]]; then
+                    local ul_num="$ul_val"
+                    if [[ "$ul_unit" == "Gbits/sec" ]]; then
+                        ul_num=$(awk -v v="$ul_val" 'BEGIN {printf "%.2f", v*1000}')
+                    else
+                        ul_num=$(awk -v v="$ul_val" 'BEGIN {printf "%.2f", v}')
+                    fi
+                    ul_display="${ul_num} Mbps"
+                    
+                    if [[ "$ul_data_unit" == "GBytes" ]]; then
+                        IPERF_TOTAL_UL=$(awk -v tot="$IPERF_TOTAL_UL" -v v="$ul_data_val" 'BEGIN {print tot+v}')
+                    elif [[ "$ul_data_unit" == "MBytes" ]]; then
+                        IPERF_TOTAL_UL=$(awk -v tot="$IPERF_TOTAL_UL" -v v="$ul_data_val" 'BEGIN {print tot+(v/1024)}')
+                    fi
+                fi
+                
+                if [[ "$dl_display" != "busy" && "$ul_display" != "busy" ]]; then
                     iperf_success=$((iperf_success + 1))
-                    IPERF_AVG_DL=$(awk "BEGIN {print $IPERF_AVG_DL+$dl_num; exit}")
-                    IPERF_AVG_UL=$(awk "BEGIN {print $IPERF_AVG_UL+$ul_num; exit}")
-                else
-                    [[ -z "$dl_val" || "$dl_val" == "0.00" ]] && dl_display="busy"
-                    [[ -z "$ul_val" || "$ul_val" == "0.00" ]] && ul_display="busy" || ul_display="$ul_val Mbps"
+                    IPERF_AVG_DL=$(awk -v avg="$IPERF_AVG_DL" -v cur="$dl_num" 'BEGIN {print avg+cur}')
+                    IPERF_AVG_UL=$(awk -v avg="$IPERF_AVG_UL" -v cur="$ul_num" 'BEGIN {print avg+cur}')
                 fi
 
                 printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${loc_name}" "${latency}" "${port_speed}" "${dl_display}" "${ul_display}" "${host_name}"
@@ -1672,7 +1719,7 @@ iperf_speed() {
         echo -e
     done
 
-    # calculate averages
+    # calculate averages and total data
     if [ $iperf_success -gt 0 ]; then
         IPERF_AVG_DL=$(awk -v avg="$IPERF_AVG_DL" -v n="$iperf_success" 'BEGIN { printf "%.2f", avg/n }')
         IPERF_AVG_UL=$(awk -v avg="$IPERF_AVG_UL" -v n="$iperf_success" 'BEGIN { printf "%.2f", avg/n }')
@@ -1680,6 +1727,10 @@ iperf_speed() {
         IPERF_AVG_DL="0.00"
         IPERF_AVG_UL="0.00"
     fi
+
+    IPERF_TOTAL_DL_GB=$(awk -v dl="$IPERF_TOTAL_DL" 'BEGIN { printf "%.2f", dl }')
+    IPERF_TOTAL_UL_GB=$(awk -v ul="$IPERF_TOTAL_UL" 'BEGIN { printf "%.2f", ul }')
+    IPERF_TOTAL_DATA_GB=$(awk -v dl="$IPERF_TOTAL_DL" -v ul="$IPERF_TOTAL_UL" 'BEGIN { printf "%.2f", dl+ul }')
 }
 
 run_speed_sh() {
