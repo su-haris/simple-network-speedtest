@@ -40,7 +40,7 @@ _exists() {
 _exit() {
     _red "\nThe script has been terminated.\n"
     # clean up
-    rm -fr speedtest.tgz speedtest-cli benchtest_*
+    rm -fr speedtest.tgz speedtest-cli iperf3-cli benchtest_*
     exit 1
 }
 
@@ -686,6 +686,7 @@ print_intro() {
     echo " Version            : $(_green v2026.04.13)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
+    echo " iperf3 Only        : $(_red "wget -qO- nws.sh | bash -s -- --iperf")"
     echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
 }
 
@@ -1459,6 +1460,228 @@ routing_test() {
         next
     done
 }
+# iperf3 Network Speed Test Functions
+# Adapted from YABS (yet-another-bench-script)
+
+install_iperf() {
+    if [ ! -e "./iperf3-cli/iperf3" ]; then
+        # check for locally installed iperf3 first
+        if command -v iperf3 > /dev/null 2>&1; then
+            mkdir -p iperf3-cli
+            ln -sf "$(command -v iperf3)" ./iperf3-cli/iperf3
+            return 0
+        fi
+
+        sys_bit=""
+        local sysarch="$(uname -m)"
+        if [ "${sysarch}" = "unknown" ] || [ "${sysarch}" = "" ]; then
+            local sysarch="$(arch)"
+        fi
+        if [ "${sysarch}" = "x86_64" ]; then
+            sys_bit="x86_64"
+        fi
+        if [ "${sysarch}" = "i386" ] || [ "${sysarch}" = "i686" ]; then
+            sys_bit="i386"
+        fi
+        if [ "${sysarch}" = "armv8" ] || [ "${sysarch}" = "armv8l" ] || [ "${sysarch}" = "aarch64" ] || [ "${sysarch}" = "arm64" ]; then
+            sys_bit="aarch64"
+        fi
+        if [ "${sysarch}" = "armv7" ] || [ "${sysarch}" = "armv7l" ]; then
+            sys_bit="armhf"
+        fi
+        [ -z "${sys_bit}" ] && _red "Error: Unsupported system architecture (${sysarch}) for iperf3.\n" && return 1
+
+        mkdir -p iperf3-cli
+        local iperf_url="https://raw.githubusercontent.com/masonr/yet-another-bench-script/master/bin/iperf/iperf3_${sys_bit}"
+        wget --no-check-certificate -q -T10 -O ./iperf3-cli/iperf3 ${iperf_url}
+        if [ $? -ne 0 ]; then
+            _red "Error: Failed to download iperf3 binary.\n"
+            return 1
+        fi
+        chmod +x ./iperf3-cli/iperf3
+    fi
+    return 0
+}
+
+# iperf_single_test
+# Purpose: Run iperf3 send and receive test against a single public server
+# Parameters:
+#   1. URL - domain/IP of the iperf server
+#   2. PORTS - port range (e.g. "5200-5209")
+#   3. HOST - friendly name of the server
+#   4. FLAGS - iperf flags (e.g. "-4" or "-6")
+iperf_single_test() {
+    local url="$1"
+    local ports="$2"
+    local host="$3"
+    local flags="$4"
+    local iperf_cmd="./iperf3-cli/iperf3"
+
+    IPERF_SENDRESULT=""
+    IPERF_RECVRESULT=""
+    IPERF_LATENCY=""
+    local iperf_run_send=""
+    local iperf_run_recv=""
+
+    # attempt the iperf send test 3 times
+    local i=1
+    while [ $i -le 3 ]; do
+        local port=$(shuf -i "$ports" -n 1)
+        iperf_run_send="$(timeout 15 "$iperf_cmd" $flags -c "$url" -p "$port" -P 8 2> /dev/null)"
+        if [[ "$iperf_run_send" == *"receiver"* && "$iperf_run_send" != *"error"* ]]; then
+            local speed=$(echo "${iperf_run_send}" | grep SUM | grep receiver | awk '{ print $6 }')
+            [[ -z $speed || "$speed" == "0.00" ]] && i=$(( i + 1 )) || i=11
+        else
+            [[ "$iperf_run_send" == *"unable to connect"* ]] && i=11 || i=$(( i + 1 )) && sleep 2
+        fi
+    done
+
+    sleep 1
+
+    # attempt the iperf receive test 3 times
+    local j=1
+    while [ $j -le 3 ]; do
+        local port=$(shuf -i "$ports" -n 1)
+        iperf_run_recv="$(timeout 15 "$iperf_cmd" $flags -c "$url" -p "$port" -P 8 -R 2> /dev/null)"
+        if [[ "$iperf_run_recv" == *"receiver"* && "$iperf_run_recv" != *"error"* ]]; then
+            local speed=$(echo "${iperf_run_recv}" | grep SUM | grep receiver | awk '{ print $6 }')
+            [[ -z $speed || "$speed" == "0.00" ]] && j=$(( j + 1 )) || j=11
+        else
+            [[ "$iperf_run_recv" == *"unable to connect"* ]] && j=11 || j=$(( j + 1 )) && sleep 2
+        fi
+    done
+
+    # latency via ping
+    if _exists "ping"; then
+        IPERF_LATENCY="$(ping -c1 "$url" 2>/dev/null | grep -o 'time=.*' | sed 's/time=//')"
+    fi
+    [[ -z "$IPERF_LATENCY" ]] && IPERF_LATENCY="--"
+
+    # parse results
+    IPERF_SENDRESULT="$(echo "${iperf_run_send}" | grep SUM | grep receiver)"
+    IPERF_RECVRESULT="$(echo "${iperf_run_recv}" | grep SUM | grep receiver)"
+}
+
+# print_iperf_statistics
+# Purpose: Print average speeds and data usage for iperf tests
+print_iperf_statistics() {
+    echo " Avg DL Speed       : $IPERF_AVG_DL Mbps"
+    echo " Avg UL Speed       : $IPERF_AVG_UL Mbps"
+}
+
+# iperf_speed
+# Purpose: Run iperf3 tests against global public servers for both IPv4 and IPv6
+iperf_speed() {
+    # global iperf3 server locations
+    # format: "url" "port_range" "location_name" "host_name" "port_speed" "network_modes"
+    local IPERF_LOCS=(
+        "speedtest.nocix.net" "5201-5205" "Kansas City, US" "Nocix" "200G" "IPv4|IPv6"
+        "speedtest.lax12.us.leaseweb.net" "5201-5210" "Los Angeles, US" "Leaseweb" "10G" "IPv4|IPv6"
+        "spd-uswb.hostkey.com" "5201-5209" "New York, US" "Hostkey" "10G" "IPv4"
+        "iperf3-vie-at.alwyzon.net" "5201-5210" "Vienna, AT" "Alwyzon" "200G" "IPv4|IPv6"
+        "a210.speedtest.wobcom.de" "5201-5201" "Frankfurt, DE" "Wobcom" "50G" "IPv4|IPv6"
+        "iperf.online.net" "5200-5209" "Paris, FR" "Online.net" "100G" "IPv4"
+        "speedtest.lon1.uk.leaseweb.net" "5202-5210" "London, UK" "Leaseweb" "10G" "IPv4|IPv6"
+        "speedtest.ams1.novogara.net" "5200-5209" "Amsterdam, NL" "Novogara" "20G" "IPv4|IPv6"
+        "speed.cosmonova.net" "5201-5209" "Kyiv, UA" "Cosmonova" "40G" "IPv4"
+        "speedtest.syd12.au.leaseweb.net" "5201-5210" "Sydney, AU" "Leaseweb" "10G" "IPv4|IPv6"
+        "sgp.proof.ovh.net" "5201-5210" "Singapore, SG" "OVH" "1G" "IPv4|IPv6"
+        "bom.proof.ovh.net" "5201-5210" "Mumbai, IN" "OVH" "10G" "IPv4|IPv6"
+    )
+
+    local FIELDS_PER_LOC=6
+    local locs_num=${#IPERF_LOCS[@]}
+    locs_num=$((locs_num / FIELDS_PER_LOC))
+
+    # detect IPv4/IPv6 connectivity
+    local ipv4_avail=$((ping -4 -c 1 -W 4 ipv4.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -4 icanhazip.com 2> /dev/null)
+    local ipv6_avail=$((ping -6 -c 1 -W 4 ipv6.google.com >/dev/null 2>&1 && echo true) || wget -qO- -T 5 -6 icanhazip.com 2> /dev/null)
+
+    local run_modes=()
+    [[ -n "$ipv4_avail" ]] && run_modes+=("IPv4")
+    [[ -n "$ipv6_avail" ]] && run_modes+=("IPv6")
+
+    if [ ${#run_modes[@]} -eq 0 ]; then
+        echo " No IPv4 or IPv6 connectivity detected. Skipping iperf3 tests."
+        return
+    fi
+
+    # global accumulators for averages
+    IPERF_AVG_DL=0
+    IPERF_AVG_UL=0
+    local iperf_success=0
+
+    # print header and column titles once
+    echo " iperf3 (Region: GLOBAL)"
+    next
+    printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " Location" "Latency" "Port" "DL Speed" "UP Speed" "Server"
+
+    for mode in "${run_modes[@]}"; do
+        [[ "$mode" == "IPv6" ]] && local iperf_flags="-6" || local iperf_flags="-4"
+
+        echo -e "\n Network Mode: $(_blue "$mode") \n"
+
+        for (( i = 0; i < locs_num; i++ )); do
+            if [[ "${IPERF_LOCS[i*FIELDS_PER_LOC+5]}" == *"$mode"* ]]; then
+                local loc_name="${IPERF_LOCS[i*FIELDS_PER_LOC+2]}"
+                local host_name="${IPERF_LOCS[i*FIELDS_PER_LOC+3]}"
+                local port_speed="${IPERF_LOCS[i*FIELDS_PER_LOC+4]}"
+
+                iperf_single_test "${IPERF_LOCS[i*FIELDS_PER_LOC]}" "${IPERF_LOCS[i*FIELDS_PER_LOC+1]}" "$host_name" "$iperf_flags"
+
+                # send = upload (host -> server), recv = download (server -> host via -R)
+                local ul_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $6 }')
+                local ul_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $7 }')
+                local dl_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $6 }')
+                local dl_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $7 }')
+                local latency="${IPERF_LATENCY}"
+
+                # format speed display
+                local dl_display="FAILED"
+                local ul_display=""
+                if [[ -n "$dl_val" && "$dl_val" != "0.00" && -n "$ul_val" && "$ul_val" != "0.00" ]]; then
+                    # convert Gbits/sec to Mbps for consistency
+                    local dl_num="$dl_val"
+                    local ul_num="$ul_val"
+                    if [[ "$dl_unit" == "Gbits/sec" ]]; then
+                        dl_num=$(awk "BEGIN {printf \"%.2f\", $dl_val*1000; exit}")
+                        dl_display="$dl_num Mbps"
+                    else
+                        dl_display="$dl_val Mbps"
+                        dl_num=$(echo "$dl_val" | awk '{printf "%.2f", $1}')
+                    fi
+                    if [[ "$ul_unit" == "Gbits/sec" ]]; then
+                        ul_num=$(awk "BEGIN {printf \"%.2f\", $ul_val*1000; exit}")
+                        ul_display="$ul_num Mbps"
+                    else
+                        ul_display="$ul_val Mbps"
+                        ul_num=$(echo "$ul_val" | awk '{printf "%.2f", $1}')
+                    fi
+
+                    iperf_success=$((iperf_success + 1))
+                    IPERF_AVG_DL=$(awk "BEGIN {print $IPERF_AVG_DL+$dl_num; exit}")
+                    IPERF_AVG_UL=$(awk "BEGIN {print $IPERF_AVG_UL+$ul_num; exit}")
+                else
+                    [[ -z "$dl_val" || "$dl_val" == "0.00" ]] && dl_display="busy"
+                    [[ -z "$ul_val" || "$ul_val" == "0.00" ]] && ul_display="busy" || ul_display="$ul_val Mbps"
+                fi
+
+                printf "%-18s%-12s%-8s%-15s%-15s%-12s\n" " ${loc_name}" "${latency}" "${port_speed}" "${dl_display}" "${ul_display}" "${host_name}"
+            fi
+        done
+        echo -e
+    done
+
+    # calculate averages
+    if [ $iperf_success -gt 0 ]; then
+        IPERF_AVG_DL=$(awk -v avg="$IPERF_AVG_DL" -v n="$iperf_success" 'BEGIN { printf "%.2f", avg/n }')
+        IPERF_AVG_UL=$(awk -v avg="$IPERF_AVG_UL" -v n="$iperf_success" 'BEGIN { printf "%.2f", avg/n }')
+    else
+        IPERF_AVG_DL="0.00"
+        IPERF_AVG_UL="0.00"
+    fi
+}
+
 run_speed_sh() {
     ! _exists "wget" && _red "nws.sh is unable to run.\nError: wget command not found.\n" && kill -INT $$ && exit 1
     ! _exists "free" && _red "nws.sh is unable to run.\nError: free command not found.\n" && kill -INT $$ && exit 1
@@ -1473,7 +1696,17 @@ run_speed_sh() {
     ip_info
     next
     
-    if [ -n "$ROUTING_TEST" ]; then
+    if [ -n "$IPERF_ONLY" ]; then
+        # iperf3 only mode (--iperf flag)
+        if install_iperf; then
+            iperf_speed
+            rm -fr iperf3-cli
+            next
+            print_iperf_statistics
+        else
+            _red " iperf3 not available. Cannot run iperf3 tests.\n"
+        fi
+    elif [ -n "$ROUTING_TEST" ]; then
         ! _exists "mtr" && _red "nws.sh is unable to run.\nError: mtr command not found.\n" && kill -INT $$ && exit 1
         speed
     else
@@ -1493,6 +1726,13 @@ run_speed_sh() {
 REGION="global"
 REGION_NAME="GLOBAL"
 ROUTING_TEST=""
+IPERF_ONLY=""
+
+# Handle --iperf flag (before getopts)
+if [ "$1" = "--iperf" ]; then
+    IPERF_ONLY="true"
+    shift 1
+fi
 
 # Handle -rt flag specially (before getopts)
 if [ "$1" = "-rt" ]; then
