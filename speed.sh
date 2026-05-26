@@ -1662,15 +1662,23 @@ iperf_speed() {
                 # send = upload (host -> server), recv = download (server -> host via -R)
                 # iperf3 SUM receiver line format: [SUM] interval sec data_val data_unit speed_val speed_unit retransmits receiver
                 # NF=receiver, NF-1=retransmits, NF-2=speed_unit, NF-3=speed_val, NF-4=data_unit, NF-5=data_val
-                local ul_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-3) }')
-                local ul_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-2) }')
-                local ul_data_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-5) }')
-                local ul_data_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-4) }')
-                
-                local dl_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-3) }')
-                local dl_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-2) }')
-                local dl_data_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-5) }')
-                local dl_data_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-4) }')
+                local ul_val="" ul_unit="" ul_data_val="" ul_data_unit=""
+                local dl_val="" dl_unit="" dl_data_val="" dl_data_unit=""
+
+                if [[ -n "$IPERF_SENDRESULT" ]]; then
+                    ul_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-3) }')
+                    ul_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-2) }')
+                    ul_data_val=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-5) }')
+                    ul_data_unit=$(echo "$IPERF_SENDRESULT" | awk '{ print $(NF-4) }')
+                fi
+
+                if [[ -n "$IPERF_RECVRESULT" ]]; then
+                    dl_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-3) }')
+                    dl_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-2) }')
+                    dl_data_val=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-5) }')
+                    dl_data_unit=$(echo "$IPERF_RECVRESULT" | awk '{ print $(NF-4) }')
+                fi
+
                 local latency="${IPERF_LATENCY}"
 
                 # format speed display and ensure .00 decimal consistency
