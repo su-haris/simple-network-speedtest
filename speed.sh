@@ -686,7 +686,7 @@ print_intro() {
     echo " Version            : $(_green v2026.04.13)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
-    echo " iperf3 Only        : $(_red "wget -qO- nws.sh | bash -s -- --iperf")"
+    echo " iperf3 test        : $(_red "wget -qO- nws.sh | bash -s -- -iperf")"
     echo " Ping & Routing     : $(_red "wget -qO- nws.sh | bash -s -- -rt <region>")"
 }
 
@@ -1728,8 +1728,8 @@ REGION_NAME="GLOBAL"
 ROUTING_TEST=""
 IPERF_ONLY=""
 
-# Handle --iperf flag (before getopts)
-if [ "$1" = "--iperf" ]; then
+# Handle -iperf flag (before getopts)
+if [ "$1" = "-iperf" ]; then
     IPERF_ONLY="true"
     shift 1
 fi
