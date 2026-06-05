@@ -683,7 +683,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2026.06.01)"
+    echo " Version            : $(_green v2026.06.05)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " iperf3 test        : $(_red "wget -qO- nws.sh | bash -s -- -iperf")"
@@ -1596,6 +1596,7 @@ iperf_speed() {
     # global iperf3 server locations
     # format: "url" "port_range" "location_name" "host_name" "port_speed" "network_modes" "region_group"
     local IPERF_LOCS=(
+        "speedtest.nyc.purevoltage.com" "5201-5210" "New York, US" "PureVoltage" "40G" "IPv4" "US"
         "speedtest.nocix.net" "5201-5205" "Kansas City, US" "Nocix" "200G" "IPv4|IPv6" "US"
         "speedtest.lax12.us.leaseweb.net" "5201-5210" "Los Angeles, US" "Leaseweb" "10G" "IPv4|IPv6" "US"
         "66.35.22.79" "30000-30000" "Ashburn, US" "Fortinet" "10G" "IPv4" "US"
