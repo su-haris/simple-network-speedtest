@@ -22,12 +22,14 @@ Your Reliable Script for Comprehensive Network Performance Testing.
       - Russia
       - 10G+ Global Test
       - And more coming soon!
+   - iperf3 Network Test: Run iperf3 send/receive benchmarks against public servers across US, EU, and APAC with per-server DL/UL speed and latency.
    - Ping & Routing Test: Test network routing and latency to various destinations worldwide with detailed path analysis, including specialized China routing tests with ISP line type detection.
    - Statistical Insights: At-a-glance summary of your network's performance metrics, including speed, data usage, and test duration.
    - Shareability: Want to share your results? No worries, each test provides you with a handy shareable link.
 
 I would like to express my heartfelt thanks to our awesome sponsors for their invaluable support:
 - [IncogNET](https://zip.xbit.win/go/incognet) for kindly sponsoring the domain name.
+- [PureVoltage](https://purevoltage.com) for providing a dedicated 40G iperf3 test server.
 
 Thanks to Teddysun <i@teddysun.com> for the base bench.sh script.
 
@@ -53,6 +55,14 @@ wget -qO- nws.sh | bash -s -- -r region_name
 ### Example:
 ```
 wget -qO- nws.sh | bash -s -- -r india
+```
+
+### iperf3 Network Test
+```
+curl -sL nws.sh | bash -s -- -iperf
+```
+```
+wget -qO- nws.sh | bash -s -- -iperf
 ```
 
 ### Ping & Routing Test
@@ -387,6 +397,97 @@ wget -qO- nws.sh | bash -s -- -rt china
  Duration           : 6 min 11 sec
  System Time        : 08/07/2025 - 20:28:30 IST
  Total Script Runs  : 117645
+---------------------------------------------------------------------------
+```
+
+## Sample Output (iperf3)
+```
+---------------------------------- nws.sh ---------------------------------
+      A simple script to bench network performance using speedtest-cli     
+---------------------------------------------------------------------------
+ Version            : v2026.06.05
+ Global Speedtest   : wget -qO- nws.sh | bash
+ Region Speedtest   : wget -qO- nws.sh | bash -s -- -r <region>
+ iperf3 test        : wget -qO- nws.sh | bash -s -- -iperf
+ Ping & Routing     : wget -qO- nws.sh | bash -s -- -rt <region>
+---------------------------------------------------------------------------
+ Basic System Info
+---------------------------------------------------------------------------
+ CPU Model          : AMD Ryzen 9 9950X 16-Core Processor
+ CPU Cores          : 1 @ 4291.932 MHz
+ CPU Cache          : 1024 KB
+ AES-NI             : ✔ Enabled
+ VM-x/AMD-V         : ✔ Enabled
+ Total Disk         : 24.6 GB (11.2 GB Used)
+ Total RAM          : 1.9 GB (642.9 MB Used)
+ System uptime      : 76 days, 19 hour 41 min
+ Load average       : 0.14, 0.09, 0.06
+ OS                 : Debian GNU/Linux 13
+ Arch               : x86_64 (64 Bit)
+ Kernel             : 6.12.63+deb13-amd64
+ Virtualization     : KVM
+ TCP Control        : cubic
+---------------------------------------------------------------------------
+ Basic Network Info
+---------------------------------------------------------------------------
+ Primary Network    : IPv6
+ IPv6 Access        : ✔ Online
+ IPv4 Access        : ✔ Online
+ ISP                : WebNX, Inc.
+ ASN                : AS18450 WebNX, Inc.
+ Host               : 365 Group
+ Location           : Los Angeles, California-CA, United States
+---------------------------------------------------------------------------
+ iperf3 (Region: GLOBAL)
+---------------------------------------------------------------------------
+ Location         Latency     Port    DL Speed       UP Speed       Server
+
+ Network Mode: IPv4
+
+ New York, US     63.7 ms     40G     3470.00 Mbps   2090.00 Mbps   PureVoltage
+ Kansas City, US  39.4 ms     200G    4620.00 Mbps   4090.00 Mbps   Nocix
+ Los Angeles, US  0.861 ms    10G     9360.00 Mbps   9240.00 Mbps   Leaseweb
+ Ashburn, US      52.8 ms     10G     4020.00 Mbps   39.00 Mbps     Fortinet
+ Salt Lake, US    15.9 ms     10G     3020.00 Mbps   busy           XMission
+
+ Vienna, AT       148 ms      200G    984.00 Mbps    1390.00 Mbps   Alwyzon
+ Frankfurt, DE    153 ms      50G     1340.00 Mbps   1310.00 Mbps   Wobcom
+ Paris, FR        148 ms      100G    1310.00 Mbps   1500.00 Mbps   Online.net
+ London, UK       --          10G     885.00 Mbps    1000.00 Mbps   Leaseweb
+ Amsterdam, NL    133 ms      20G     1550.00 Mbps   950.00 Mbps    Novogara
+ Kyiv, UA         179 ms      40G     743.00 Mbps    770.00 Mbps    Cosmonova
+
+ Sydney, AU       135 ms      10G     860.00 Mbps    176.00 Mbps    Leaseweb
+ Singapore, SG    189 ms      10G     busy           busy           VSYS-Host
+ Mumbai, IN       261 ms      10G     busy           busy           OVH
+
+
+ Network Mode: IPv6
+
+ Kansas City, US  38.7 ms     200G    5240.00 Mbps   4320.00 Mbps   Nocix
+ Los Angeles, US  0.824 ms    10G     9260.00 Mbps   9130.00 Mbps   Leaseweb
+ Salt Lake, US    15.9 ms     10G     2900.00 Mbps   9090.00 Mbps   XMission
+
+ Vienna, AT       148 ms      200G    1250.00 Mbps   1360.00 Mbps   Alwyzon
+ Frankfurt, DE    153 ms      50G     1260.00 Mbps   1190.00 Mbps   Wobcom
+ London, UK       141 ms      10G     1260.00 Mbps   857.00 Mbps    Leaseweb
+ Amsterdam, NL    133 ms      20G     1630.00 Mbps   1310.00 Mbps   Novogara
+
+ Sydney, AU       135 ms      10G     820.00 Mbps    136.00 Mbps    Leaseweb
+ Mumbai, IN       261 ms      10G     686.00 Mbps    561.00 Mbps    OVH
+
+---------------------------------------------------------------------------
+ Avg DL Speed       : 2672.40 Mbps
+ Avg UL Speed       : 2525.45 Mbps
+
+ Total DL Data      : 65.77 GB
+ Total UL Data      : 59.10 GB
+ Total Data         : 124.87 GB
+---------------------------------------------------------------------------
+ Duration           : 14 min 20 sec
+ System Time        : 05/06/2026 - 20:18:24 IST
+---------------------------------------------------------------------------
+ Result             : https://result.nws.sh/r/1780670904_CFHR9V_GLOBAL.txt
 ---------------------------------------------------------------------------
 ```
 
