@@ -1230,7 +1230,7 @@ init_routing_locations() {
         ROUTING_LOCATION_IPS+=("138.199.14.66")
         
         # Austria
-        ROUTING_LOCATION_NAMES+=("AT - Langenzersdorf: Hohl IT")
+        ROUTING_LOCATION_NAMES+=("AT - Vienna: Alwyzon")
         ROUTING_LOCATION_IPS+=("86.106.182.189")
         
         # Italy
