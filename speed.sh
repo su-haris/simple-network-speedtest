@@ -1188,7 +1188,10 @@ iperf_speed() {
 run_speed_sh() {
     start_time=$(date +%s)
     get_system_info
-    [[ -t 1 ]] && clear
+    # stdout is the tee pipe, so clear the controlling terminal directly
+    if [[ -w /dev/tty ]]; then
+        clear > /dev/tty 2>/dev/null || true
+    fi
     print_intro
     next
     print_system_info
