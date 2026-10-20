@@ -664,7 +664,7 @@ print_intro() {
     echo "---------------------------------- nws.sh ---------------------------------"
     echo "      A simple script to bench network performance using speedtest-cli     "
     next
-    echo " Version            : $(_green v2026.10.07)"
+    echo " Version            : $(_green v2026.10.20)"
     echo " Global Speedtest   : $(_red "wget -qO- nws.sh | bash")"
     echo " Region Speedtest   : $(_red "wget -qO- nws.sh | bash -s -- -r <region>")"
     echo " iperf3 test        : $(_red "wget -qO- nws.sh | bash -s -- -iperf")"
@@ -939,7 +939,7 @@ DE - Falkenstein: Hetzner|fsn1-speed.hetzner.com
 DE - Nuremberg: Hetzner|nbg1-speed.hetzner.com
 FR - Paris: M247|185.94.189.162
 FR - Marseille: CDN77|138.199.14.66
-AT - Langenzersdorf: Hohl IT|86.106.182.189
+AT - Vienna: Alwyzon|86.106.182.189
 IT - Arezzo: ArubaCloud|188.213.160.1
 NO - Sandefjord: GigaHost|185.125.168.212
 PL - Warsaw: CDN77|185.246.208.67
